@@ -1,0 +1,68 @@
+[
+  {
+    "id": 123756,
+    "uri": "https://dadosabertos.camara.leg.br/api/v2/deputados/123756",
+    "nome": "Antônia Lúcia",
+    "siglaPartido": "REPUBLICANOS",
+    "uriPartido": "https://dadosabertos.camara.leg.br/api/v2/partidos/37908",
+    "siglaUf": "AC",
+    "idLegislatura": 57,
+    "urlFoto": "https://www.camara.leg.br/internet/deputado/bandep/123756.jpg",
+    "email": "dep.antonialucia@camara.leg.br"
+  },
+  {
+    "id": 220590,
+    "uri": "https://dadosabertos.camara.leg.br/api/v2/deputados/220590",
+    "nome": "Coronel Ulysses",
+    "siglaPartido": "UNIÃO",
+    "uriPartido": "https://dadosabertos.camara.leg.br/api/v2/partidos/38009",
+    "siglaUf": "AC",
+    "idLegislatura": 57,
+    "urlFoto": "https://www.camara.leg.br/internet/deputado/bandep/220590.jpg",
+    "email": "dep.coronelulysses@camara.leg.br"
+  },
+  {
+    "id": 227401,
+    "uri": "https://dadosabertos.camara.leg.br/api/v2/deputados/227401",
+    "nome": "Dr Fabio Rueda",
+    "siglaPartido": "UNIÃO",
+    "uriPartido": "https://dadosabertos.camara.leg.br/api/v2/partidos/38009",
+    "siglaUf": "AC",
+    "idLegislatura": 57,
+    "urlFoto": "https://www.camara.leg.br/internet/deputado/bandep/227401.jpg",
+    "email": null
+  },
+  {
+    "id": 220589,
+    "uri": "https://dadosabertos.camara.leg.br/api/v2/deputados/220589",
+    "nome": "Eduardo Velloso",
+    "siglaPartido": "UNIÃO",
+    "uriPartido": "https://dadosabertos.camara.leg.br/api/v2/partidos/38009",
+    "siglaUf": "AC",
+    "idLegislatura": 57,
+    "urlFoto": "https://www.camara.leg.br/internet/deputado/bandep/220589.jpg",
+    "email": "dep.eduardovelloso@camara.leg.br"
+  },
+  {
+    "id": 220587,
+    "uri": "https://dadosabertos.camara.leg.br/api/v2/deputados/220587",
+    "nome": "Gerlen Diniz",
+    "siglaPartido": "PP",
+    "uriPartido": "https://dadosabertos.camara.leg.br/api/v2/partidos/37903",
+    "siglaUf": "AC",
+    "idLegislatura": 57,
+    "urlFoto": "https://www.camara.leg.br/internet/deputado/bandep/220587.jpg",
+    "email": null
+  },
+  {
+    "id": 220591,
+    "uri": "https://dadosabertos.camara.leg.br/api/v2/deputados/220591",
+    "nome": "Meire Serafim",
+    "siglaPartido": "UNIÃO",
+    "uriPartido": "https://dadosabertos.camara.leg.br/api/v2/partidos/38009",
+    "siglaUf": "AC",
+    "idLegislatura": 57,
+    "urlFoto": "https://www.camara.leg.br/internet/deputado/bandep/220591.jpg",
+    "email": "dep.meireserafim@camara.leg.br"
+  }
+]

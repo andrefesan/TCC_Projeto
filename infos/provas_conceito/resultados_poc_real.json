@@ -1,0 +1,52 @@
+{
+  "total_registros": 7479,
+  "modelo_embeddings": "all-MiniLM-L6-v2",
+  "dimensoes": 384,
+  "tempo_geracao_embeddings_s": 32.73,
+  "metricas": {
+    "sql_puro_media_ms": 0.5,
+    "semantica_media_ms": 29.7,
+    "hibrida_media_ms": 4.8,
+    "precision_at_5_saude": 0.2,
+    "precision_at_5_seguranca": 1.0,
+    "precision_at_5_social": 0.4
+  },
+  "consultas_exemplo": {
+    "tipo_a_roberto_duarte_saude": [
+      {
+        "nome": "ROBERTO DUARTE",
+        "funcao": "Saúde",
+        "qtd": 6,
+        "empenhado": "R$ 935,767.00",
+        "pago": "R$ 535,823.00"
+      }
+    ],
+    "tipo_a_top5_educacao_2024": [
+      {
+        "nome": "REGINALDO LOPES",
+        "qtd": 8,
+        "total": "R$ 1,621,918.85"
+      },
+      {
+        "nome": "CAROL DARTORA",
+        "qtd": 3,
+        "total": "R$ 980,496.85"
+      },
+      {
+        "nome": "REIMONT",
+        "qtd": 3,
+        "total": "R$ 832,433.28"
+      },
+      {
+        "nome": "GUILHERME BOULOS",
+        "qtd": 3,
+        "total": "R$ 745,384.08"
+      },
+      {
+        "nome": "ARLINDO CHINAGLIA",
+        "qtd": 8,
+        "total": "R$ 743,592.18"
+      }
+    ]
+  }
+}

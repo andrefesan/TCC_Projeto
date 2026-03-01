@@ -1,0 +1,16 @@
+{
+  "modelo": "all-MiniLM-L6-v2",
+  "dimensoes": 384,
+  "total_registros": 7479,
+  "tempo_segundos": 32.73,
+  "taxa_emb_por_segundo": 228.5,
+  "fonte": "Portal da Transparencia - API REST",
+  "anos": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "data_geracao": "2026-02-22"
+}

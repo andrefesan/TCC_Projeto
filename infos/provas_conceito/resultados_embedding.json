@@ -1,0 +1,9 @@
+{
+  "modelo_poc": "all-MiniLM-L6-v2",
+  "nota": "Modelo leve usado na prova de conceito local; em producao seria multilingual-e5-large (384 dim)",
+  "dimensoes": 384,
+  "total_emendas": 100,
+  "tempo_carga_modelo_s": 196.2,
+  "tempo_embedding_s": 0.4,
+  "tempo_por_emenda_ms": 4.2
+}
