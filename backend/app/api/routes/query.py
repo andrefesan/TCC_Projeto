@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.api.deps import get_db, get_pipeline
 from app.schemas.query import QueryRequest, QueryResponse
 from app.services.rag.pipeline import RAGPipeline
+import structlog
 
+logger = structlog.get_logger()
 router = APIRouter()
 
 
@@ -15,12 +17,10 @@ async def processar_consulta(
 ):
     """
     Processa consulta em linguagem natural sobre emendas parlamentares.
-
-    Recebe uma pergunta do cidadão e retorna resposta fundamentada com:
-    - Texto em linguagem acessível
-    - Citações verificáveis de fontes governamentais
-    - Dados brutos recuperados
-    - Metadados (latência, modo de busca, entidades extraídas)
     """
-    resultado = await pipeline.processar(request.consulta, db)
-    return QueryResponse(**resultado)
+    try:
+        resultado = await pipeline.processar(request.consulta, db)
+        return QueryResponse(**resultado)
+    except Exception as e:
+        logger.error("erro_processar_consulta", erro=str(e), tipo=type(e).__name__)
+        raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")
