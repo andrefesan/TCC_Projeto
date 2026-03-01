@@ -1,0 +1,17 @@
+{
+  "modelo": "intfloat/multilingual-e5-small",
+  "dimensoes": 384,
+  "total_registros": 608,
+  "tempo_segundos": 2.87,
+  "taxa_emb_por_segundo": 211.8,
+  "fonte": "emendas_acre_completo.json (Portal da Transparência - API REST)",
+  "escopo": "Universo completo de emendas parlamentares do estado do Acre",
+  "anos": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "data_geracao": "2026-03-01"
+}

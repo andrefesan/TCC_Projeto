@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from sentence_transformers import SentenceTransformer
 from app.config import settings
 from app.services.rag.dictionary import BudgetDictionary
 import structlog
@@ -13,7 +12,15 @@ class HybridDecomposer:
 
     def __init__(self):
         self.dicionario = BudgetDictionary()
-        self.embedder = SentenceTransformer(settings.EMBEDDING_MODEL)
+        self._embedder = None
+
+    @property
+    def embedder(self):
+        if self._embedder is None:
+            from sentence_transformers import SentenceTransformer
+            logger.info("carregando_modelo_embeddings", model=settings.EMBEDDING_MODEL)
+            self._embedder = SentenceTransformer(settings.EMBEDDING_MODEL)
+        return self._embedder
 
     def decompor(self, entidades: dict, db: Session) -> dict:
         """Retorna filtros SQL e parâmetros de busca vetorial."""

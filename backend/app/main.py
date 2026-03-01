@@ -4,18 +4,33 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from app.api.router import api_router
 from app.config import settings
 from app.database import init_db
+import structlog
+
+logger = structlog.get_logger()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Inicializa recursos na startup e limpa no shutdown."""
+    logger.info("startup_iniciando", pid=os.getpid())
     init_db()
+    logger.info("db_inicializado")
+
+    static_dir = Path(__file__).parent.parent / "static"
+    if static_dir.exists():
+        files = list(static_dir.iterdir())
+        logger.info("static_files", count=len(files),
+                     has_index=any(f.name == "index.html" for f in files))
+    else:
+        logger.warning("static_dir_nao_existe", path=str(static_dir))
+
     yield
+    logger.info("shutdown")
 
 
 def create_app() -> FastAPI:
@@ -55,6 +70,10 @@ def create_app() -> FastAPI:
     static_dir = Path(__file__).parent.parent / "static"
     if static_dir.exists():
         app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="static")
+    else:
+        @app.get("/")
+        async def root():
+            return JSONResponse({"status": "ok", "message": "API running, frontend not built"})
 
     return app
 

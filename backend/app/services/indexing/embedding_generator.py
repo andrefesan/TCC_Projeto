@@ -1,4 +1,3 @@
-from sentence_transformers import SentenceTransformer
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 import numpy as np
@@ -12,8 +11,16 @@ class EmbeddingGenerator:
     """Gera embeddings para emendas e classificações orçamentárias."""
 
     def __init__(self):
-        self.model = SentenceTransformer(settings.EMBEDDING_MODEL)
+        self._model = None
         self.batch_size = settings.EMBEDDING_BATCH_SIZE
+
+    @property
+    def model(self):
+        if self._model is None:
+            from sentence_transformers import SentenceTransformer
+            logger.info("carregando_modelo_embeddings", model=settings.EMBEDDING_MODEL)
+            self._model = SentenceTransformer(settings.EMBEDDING_MODEL)
+        return self._model
 
     def _compor_texto(self, emenda: dict) -> str:
         """Compõe texto representativo de uma emenda para embedding."""

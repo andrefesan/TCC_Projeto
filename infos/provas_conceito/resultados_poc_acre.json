@@ -1,0 +1,98 @@
+{
+  "escopo": "Universo completo de emendas parlamentares do estado do Acre (2020-2024)",
+  "total_registros": 609,
+  "ambiente": {
+    "sistema_operacional": "Windows 11",
+    "plataforma": "Windows-11-10.0.26200-SP0",
+    "python_versao": "3.13.12",
+    "arquitetura": "AMD64",
+    "processador": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "cpu_nucleos_logicos": 20,
+    "ram_total_gb": 8.0,
+    "gpu": "nvidia-smi não disponível (sem GPU dedicada ou driver não instalado)"
+  },
+  "modelo_embeddings": "intfloat/multilingual-e5-small",
+  "dimensoes": 384,
+  "tempo_geracao_embeddings_s": 2.87,
+  "latencia": {
+    "sql": {
+      "media_ms": 0.13,
+      "desvio_padrao_ms": 0.22,
+      "min_ms": 0.04,
+      "max_ms": 1.28,
+      "n_execucoes": 30
+    },
+    "semantica": {
+      "media_ms": 9.86,
+      "desvio_padrao_ms": 2.47,
+      "min_ms": 7.62,
+      "max_ms": 18.62,
+      "n_execucoes": 30
+    },
+    "hibrida": {
+      "media_ms": 8.17,
+      "desvio_padrao_ms": 1.68,
+      "min_ms": 6.25,
+      "max_ms": 12.95,
+      "n_execucoes": 30
+    }
+  },
+  "precision_at_5": {
+    "semantica_saude": 1.0,
+    "semantica_seguranca": 1.0,
+    "semantica_saneamento": 1.0,
+    "hibrida_mara_rocha_social": 0.6,
+    "hibrida_alan_rick_educacao": 0.8
+  },
+  "consultas": {
+    "roberto_duarte_saude": [
+      {
+        "nome": "ROBERTO DUARTE",
+        "funcao": "Saúde",
+        "qtd": 10,
+        "empenhado": "R$ 16,167,714.00",
+        "pago": "R$ 3,036,043.00"
+      }
+    ],
+    "top5_educacao_acre_2024": [
+      {
+        "nome": "BANCADA DO ACRE",
+        "qtd": 2,
+        "total": "R$ 6,539,012.89"
+      },
+      {
+        "nome": "SERGIO PETECAO",
+        "qtd": 1,
+        "total": "R$ 30.00"
+      }
+    ],
+    "top5_parlamentares_acre_total": [
+      {
+        "nome": "BANCADA DO ACRE",
+        "qtd": 58,
+        "total": "R$ 1,081,929,139.66"
+      },
+      {
+        "nome": "ALAN RICK",
+        "qtd": 92,
+        "total": "R$ 96,195,529.28"
+      },
+      {
+        "nome": "SERGIO PETECAO",
+        "qtd": 40,
+        "total": "R$ 82,897,474.40"
+      },
+      {
+        "nome": "MAILZA GOMES",
+        "qtd": 46,
+        "total": "R$ 73,441,835.94"
+      },
+      {
+        "nome": "MARCIO BITTAR",
+        "qtd": 60,
+        "total": "R$ 68,243,082.55"
+      }
+    ]
+  },
+  "data_execucao": "2026-03-01T17:14:11"
+}
