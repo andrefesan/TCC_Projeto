@@ -5,7 +5,7 @@ import structlog
 
 logger = structlog.get_logger()
 
-_DICT_PATH = Path(__file__).parent.parent.parent / "data" / "dictionary.json"
+_DICT_PATH = Path(__file__).parent.parent.parent.parent / "data" / "dictionary.json"
 
 
 class BudgetDictionary:

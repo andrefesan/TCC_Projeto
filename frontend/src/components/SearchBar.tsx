@@ -7,12 +7,12 @@ interface SearchBarProps {
 }
 
 const SUGESTOES = [
+  'Quais as emendas do deputado Roberto Duarte em 2024?',
   'Emendas para saúde no Acre em 2024?',
-  'Top 5 deputados que mais destinaram para educação?',
-  'Quanto foi pago em emendas de bancada para o Amazonas?',
-  'Houve aumento nas emendas para saneamento no Norte?',
-  'Quais parlamentares do PT investiram em cultura?',
-  'Emendas para segurança pública no Rio de Janeiro?',
+  'Quanto a Bancada do Acre destinou para defesa nacional?',
+  'Top 5 parlamentares do Acre por valor empenhado?',
+  'Emendas de Sergio Petecão para o Acre?',
+  'Quais emendas foram destinadas a educação no Acre?',
 ]
 
 export function SearchBar({ onSearch, isLoading }: SearchBarProps) {

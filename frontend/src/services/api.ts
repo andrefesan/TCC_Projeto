@@ -7,8 +7,15 @@ const api = axios.create({
 })
 
 export async function enviarConsulta(consulta: string): Promise<QueryResponse> {
-  const { data } = await api.post<QueryResponse>('/query', { consulta })
-  return data
+  try {
+    const { data } = await api.post<QueryResponse>('/query', { consulta })
+    return data
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response?.data?.detail) {
+      throw new Error(err.response.data.detail)
+    }
+    throw err
+  }
 }
 
 export async function buscarEmendas(
