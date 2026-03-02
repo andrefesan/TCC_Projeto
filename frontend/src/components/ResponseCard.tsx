@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
 import type { QueryMetadata } from '../types'
 
 interface ResponseCardProps {
@@ -10,10 +11,8 @@ interface ResponseCardProps {
 export function ResponseCard({ resposta, fontes, metadata }: ResponseCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-      <div className="prose max-w-none">
-        <p className="text-gray-800 leading-relaxed whitespace-pre-line">
-          {resposta}
-        </p>
+      <div className="prose prose-slate max-w-none prose-headings:text-lg prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-li:my-0.5">
+        <ReactMarkdown>{resposta}</ReactMarkdown>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">

@@ -23,6 +23,8 @@ REGRAS:
 9. Quando houver múltiplos anos, organize cronologicamente.
 10. Se detectar tendência nos dados (crescimento/queda), mencione-a apenas se
     claramente suportada pelos números, sem inferir causalidade.
+11. Use markdown para formatação: **negrito** para destaques, ## para seções,
+    listas numeradas para rankings.
 
 DADOS RECUPERADOS:
 {contexto_dados}
