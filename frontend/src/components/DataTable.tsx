@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react'
 import type { EmendaData } from '../types'
 
 interface DataTableProps {
@@ -84,12 +84,26 @@ export function DataTable({ data }: DataTableProps) {
                     </span>
                   </th>
                 ))}
+                <th className="px-3 py-2 text-left whitespace-nowrap">Fonte</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {paged.map((row) => (
                 <tr key={row.id} className="hover:bg-gray-50">
-                  <td className="px-3 py-2">{row.nome_autor || '-'}</td>
+                  <td className="px-3 py-2">
+                    {row.parlamentar_url ? (
+                      <a
+                        href={row.parlamentar_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        {row.nome_autor || '-'}
+                      </a>
+                    ) : (
+                      row.nome_autor || '-'
+                    )}
+                  </td>
                   <td className="px-3 py-2">{row.partido || '-'}</td>
                   <td className="px-3 py-2">{row.uf || '-'}</td>
                   <td className="px-3 py-2">{row.funcao_nome || '-'}</td>
@@ -100,6 +114,19 @@ export function DataTable({ data }: DataTableProps) {
                     {formatarReal(row.valor_pago)}
                   </td>
                   <td className="px-3 py-2 text-center">{row.ano}</td>
+                  <td className="px-3 py-2">
+                    {row.source_url && (
+                      <a
+                        href={row.source_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Ver no Portal da Transparência"
+                        className="text-green-600 hover:text-green-800"
+                      >
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

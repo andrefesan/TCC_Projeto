@@ -6,6 +6,7 @@ from app.api.deps import get_db
 from app.models.emenda import Emenda
 from app.models.parlamentar import Parlamentar
 from app.schemas.emenda import EmendaResponse, EmendaListResponse
+from app.utils.source_urls import build_emenda_source_url, build_parlamentar_source_url
 
 router = APIRouter()
 
@@ -48,9 +49,11 @@ def listar_emendas(
 
     items = []
     for e in emendas:
+        record = {"nome_autor": e.nome_autor, "ano": e.ano, "cod_autor": e.cod_autor}
         items.append(EmendaResponse(
             id=e.id,
             codigo_emenda=e.codigo_emenda,
+            cod_autor=e.cod_autor,
             nome_autor=e.nome_autor,
             ano=e.ano,
             tipo_emenda=e.tipo_emenda,
@@ -62,6 +65,8 @@ def listar_emendas(
             valor_liquidado=float(e.valor_liquidado or 0),
             valor_pago=float(e.valor_pago or 0),
             partido=e.parlamentar.partido if e.parlamentar else None,
+            source_url=build_emenda_source_url(record),
+            parlamentar_url=build_parlamentar_source_url(record),
         ))
 
     return EmendaListResponse(

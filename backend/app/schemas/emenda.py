@@ -5,6 +5,7 @@ from typing import Optional
 class EmendaResponse(BaseModel):
     id: int
     codigo_emenda: Optional[str] = None
+    cod_autor: Optional[int] = None
     nome_autor: Optional[str] = None
     ano: int
     tipo_emenda: Optional[str] = None
@@ -16,6 +17,8 @@ class EmendaResponse(BaseModel):
     valor_liquidado: float = 0
     valor_pago: float = 0
     partido: Optional[str] = None
+    source_url: Optional[str] = None
+    parlamentar_url: Optional[str] = None
 
     model_config = {"from_attributes": True}
 

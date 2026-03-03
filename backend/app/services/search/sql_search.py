@@ -49,7 +49,7 @@ class SQLSearchService:
         where = " AND ".join(where_clauses) if where_clauses else "TRUE"
 
         sql = f"""
-            SELECT e.id, e.codigo_emenda, e.nome_autor, e.ano, e.tipo_emenda,
+            SELECT e.id, e.codigo_emenda, e.cod_autor, e.nome_autor, e.ano, e.tipo_emenda,
                    e.funcao_nome, e.subfuncao_nome, e.uf, e.localidade,
                    e.valor_empenhado, e.valor_liquidado, e.valor_pago,
                    p.partido

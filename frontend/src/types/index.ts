@@ -15,6 +15,7 @@ export interface QueryResponse {
 export interface EmendaData {
   id: number
   codigo_emenda?: string
+  cod_autor?: number
   nome_autor?: string
   ano: number
   tipo_emenda?: string
@@ -26,6 +27,8 @@ export interface EmendaData {
   valor_liquidado: number
   valor_pago: number
   partido?: string
+  source_url?: string
+  parlamentar_url?: string
 }
 
 export interface ParlamentarData {

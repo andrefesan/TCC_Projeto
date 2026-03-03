@@ -1,6 +1,7 @@
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
 from app.config import settings
+from app.utils.source_urls import enrich_record_with_sources
 import structlog
 
 logger = structlog.get_logger()
@@ -66,12 +67,13 @@ class ResponseSynthesizer:
             "consulta_usuario": consulta,
         })
 
-        fontes = self._extrair_fontes(dados)
+        dados_enriquecidos = [enrich_record_with_sources(d) for d in dados]
+        fontes = self._extrair_fontes(dados_enriquecidos)
 
         return {
             "resposta": response.content,
             "fontes": fontes,
-            "dados": dados,
+            "dados": dados_enriquecidos,
         }
 
     def _formatar_contexto(self, dados: list[dict]) -> str:
