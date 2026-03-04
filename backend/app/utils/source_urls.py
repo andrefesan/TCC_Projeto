@@ -1,40 +1,5 @@
-TIPO_EMENDA_CODIGOS = {
-    "individual": "1",
-    "bancada": "2",
-    "bancada estadual": "2",
-    "comissão": "3",
-    "comissao": "3",
-    "relator": "4",
-    "relator-geral": "4",
-}
-
-
-def _resolver_codigo_tipo_emenda(tipo_emenda: str) -> str | None:
-    """Mapeia o nome do tipo de emenda para o código numérico do portal."""
-    if not tipo_emenda:
-        return None
-    chave = tipo_emenda.strip().lower()
-    for nome, codigo in TIPO_EMENDA_CODIGOS.items():
-        if nome in chave:
-            return codigo
-    return None
-
-
 def build_emenda_source_url(record: dict) -> str:
-    """Constrói URL de detalhe da emenda no Portal da Transparência."""
-    codigo_emenda = record.get("codigo_emenda")
-    tipo_emenda = record.get("tipo_emenda", "")
-
-    if codigo_emenda:
-        codigo_tipo = _resolver_codigo_tipo_emenda(tipo_emenda)
-        url = (
-            f"https://portaldatransparencia.gov.br/emendas/detalhe"
-            f"?codigoEmenda={codigo_emenda}"
-        )
-        if codigo_tipo:
-            url += f"&codigoTipoEmenda={codigo_tipo}"
-        return url
-
+    """Constrói URL da página de consulta de emendas no Portal da Transparência."""
     return "https://portaldatransparencia.gov.br/emendas/consulta"
 
 
