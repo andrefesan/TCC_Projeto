@@ -25,13 +25,13 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
 
   return (
     <div className="w-full max-w-3xl mx-auto">
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Digite sua pergunta sobre emendas parlamentares..."
-          className="flex-1 px-4 py-3 border border-gray-300 rounded-lg
+          className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg
                      focus:ring-2 focus:ring-primary-500 focus:border-transparent
                      outline-none transition"
           disabled={isLoading}
@@ -41,7 +41,8 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
           disabled={isLoading || !query.trim()}
           className="px-6 py-3 bg-primary-600 text-white rounded-lg
                      hover:bg-primary-700 disabled:opacity-50
-                     flex items-center gap-2 transition font-medium"
+                     flex items-center justify-center gap-2 transition font-medium
+                     shrink-0"
         >
           {isLoading ? <Loader2 size={20} className="animate-spin" /> : <Search size={20} />}
           Consultar

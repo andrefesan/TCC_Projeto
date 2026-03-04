@@ -6,7 +6,7 @@ import AboutPage from './pages/AboutPage'
 function App() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-primary-600 text-white py-4 px-6 shadow-md">
+      <header className="bg-primary-600 text-white py-4 px-4 sm:px-6 shadow-md">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <a href="/" className="text-xl font-bold tracking-tight">
             Transparência Fiscal
@@ -26,12 +26,15 @@ function App() {
         </Routes>
       </main>
 
-      <footer className="bg-slate-800 text-slate-400 py-4 px-6 text-center text-xs">
-        <p>
-          Dados: <a href="https://portaldatransparencia.gov.br" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Portal da Transparência</a> |{' '}
+      <footer className="bg-slate-800 text-slate-400 py-4 px-4 sm:px-6 text-center text-xs">
+        <p className="flex flex-wrap justify-center gap-x-1">
+          <span>Dados:</span>
+          <a href="https://portaldatransparencia.gov.br" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Portal da Transparência</a>
+          <span>|</span>
           <a href="https://dadosabertos.camara.leg.br" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Câmara dos Deputados</a>
         </p>
-        <p className="mt-1">Respostas geradas por IA — verifique sempre nas fontes oficiais. | TCC — André Ferreira Santana — UFAC</p>
+        <p className="mt-1 px-2">Respostas geradas por IA — verifique sempre nas fontes oficiais.</p>
+        <p className="mt-0.5">TCC — André Ferreira Santana — UFAC</p>
       </footer>
     </div>
   )

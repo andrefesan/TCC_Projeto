@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply antialiased;
+  html, body {
+    @apply antialiased overflow-x-hidden;
   }
 }

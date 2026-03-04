@@ -10,8 +10,8 @@ interface ResponseCardProps {
 
 export function ResponseCard({ resposta, fontes, metadata }: ResponseCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-      <div className="prose prose-slate max-w-none prose-headings:text-lg prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-li:my-0.5">
+    <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mt-6 overflow-hidden">
+      <div className="prose prose-slate max-w-none break-words prose-headings:text-lg prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-li:my-0.5">
         <ReactMarkdown>{resposta}</ReactMarkdown>
       </div>
 
@@ -32,10 +32,10 @@ export function ResponseCard({ resposta, fontes, metadata }: ResponseCardProps) 
         ))}
       </div>
 
-      <div className="mt-3 text-xs text-gray-400">
-        Respondido em {(metadata.latencia_ms / 1000).toFixed(1)}s |
-        Modo: {metadata.modo} |
-        {metadata.num_resultados} registros
+      <div className="mt-3 text-xs text-gray-400 flex flex-wrap gap-x-1">
+        <span>Respondido em {(metadata.latencia_ms / 1000).toFixed(1)}s</span>
+        <span>| Modo: {metadata.modo}</span>
+        <span>| {metadata.num_resultados} registros</span>
       </div>
     </div>
   )

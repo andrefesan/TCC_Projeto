@@ -30,12 +30,12 @@ class VectorSearchService:
                    e.funcao_nome, e.subfuncao_nome, e.uf, e.localidade,
                    e.valor_empenhado, e.valor_liquidado, e.valor_pago,
                    p.partido,
-                   1 - (e.embedding <=> :emb::vector) AS similaridade
+                   1 - (e.embedding <=> CAST(:emb AS vector)) AS similaridade
             FROM emendas e
             LEFT JOIN parlamentares p ON e.cod_autor = p.cod_autor
             WHERE e.embedding IS NOT NULL
-              AND 1 - (e.embedding <=> :emb::vector) >= :threshold
-            ORDER BY e.embedding <=> :emb::vector
+              AND 1 - (e.embedding <=> CAST(:emb AS vector)) >= :threshold
+            ORDER BY e.embedding <=> CAST(:emb AS vector)
             LIMIT :limit
         """
 

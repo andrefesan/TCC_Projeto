@@ -23,11 +23,11 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-3 items-center">
+    <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3 items-center">
       <select
         value={filters.ano || ''}
         onChange={(e) => update('ano', e.target.value)}
-        className="px-3 py-2 border rounded-lg text-sm bg-white"
+        className="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm bg-white"
       >
         <option value="">Ano</option>
         {ANOS.map((a) => <option key={a} value={a}>{a}</option>)}
@@ -36,7 +36,7 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
       <select
         value={filters.uf || ''}
         onChange={(e) => update('uf', e.target.value)}
-        className="px-3 py-2 border rounded-lg text-sm bg-white"
+        className="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm bg-white"
       >
         <option value="">UF</option>
         {UFS.map((u) => <option key={u} value={u}>{u}</option>)}
@@ -45,7 +45,7 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
       <select
         value={filters.partido || ''}
         onChange={(e) => update('partido', e.target.value)}
-        className="px-3 py-2 border rounded-lg text-sm bg-white"
+        className="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm bg-white"
       >
         <option value="">Partido</option>
         {PARTIDOS.map((p) => <option key={p} value={p}>{p}</option>)}
@@ -54,7 +54,7 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
       {Object.keys(filters).length > 0 && (
         <button
           onClick={() => onChange({})}
-          className="text-xs text-gray-500 hover:text-danger-500 underline"
+          className="col-span-3 sm:col-span-1 text-xs text-gray-500 hover:text-danger-500 underline"
         >
           Limpar filtros
         </button>

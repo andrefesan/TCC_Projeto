@@ -83,10 +83,10 @@ class HybridDecomposer:
     def _busca_vetorial_classificacao(self, embedding, db: Session) -> str | None:
         """Busca classificação mais similar por embedding."""
         result = db.execute(text("""
-            SELECT funcao, 1 - (embedding <=> :emb::vector) AS similaridade
+            SELECT funcao, 1 - (embedding <=> CAST(:emb AS vector)) AS similaridade
             FROM classificacao_orcamentaria
             WHERE embedding IS NOT NULL
-            ORDER BY embedding <=> :emb::vector
+            ORDER BY embedding <=> CAST(:emb AS vector)
             LIMIT 1
         """), {"emb": str(embedding.tolist())})
         row = result.fetchone()
