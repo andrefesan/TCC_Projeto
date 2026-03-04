@@ -1,5 +1,11 @@
 def build_emenda_source_url(record: dict) -> str:
-    """Constrói URL da página de consulta de emendas no Portal da Transparência."""
+    """Constrói URL de detalhe da emenda no Portal da Transparência."""
+    codigo_emenda = record.get("codigo_emenda")
+    if codigo_emenda:
+        return (
+            f"https://portaldatransparencia.gov.br/emendas/detalhe"
+            f"?codigoEmenda={codigo_emenda}"
+        )
     return "https://portaldatransparencia.gov.br/emendas/consulta"
 
 
