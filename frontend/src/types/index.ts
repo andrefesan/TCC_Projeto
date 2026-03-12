@@ -10,6 +10,7 @@ export interface QueryResponse {
   fontes: string[]
   dados: EmendaData[]
   metadata: QueryMetadata
+  disclaimer?: string
 }
 
 export interface EmendaData {

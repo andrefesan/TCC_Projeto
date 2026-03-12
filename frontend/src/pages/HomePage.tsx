@@ -33,6 +33,7 @@ export default function HomePage() {
             resposta={data.resposta}
             fontes={data.fontes}
             metadata={data.metadata}
+            disclaimer={data.disclaimer}
           />
           <DataTable data={data.dados} />
         </>

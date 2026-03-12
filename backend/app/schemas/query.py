@@ -18,3 +18,4 @@ class QueryResponse(BaseModel):
     fontes: list[str]
     dados: list[dict]
     metadata: QueryMetadata
+    disclaimer: str | None = None

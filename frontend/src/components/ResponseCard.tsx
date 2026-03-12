@@ -6,11 +6,18 @@ interface ResponseCardProps {
   resposta: string
   fontes: string[]
   metadata: QueryMetadata
+  disclaimer?: string
 }
 
-export function ResponseCard({ resposta, fontes, metadata }: ResponseCardProps) {
+export function ResponseCard({ resposta, fontes, metadata, disclaimer }: ResponseCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mt-6 overflow-hidden">
+      {disclaimer && (
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-sm text-amber-800">
+          <span className="font-medium">⚠️ Aviso de limitação: </span>
+          {disclaimer}
+        </div>
+      )}
       <div className="prose prose-slate max-w-none break-words prose-headings:text-lg prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-li:my-0.5">
         <ReactMarkdown>{resposta}</ReactMarkdown>
       </div>

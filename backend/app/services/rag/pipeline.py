@@ -36,8 +36,25 @@ class RAGPipeline:
             db,
         )
 
+        # Detecção de instituição específica
+        instituicao = entidades.get("instituicao")
+
         # Etapa 4: Síntese
-        resultado = await self.synthesizer.sintetizar(consulta, dados)
+        resultado = await self.synthesizer.sintetizar(
+            consulta, dados, instituicao=instituicao
+        )
+
+        # Disclaimer contextual de limitação de interpretação
+        if instituicao:
+            resultado["disclaimer"] = (
+                f"Os resultados apresentados são uma aproximação por área temática "
+                f"e localidade. O sistema não possui dados que confirmem o repasse "
+                f"direto à instituição mencionada (\"{instituicao}\"). Para verificar "
+                f"transferências específicas, consulte o Transferegov.br "
+                f"(convênios) ou o Portal da Transparência (transferências)."
+            )
+        else:
+            resultado["disclaimer"] = None
 
         latencia = int((time.time() - inicio) * 1000)
         resultado["metadata"] = {

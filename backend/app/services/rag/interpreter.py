@@ -19,6 +19,7 @@ Campos possíveis:
 - "area": área temática (saúde, educação, etc.)
 - "tipo_emenda": tipo (individual, bancada, comissão)
 - "operacao": tipo de operação (total, ranking, comparação, tendência)
+- "instituicao": nome de instituição específica mencionada (ex: UFAC, IFAC, Hospital das Clínicas, Prefeitura de Rio Branco)
 
 Responda SOMENTE com o JSON. Exemplo: {{"autor": "nome", "ano": 2024}}
 

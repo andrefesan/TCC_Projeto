@@ -48,7 +48,8 @@ class ResponseSynthesizer:
         )
         self.prompt = ChatPromptTemplate.from_template(PROMPT_SINTESE_V14)
 
-    async def sintetizar(self, consulta: str, dados: list[dict]) -> dict:
+    async def sintetizar(self, consulta: str, dados: list[dict],
+                         instituicao: str | None = None) -> dict:
         """Gera resposta em linguagem natural."""
         if not dados:
             return {
@@ -61,7 +62,26 @@ class ResponseSynthesizer:
             }
 
         contexto = self._formatar_contexto(dados)
-        chain = self.prompt | self.llm
+
+        # Injeta regra condicional quando há instituição específica
+        if instituicao:
+            regra_instituicao = (
+                f"\n12. IMPORTANTE: O usuário mencionou a instituição \"{instituicao}\", "
+                "mas os dados disponíveis só permitem filtragem por classificação "
+                "funcional (função, subfunção) e UF — não por instituição beneficiária. "
+                "Inclua na resposta um aviso claro de que os resultados representam uma "
+                "aproximação por área temática e localidade, e não uma confirmação de "
+                "repasse direto à instituição mencionada."
+            )
+            prompt_texto = PROMPT_SINTESE_V14.replace(
+                "\n\nDADOS RECUPERADOS:",
+                regra_instituicao + "\n\nDADOS RECUPERADOS:",
+            )
+            prompt = ChatPromptTemplate.from_template(prompt_texto)
+        else:
+            prompt = self.prompt
+
+        chain = prompt | self.llm
         response = await chain.ainvoke({
             "contexto_dados": contexto,
             "consulta_usuario": consulta,
