@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, TIMESTAMP, func
-from pgvector.sqlalchemy import Vector
 from app.database import Base
+from app.models.compat import VectorType
 
 
 class ClassificacaoOrcamentaria(Base):
@@ -14,5 +14,5 @@ class ClassificacaoOrcamentaria(Base):
     programa = Column(String(10))
     programa_nome = Column(String(200))
     descricao = Column(Text)
-    embedding = Column(Vector(384))
+    embedding = Column(VectorType)
     created_at = Column(TIMESTAMP, server_default=func.now())

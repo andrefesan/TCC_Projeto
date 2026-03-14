@@ -63,8 +63,11 @@ class ResponseSynthesizer:
 
         contexto = self._formatar_contexto(dados)
 
+        # Verifica se há dados de beneficiários nos resultados
+        tem_beneficiarios = any(d.get("beneficiario_nome") for d in dados)
+
         # Injeta regra condicional quando há instituição específica
-        if instituicao:
+        if instituicao and not tem_beneficiarios:
             regra_instituicao = (
                 f"\n12. IMPORTANTE: O usuário mencionou a instituição \"{instituicao}\", "
                 "mas os dados disponíveis só permitem filtragem por classificação "
@@ -76,6 +79,18 @@ class ResponseSynthesizer:
             prompt_texto = PROMPT_SINTESE_V14.replace(
                 "\n\nDADOS RECUPERADOS:",
                 regra_instituicao + "\n\nDADOS RECUPERADOS:",
+            )
+            prompt = ChatPromptTemplate.from_template(prompt_texto)
+        elif tem_beneficiarios:
+            regra_beneficiario = (
+                "\n12. Os dados incluem informações de beneficiários finais "
+                "(pessoas físicas ou jurídicas que receberam os recursos). "
+                "Apresente o nome do beneficiário, CPF/CNPJ (parcialmente oculto para PF) "
+                "e o valor recebido de forma clara e organizada."
+            )
+            prompt_texto = PROMPT_SINTESE_V14.replace(
+                "\n\nDADOS RECUPERADOS:",
+                regra_beneficiario + "\n\nDADOS RECUPERADOS:",
             )
             prompt = ChatPromptTemplate.from_template(prompt_texto)
         else:
@@ -113,6 +128,13 @@ class ResponseSynthesizer:
                 f"Empenhado: R$ {d.get('valor_empenhado', 0):,.2f} | "
                 f"Pago: R$ {d.get('valor_pago', 0):,.2f}"
             )
+            if d.get("beneficiario_nome"):
+                linha += (
+                    f" | Beneficiário: {d['beneficiario_nome']}"
+                    f" ({d.get('beneficiario_tipo', 'N/A')})"
+                    f" | CPF/CNPJ: {d.get('beneficiario_cpf_cnpj', 'N/A')}"
+                    f" | Valor Recebido: R$ {d.get('beneficiario_valor', 0):,.2f}"
+                )
             linhas.append(linha)
 
         return "\n".join(linhas)

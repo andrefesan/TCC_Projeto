@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, TIMESTAMP, func
-from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import relationship
 from app.database import Base
+from app.models.compat import IntArrayType
 
 
 class Parlamentar(Base):
@@ -12,7 +12,7 @@ class Parlamentar(Base):
     nome_civil = Column(String(200))
     partido = Column(String(20))
     uf = Column(String(2))
-    legislaturas = Column(ARRAY(Integer))
+    legislaturas = Column(IntArrayType)
     url_foto = Column(Text)
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())

@@ -13,15 +13,15 @@ class DataNormalizer:
         self.db = db
 
     def upsert_parlamentar(self, data: dict) -> Parlamentar:
-        existing = self.db.query(Parlamentar).filter_by(
-            cod_autor=data["cod_autor"]
-        ).first()
+        cod = data["cod_autor"]
+        existing = self.db.get(Parlamentar, cod)
         if existing:
             for key, value in data.items():
                 setattr(existing, key, value)
             return existing
         parl = Parlamentar(**data)
         self.db.add(parl)
+        self.db.flush()
         return parl
 
     def inserir_emenda(self, data: dict) -> Emenda:
@@ -32,6 +32,7 @@ class DataNormalizer:
             return existing
         emenda = Emenda(**data)
         self.db.add(emenda)
+        self.db.flush()
         return emenda
 
     def vincular_autor(self, emenda_data: dict):

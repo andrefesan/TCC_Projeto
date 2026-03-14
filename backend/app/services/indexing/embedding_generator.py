@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+import json
 import numpy as np
 from app.config import settings
 import structlog
@@ -62,10 +63,12 @@ class EmbeddingGenerator:
         ids = [r.id for r in rows]
         embeddings = self.gerar_embeddings_batch(textos)
 
+        is_sqlite = "sqlite" in str(db.bind.url)
         for emenda_id, embedding in zip(ids, embeddings):
+            emb_value = json.dumps(embedding.tolist()) if is_sqlite else embedding.tolist()
             db.execute(text("""
                 UPDATE emendas SET embedding = :emb WHERE id = :id
-            """), {"emb": embedding.tolist(), "id": emenda_id})
+            """), {"emb": emb_value, "id": emenda_id})
 
         db.commit()
         logger.info("embeddings_gerados", total=len(ids))
@@ -88,10 +91,12 @@ class EmbeddingGenerator:
         ids = [r.id for r in rows]
         embeddings = self.gerar_embeddings_batch(textos)
 
+        is_sqlite = "sqlite" in str(db.bind.url)
         for classif_id, embedding in zip(ids, embeddings):
+            emb_value = json.dumps(embedding.tolist()) if is_sqlite else embedding.tolist()
             db.execute(text("""
                 UPDATE classificacao_orcamentaria SET embedding = :emb WHERE id = :id
-            """), {"emb": embedding.tolist(), "id": classif_id})
+            """), {"emb": emb_value, "id": classif_id})
 
         db.commit()
         logger.info("embeddings_classificacao_gerados", total=len(ids))

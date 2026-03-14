@@ -13,6 +13,7 @@ class RateLimiter:
         self.rpm = requests_per_minute
         self.interval = 60.0 / requests_per_minute
         self.last_request = 0.0
+        self.request_count = 0
         self._lock = asyncio.Lock()
 
     async def acquire(self):
@@ -20,8 +21,11 @@ class RateLimiter:
             now = time.monotonic()
             elapsed = now - self.last_request
             if elapsed < self.interval:
-                await asyncio.sleep(self.interval - elapsed)
+                wait = self.interval - elapsed
+                logger.debug("rate_limited", wait_ms=round(wait * 1000))
+                await asyncio.sleep(wait)
             self.last_request = time.monotonic()
+            self.request_count += 1
 
     @staticmethod
     def with_retry(max_attempts: int = 5):

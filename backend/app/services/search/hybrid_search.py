@@ -15,7 +15,9 @@ class HybridSearchService:
         self.vector_search = VectorSearchService()
 
     def buscar(self, filtros_sql: dict, busca_vetorial: Optional[dict],
-               db: Session, limit: int = 20) -> List[dict]:
+               db: Session, limit: int = 20,
+               busca_beneficiario: bool = False,
+               filtro_beneficiario: Optional[str] = None) -> List[dict]:
         """Executa busca híbrida: SQL + vetorial com deduplicação.
 
         Args:
@@ -23,10 +25,23 @@ class HybridSearchService:
             busca_vetorial: dict com "termo" e "embedding" (ou None)
             db: sessão do banco
             limit: máximo de resultados
+            busca_beneficiario: se deve buscar nas tabelas de beneficiários
+            filtro_beneficiario: nome do beneficiário para filtrar
 
         Returns:
             Lista de dicts com resultados combinados e deduplicados
         """
+        # Se há filtro de beneficiário, prioriza busca por beneficiário
+        if busca_beneficiario and filtro_beneficiario:
+            dados_benef = self.sql_search.buscar_por_beneficiario(
+                filtro_beneficiario, filtros_sql, db, limit
+            )
+            if dados_benef:
+                logger.info("busca_beneficiario", resultados=len(dados_benef))
+                return dados_benef[:limit]
+            # Fallback para busca padrão se não encontrou beneficiários
+            logger.info("busca_beneficiario_fallback", filtro=filtro_beneficiario)
+
         # Busca SQL
         dados_sql = self.sql_search.construir_e_executar(filtros_sql, db, limit)
 

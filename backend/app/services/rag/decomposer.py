@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+import json
+import numpy as np
 from app.config import settings
 from app.services.rag.dictionary import BudgetDictionary
 import structlog
@@ -67,10 +69,22 @@ class HybridDecomposer:
                     busca_vetorial = {"termo": area, "embedding": embedding.tolist()}
                     logger.warning("area_nao_resolvida", area=area)
 
+        # Filtros de beneficiário
+        busca_beneficiario = entidades.get("busca_beneficiario", False)
+        filtro_beneficiario = None
+        if entidades.get("beneficiario"):
+            filtro_beneficiario = entidades["beneficiario"]
+            busca_beneficiario = True
+        if entidades.get("instituicao") and not filtro_beneficiario:
+            filtro_beneficiario = entidades["instituicao"]
+            busca_beneficiario = True
+
         return {
             "filtros_sql": filtros_sql,
             "busca_vetorial": busca_vetorial,
             "operacao": entidades.get("operacao", "busca"),
+            "busca_beneficiario": busca_beneficiario,
+            "filtro_beneficiario": filtro_beneficiario,
         }
 
     def _resolver_uf(self, uf_raw: str) -> str | list:
@@ -82,6 +96,11 @@ class HybridDecomposer:
 
     def _busca_vetorial_classificacao(self, embedding, db: Session) -> str | None:
         """Busca classificação mais similar por embedding."""
+        is_sqlite = "sqlite" in str(db.bind.url)
+
+        if is_sqlite:
+            return self._busca_vetorial_classificacao_sqlite(embedding, db)
+
         result = db.execute(text("""
             SELECT funcao, 1 - (embedding <=> CAST(:emb AS vector)) AS similaridade
             FROM classificacao_orcamentaria
@@ -92,4 +111,28 @@ class HybridDecomposer:
         row = result.fetchone()
         if row and row.similaridade >= settings.SIMILARITY_THRESHOLD:
             return row.funcao
+        return None
+
+    def _busca_vetorial_classificacao_sqlite(self, embedding, db: Session) -> str | None:
+        """Busca classificação por cosine similarity em Python (SQLite)."""
+        query_emb = np.array(embedding.tolist() if hasattr(embedding, 'tolist') else embedding, dtype=np.float32)
+        result = db.execute(text("""
+            SELECT funcao, embedding FROM classificacao_orcamentaria
+            WHERE embedding IS NOT NULL
+        """))
+        best_funcao = None
+        best_sim = -1.0
+        for row in result.fetchall():
+            try:
+                emb = np.array(json.loads(row.embedding), dtype=np.float32)
+            except (json.JSONDecodeError, TypeError):
+                continue
+            sim = float(np.dot(query_emb, emb) / (
+                np.linalg.norm(query_emb) * np.linalg.norm(emb) + 1e-10
+            ))
+            if sim > best_sim:
+                best_sim = sim
+                best_funcao = row.funcao
+        if best_sim >= settings.SIMILARITY_THRESHOLD:
+            return best_funcao
         return None

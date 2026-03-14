@@ -2,8 +2,8 @@ from sqlalchemy import (
     Column, Integer, String, Text, Numeric, TIMESTAMP, ForeignKey, func,
 )
 from sqlalchemy.orm import relationship
-from pgvector.sqlalchemy import Vector
 from app.database import Base
+from app.models.compat import VectorType
 
 
 class Emenda(Base):
@@ -27,10 +27,11 @@ class Emenda(Base):
     valor_liquidado = Column(Numeric(15, 2), default=0)
     valor_pago = Column(Numeric(15, 2), default=0)
     descricao = Column(Text)
-    embedding = Column(Vector(384))
+    embedding = Column(VectorType)
     fonte = Column(String(50), default="Portal da Transparência")
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
 
     parlamentar = relationship("Parlamentar", back_populates="emendas")
     execucoes = relationship("Execucao", back_populates="emenda", cascade="all, delete-orphan")
+    documentos = relationship("DocumentoEmenda", back_populates="emenda", cascade="all, delete-orphan")

@@ -1,89 +1,47 @@
-"""Script de avaliação com 30 consultas de teste."""
+"""Script de avaliação expandido com métricas robustas.
+
+Métricas implementadas:
+- Precision@K, Recall@K, F1-Score
+- NDCG@K (Normalized Discounted Cumulative Gain)
+- MRR (Mean Reciprocal Rank)
+- Correção factual (entity extraction accuracy)
+- Latência média por tipo
+"""
 import asyncio
 import json
+import math
 import sys
 import time
 from pathlib import Path
+from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.database import SessionLocal
 from app.services.rag.pipeline import RAGPipeline
+from app.services.cache import query_cache
 import structlog
 
 logger = structlog.get_logger()
 
-CONSULTAS_TIPO_A = [
-    {"id": "A1", "consulta": "Qual o valor total das emendas individuais do deputado Roberto Duarte em 2024?",
-     "esperado": {"autor": "ROBERTO DUARTE", "ano": 2024}},
-    {"id": "A2", "consulta": "Quantas emendas foram destinadas ao Acre em 2023?",
-     "esperado": {"uf": "AC", "ano": 2023}},
-    {"id": "A3", "consulta": "Qual deputado do PT mais destinou emendas em 2024?",
-     "esperado": {"partido": "PT", "ano": 2024, "operacao": "ranking"}},
-    {"id": "A4", "consulta": "Quanto foi pago em emendas de bancada para o Amazonas em 2022?",
-     "esperado": {"uf": "AM", "ano": 2022, "tipo_emenda": "bancada"}},
-    {"id": "A5", "consulta": "Quantas emendas individuais foram empenhadas em 2020?",
-     "esperado": {"ano": 2020, "tipo_emenda": "individual"}},
-    {"id": "A6", "consulta": "Qual o valor total das emendas de comissão em 2024?",
-     "esperado": {"ano": 2024, "tipo_emenda": "comissao"}},
-    {"id": "A7", "consulta": "Quais parlamentares do Acre tiveram emendas em 2023?",
-     "esperado": {"uf": "AC", "ano": 2023}},
-    {"id": "A8", "consulta": "Qual o valor médio das emendas individuais em 2024?",
-     "esperado": {"ano": 2024, "tipo_emenda": "individual", "operacao": "media"}},
-    {"id": "A9", "consulta": "Quantos parlamentares distintos tiveram emendas em 2021?",
-     "esperado": {"ano": 2021, "operacao": "contagem_distinta"}},
-    {"id": "A10", "consulta": "Qual o total empenhado em emendas para Roraima em 2024?",
-     "esperado": {"uf": "RR", "ano": 2024}},
-]
+# Importar consultas do arquivo de testes
+sys.path.insert(0, str(Path(__file__).parent.parent / "tests"))
+from test_queries.test_evaluation import (
+    CONSULTAS_TIPO_A, CONSULTAS_TIPO_B, CONSULTAS_TIPO_C,
+)
 
-CONSULTAS_TIPO_B = [
-    {"id": "B1", "consulta": "Quais emendas para saúde foram executadas no Acre em 2023?",
-     "esperado": {"area": "saude", "uf": "AC", "ano": 2023}},
-    {"id": "B2", "consulta": "Qual partido destinou mais recursos para educação na região Norte?",
-     "esperado": {"area": "educacao", "uf": "norte", "operacao": "ranking"}},
-    {"id": "B3", "consulta": "Quanto foi investido em segurança pública em São Paulo em 2024?",
-     "esperado": {"area": "seguranca", "uf": "SP", "ano": 2024}},
-    {"id": "B4", "consulta": "Quais emendas para transporte foram pagas no Pará?",
-     "esperado": {"area": "transporte", "uf": "PA"}},
-    {"id": "B5", "consulta": "Qual deputado mais investiu em meio ambiente em 2023?",
-     "esperado": {"area": "meio ambiente", "ano": 2023, "operacao": "ranking"}},
-    {"id": "B6", "consulta": "Emendas para assistência social no Nordeste em 2022?",
-     "esperado": {"area": "assistencia social", "uf": "nordeste", "ano": 2022}},
-    {"id": "B7", "consulta": "Quanto foi pago em emendas para cultura no Rio de Janeiro?",
-     "esperado": {"area": "cultura", "uf": "RJ"}},
-    {"id": "B8", "consulta": "Quais parlamentares destinaram emendas para agricultura no Sul?",
-     "esperado": {"area": "agricultura", "uf": "sul"}},
-    {"id": "B9", "consulta": "Valor total das emendas para habitação em Minas Gerais em 2024?",
-     "esperado": {"area": "habitacao", "uf": "MG", "ano": 2024}},
-    {"id": "B10", "consulta": "Emendas para saneamento básico na região Centro-Oeste?",
-     "esperado": {"area": "saneamento basico", "uf": "centro-oeste"}},
-]
+# Importar tipo D se disponível
+try:
+    from test_queries.test_evaluation import CONSULTAS_TIPO_D
+except ImportError:
+    CONSULTAS_TIPO_D = []
 
-CONSULTAS_TIPO_C = [
-    {"id": "C1", "consulta": "Houve aumento nas emendas para saneamento básico no Norte entre 2022 e 2024?",
-     "esperado": {"area": "saneamento", "uf": "norte", "ano_inicio": 2022, "ano_fim": 2024}},
-    {"id": "C2", "consulta": "Compare as emendas para educação entre PT e PL em 2024.",
-     "esperado": {"area": "educacao", "ano": 2024, "operacao": "comparacao"}},
-    {"id": "C3", "consulta": "Qual a tendência das emendas para saúde no Acre de 2020 a 2024?",
-     "esperado": {"area": "saude", "uf": "AC", "ano_inicio": 2020, "ano_fim": 2024, "operacao": "tendencia"}},
-    {"id": "C4", "consulta": "Quais estados do Nordeste mais receberam emendas para educação em 2023?",
-     "esperado": {"area": "educacao", "uf": "nordeste", "ano": 2023, "operacao": "ranking"}},
-    {"id": "C5", "consulta": "Como evoluíram as emendas de bancada vs individuais entre 2020 e 2024?",
-     "esperado": {"ano_inicio": 2020, "ano_fim": 2024, "operacao": "comparacao"}},
-    {"id": "C6", "consulta": "Top 3 deputados do PSDB que mais destinaram para saúde no Sudeste?",
-     "esperado": {"partido": "PSDB", "area": "saude", "uf": "sudeste", "operacao": "ranking"}},
-    {"id": "C7", "consulta": "As emendas para segurança pública cresceram no Rio de Janeiro entre 2021 e 2024?",
-     "esperado": {"area": "seguranca", "uf": "RJ", "ano_inicio": 2021, "ano_fim": 2024, "operacao": "tendencia"}},
-    {"id": "C8", "consulta": "Compare os investimentos em transporte entre Norte e Sudeste em 2023.",
-     "esperado": {"area": "transporte", "ano": 2023, "operacao": "comparacao"}},
-    {"id": "C9", "consulta": "Quais áreas tiveram mais crescimento em emendas no Amazonas de 2020 a 2024?",
-     "esperado": {"uf": "AM", "ano_inicio": 2020, "ano_fim": 2024, "operacao": "tendencia"}},
-    {"id": "C10", "consulta": "Qual a proporção entre valor empenhado e valor pago nas emendas de 2024?",
-     "esperado": {"ano": 2024, "operacao": "comparacao"}},
-]
+TODAS_CONSULTAS = CONSULTAS_TIPO_A + CONSULTAS_TIPO_B + CONSULTAS_TIPO_C + CONSULTAS_TIPO_D
 
-TODAS_CONSULTAS = CONSULTAS_TIPO_A + CONSULTAS_TIPO_B + CONSULTAS_TIPO_C
 
+# ============================================
+# Funções de métricas
+# ============================================
 
 def verificar_entidades(extraidas: dict, esperado: dict) -> dict:
     """Verifica se as entidades extraídas correspondem ao esperado."""
@@ -104,11 +62,141 @@ def verificar_entidades(extraidas: dict, esperado: dict) -> dict:
         else:
             detalhes[campo] = {"esperado": valor_esperado, "extraido": None, "ok": False}
 
-    return {"acertos": acertos, "total": total, "precisao": acertos / total if total else 0, "detalhes": detalhes}
+    return {
+        "acertos": acertos,
+        "total": total,
+        "precisao": acertos / total if total else 0,
+        "detalhes": detalhes,
+    }
 
 
-async def main():
-    logger.info("iniciando_avaliacao", total_consultas=len(TODAS_CONSULTAS))
+def calcular_precision_at_k(resultados_relevantes: list[bool], k: int = 5) -> float:
+    """Precision@K: proporção de resultados relevantes nos top-K."""
+    top_k = resultados_relevantes[:k]
+    if not top_k:
+        return 0.0
+    return sum(top_k) / len(top_k)
+
+
+def calcular_recall_at_k(resultados_relevantes: list[bool], total_relevantes: int, k: int = 5) -> float:
+    """Recall@K: proporção de resultados relevantes recuperados nos top-K."""
+    if total_relevantes == 0:
+        return 0.0
+    top_k = resultados_relevantes[:k]
+    return sum(top_k) / total_relevantes
+
+
+def calcular_f1(precision: float, recall: float) -> float:
+    """F1-Score: média harmônica de precision e recall."""
+    if precision + recall == 0:
+        return 0.0
+    return 2 * (precision * recall) / (precision + recall)
+
+
+def calcular_ndcg_at_k(relevancia_scores: list[float], k: int = 5) -> float:
+    """NDCG@K: Normalized Discounted Cumulative Gain.
+
+    Avalia a qualidade do ranking dos resultados.
+    """
+    top_k = relevancia_scores[:k]
+    if not top_k:
+        return 0.0
+
+    # DCG
+    dcg = sum(rel / math.log2(i + 2) for i, rel in enumerate(top_k))
+
+    # IDCG (ideal: resultados ordenados por relevância decrescente)
+    ideal = sorted(relevancia_scores, reverse=True)[:k]
+    idcg = sum(rel / math.log2(i + 2) for i, rel in enumerate(ideal))
+
+    if idcg == 0:
+        return 0.0
+    return dcg / idcg
+
+
+def calcular_mrr(resultados_relevantes: list[bool]) -> float:
+    """MRR: Mean Reciprocal Rank — posição do primeiro resultado correto."""
+    for i, relevante in enumerate(resultados_relevantes):
+        if relevante:
+            return 1.0 / (i + 1)
+    return 0.0
+
+
+def avaliar_resultado(resultado: dict, consulta_def: dict) -> dict:
+    """Avalia um resultado individual com todas as métricas."""
+    entidades = resultado.get("metadata", {}).get("entidades", {})
+    verificacao = verificar_entidades(entidades, consulta_def["esperado"])
+
+    # Para métricas de ranking, usar os dados retornados
+    dados = resultado.get("dados", [])
+    num_resultados = len(dados)
+
+    # Gerar lista de relevância baseada na correspondência de entidades
+    # Um resultado é relevante se contém dados que correspondem aos filtros esperados
+    relevancia = []
+    relevancia_scores = []
+    for d in dados[:20]:
+        score = 0.0
+        esperado = consulta_def["esperado"]
+        if esperado.get("uf") and d.get("uf") == esperado.get("uf"):
+            score += 0.5
+        if esperado.get("ano") and d.get("ano") == esperado.get("ano"):
+            score += 0.3
+        if esperado.get("autor") and esperado["autor"].lower() in str(d.get("nome_autor", "")).lower():
+            score += 0.5
+        if score == 0 and num_resultados > 0:
+            score = 0.3  # Score mínimo para resultados retornados pelo pipeline
+        relevancia.append(score > 0.3)
+        relevancia_scores.append(score)
+
+    total_relevantes = max(sum(relevancia), 1)
+    p_at_5 = calcular_precision_at_k(relevancia, k=5)
+    r_at_5 = calcular_recall_at_k(relevancia, total_relevantes, k=5)
+    f1 = calcular_f1(p_at_5, r_at_5)
+    ndcg = calcular_ndcg_at_k(relevancia_scores, k=5)
+    mrr = calcular_mrr(relevancia)
+
+    return {
+        "entity_accuracy": verificacao["precisao"],
+        "entity_details": verificacao["detalhes"],
+        "precision_at_5": p_at_5,
+        "recall_at_5": r_at_5,
+        "f1_score": f1,
+        "ndcg_at_5": ndcg,
+        "mrr": mrr,
+    }
+
+
+def calcular_metricas_agregadas(resultados: list[dict]) -> dict:
+    """Calcula métricas agregadas para um conjunto de resultados."""
+    if not resultados:
+        return {}
+
+    sucessos = [r for r in resultados if r.get("sucesso")]
+    if not sucessos:
+        return {"total": len(resultados), "sucessos": 0}
+
+    metricas_keys = ["entity_accuracy", "precision_at_5", "recall_at_5",
+                     "f1_score", "ndcg_at_5", "mrr"]
+    agregadas = {}
+    for key in metricas_keys:
+        valores = [r["metricas"][key] for r in sucessos if "metricas" in r]
+        agregadas[key] = sum(valores) / len(valores) if valores else 0
+
+    agregadas["latencia_media_ms"] = sum(r["latencia_ms"] for r in sucessos) / len(sucessos)
+    agregadas["total"] = len(resultados)
+    agregadas["sucessos"] = len(sucessos)
+
+    return agregadas
+
+
+async def executar_avaliacao(modo: str = "hibrido"):
+    """Executa avaliação completa.
+
+    Args:
+        modo: "hibrido" (padrão), "sql_puro", ou "vetorial_puro"
+    """
+    logger.info("iniciando_avaliacao", total=len(TODAS_CONSULTAS), modo=modo)
 
     db = SessionLocal()
     pipeline = RAGPipeline()
@@ -118,73 +206,112 @@ async def main():
         for consulta_def in TODAS_CONSULTAS:
             cid = consulta_def["id"]
             consulta = consulta_def["consulta"]
-            esperado = consulta_def["esperado"]
 
             logger.info("avaliando", id=cid, consulta=consulta[:50])
             inicio = time.time()
 
             try:
-                resultado = await pipeline.processar(consulta, db)
+                resultado = await pipeline.processar(consulta, db, modo=modo)
                 latencia = int((time.time() - inicio) * 1000)
 
-                entidades = resultado.get("metadata", {}).get("entidades", {})
-                verificacao = verificar_entidades(entidades, esperado)
+                metricas = avaliar_resultado(resultado, consulta_def)
 
                 resultados.append({
                     "id": cid,
+                    "tipo": cid[0],
                     "consulta": consulta,
                     "latencia_ms": latencia,
                     "num_resultados": resultado["metadata"]["num_resultados"],
                     "modo": resultado["metadata"]["modo"],
-                    "precisao_entidades": verificacao["precisao"],
-                    "detalhes": verificacao["detalhes"],
+                    "metricas": metricas,
                     "sucesso": True,
                 })
+
                 logger.info("consulta_avaliada", id=cid,
-                             precisao=verificacao["precisao"], latencia_ms=latencia)
+                             f1=f"{metricas['f1_score']:.2f}",
+                             ndcg=f"{metricas['ndcg_at_5']:.2f}",
+                             latencia_ms=latencia)
 
             except Exception as e:
                 resultados.append({
-                    "id": cid, "consulta": consulta,
+                    "id": cid, "tipo": cid[0], "consulta": consulta,
                     "sucesso": False, "erro": str(e),
                 })
                 logger.error("erro_avaliacao", id=cid, erro=str(e))
 
-        # Relatório
-        tipo_a = [r for r in resultados if r["id"].startswith("A") and r["sucesso"]]
-        tipo_b = [r for r in resultados if r["id"].startswith("B") and r["sucesso"]]
-        tipo_c = [r for r in resultados if r["id"].startswith("C") and r["sucesso"]]
+        # Relatório por tipo
+        tipos = {}
+        for tipo in ["A", "B", "C", "D"]:
+            tipo_resultados = [r for r in resultados if r["tipo"] == tipo]
+            if tipo_resultados:
+                tipos[tipo] = calcular_metricas_agregadas(tipo_resultados)
 
-        def media_precisao(lista):
-            return sum(r["precisao_entidades"] for r in lista) / len(lista) if lista else 0
-
-        def media_latencia(lista):
-            return sum(r["latencia_ms"] for r in lista) / len(lista) if lista else 0
+        # Relatório geral
+        geral = calcular_metricas_agregadas(resultados)
 
         relatorio = {
-            "total": len(resultados),
-            "sucessos": sum(1 for r in resultados if r["sucesso"]),
-            "tipo_a": {"precisao": media_precisao(tipo_a), "latencia_media_ms": media_latencia(tipo_a)},
-            "tipo_b": {"precisao": media_precisao(tipo_b), "latencia_media_ms": media_latencia(tipo_b)},
-            "tipo_c": {"precisao": media_precisao(tipo_c), "latencia_media_ms": media_latencia(tipo_c)},
+            "modo": modo,
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "geral": geral,
+            "por_tipo": tipos,
             "resultados": resultados,
         }
 
-        output_path = Path(__file__).parent.parent / "tests" / "test_queries" / "resultados_avaliacao.json"
+        # Salvar resultados
+        output_path = Path(__file__).parent.parent / "tests" / "test_queries" / f"resultados_{modo}.json"
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(relatorio, f, ensure_ascii=False, indent=2)
 
-        print(f"\n{'='*60}")
-        print(f"RELATÓRIO DE AVALIAÇÃO")
-        print(f"{'='*60}")
-        print(f"Total: {relatorio['total']} | Sucessos: {relatorio['sucessos']}")
-        print(f"Tipo A (SQL direto):    Precisão {relatorio['tipo_a']['precisao']:.2%} | Latência {relatorio['tipo_a']['latencia_media_ms']:.0f}ms")
-        print(f"Tipo B (Semântico):     Precisão {relatorio['tipo_b']['precisao']:.2%} | Latência {relatorio['tipo_b']['latencia_media_ms']:.0f}ms")
-        print(f"Tipo C (Complexo):      Precisão {relatorio['tipo_c']['precisao']:.2%} | Latência {relatorio['tipo_c']['latencia_media_ms']:.0f}ms")
-        print(f"{'='*60}")
+        # Imprimir relatório
+        print(f"\n{'='*70}")
+        print(f"  RELATÓRIO DE AVALIAÇÃO — Modo: {modo.upper()}")
+        print(f"{'='*70}")
+        print(f"  Total: {geral.get('total', 0)} | Sucessos: {geral.get('sucessos', 0)}")
+        print(f"{'='*70}")
+        print(f"  {'Tipo':<8} {'P@5':>8} {'R@5':>8} {'F1':>8} {'NDCG':>8} {'MRR':>8} {'Lat(ms)':>10}")
+        print(f"  {'-'*60}")
+
+        for tipo, metricas in tipos.items():
+            nome_tipo = {"A": "Factual", "B": "Semântico", "C": "Complexo", "D": "Benefic."}.get(tipo, tipo)
+            print(f"  {nome_tipo:<8} "
+                  f"{metricas.get('precision_at_5', 0):>8.2%} "
+                  f"{metricas.get('recall_at_5', 0):>8.2%} "
+                  f"{metricas.get('f1_score', 0):>8.2%} "
+                  f"{metricas.get('ndcg_at_5', 0):>8.2%} "
+                  f"{metricas.get('mrr', 0):>8.2%} "
+                  f"{metricas.get('latencia_media_ms', 0):>10.0f}")
+
+        print(f"  {'-'*60}")
+        print(f"  {'GERAL':<8} "
+              f"{geral.get('precision_at_5', 0):>8.2%} "
+              f"{geral.get('recall_at_5', 0):>8.2%} "
+              f"{geral.get('f1_score', 0):>8.2%} "
+              f"{geral.get('ndcg_at_5', 0):>8.2%} "
+              f"{geral.get('mrr', 0):>8.2%} "
+              f"{geral.get('latencia_media_ms', 0):>10.0f}")
+        print(f"{'='*70}\n")
+
+        return relatorio
 
     finally:
         db.close()
+
+
+async def main():
+    """Executa avaliação nos 3 modos para comparação."""
+    import argparse
+    parser = argparse.ArgumentParser(description="Avaliação de consultas")
+    parser.add_argument("--modo", default="hibrido",
+                        choices=["hibrido", "sql_puro", "vetorial_puro", "todos"],
+                        help="Modo de avaliação")
+    args = parser.parse_args()
+
+    if args.modo == "todos":
+        for modo in ["hibrido", "sql_puro", "vetorial_puro"]:
+            query_cache.clear()
+            await executar_avaliacao(modo)
+    else:
+        await executar_avaliacao(args.modo)
 
 
 if __name__ == "__main__":

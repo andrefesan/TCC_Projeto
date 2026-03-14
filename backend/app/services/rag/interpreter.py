@@ -20,6 +20,8 @@ Campos possíveis:
 - "tipo_emenda": tipo (individual, bancada, comissão)
 - "operacao": tipo de operação (total, ranking, comparação, tendência)
 - "instituicao": nome de instituição específica mencionada (ex: UFAC, IFAC, Hospital das Clínicas, Prefeitura de Rio Branco)
+- "beneficiario": nome de beneficiário final (pessoa física ou jurídica que recebeu recursos)
+- "busca_beneficiario": true se a consulta pede informações sobre beneficiários, favorecidos ou destinatários finais dos recursos
 
 Responda SOMENTE com o JSON. Exemplo: {{"autor": "nome", "ano": 2024}}
 
