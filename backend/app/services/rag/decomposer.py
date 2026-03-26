@@ -48,26 +48,53 @@ class HybridDecomposer:
         if entidades.get("tipo_emenda"):
             filtros_sql["tipo_emenda"] = entidades["tipo_emenda"]
 
-        # Campo semântico: dicionário → SQL, fallback → busca vetorial
+        # Campo semântico: banco → sinônimos → vetorial
         if entidades.get("area"):
-            area = entidades["area"].lower().strip()
-            codigo = self.dicionario.resolver_area(area)
-            if codigo:
-                if len(codigo) <= 2:
-                    filtros_sql["funcao"] = codigo
-                else:
-                    filtros_sql["subfuncao"] = codigo
-                logger.info("area_resolvida_dicionario", area=area, codigo=codigo)
+            area_raw = entidades["area"]
+            # Comparativas podem retornar lista de áreas
+            if isinstance(area_raw, list):
+                areas = [a.lower().strip() for a in area_raw if isinstance(a, str)]
             else:
-                # Fallback: busca vetorial na classificação orçamentária
-                embedding = self.embedder.encode(area)
-                codigo = self._busca_vetorial_classificacao(embedding, db)
+                area_single = area_raw.lower().strip()
+                areas = [area_single] if area_single else []
+
+            codigos_funcao = []
+            codigos_subfuncao = []
+            for area in areas:
+                codigo = self._resolver_area_via_banco(area, db)
                 if codigo:
-                    filtros_sql["funcao"] = codigo
-                    logger.info("area_resolvida_vetorial", area=area, codigo=codigo)
+                    if len(codigo) <= 2:
+                        codigos_funcao.append(codigo)
+                    else:
+                        codigos_subfuncao.append(codigo)
+                    logger.info("area_resolvida", area=area, codigo=codigo)
                 else:
-                    busca_vetorial = {"termo": area, "embedding": embedding.tolist()}
-                    logger.warning("area_nao_resolvida", area=area)
+                    # Último fallback: busca vetorial na classificação orçamentária
+                    embedding = self.embedder.encode(area)
+                    codigo = self._busca_vetorial_classificacao(embedding, db)
+                    if codigo:
+                        codigos_funcao.append(codigo)
+                        logger.info("area_resolvida_vetorial", area=area, codigo=codigo)
+                    else:
+                        # Enriquecer embedding com contexto da consulta (UF, ano)
+                        texto_busca = area
+                        if entidades.get("uf"):
+                            texto_busca += f" {entidades['uf']}"
+                        if entidades.get("ano"):
+                            texto_busca += f" {entidades['ano']}"
+                        embedding_enriquecido = self.embedder.encode(texto_busca)
+                        busca_vetorial = {"termo": texto_busca, "embedding": embedding_enriquecido.tolist()}
+                        logger.warning("area_nao_resolvida", area=area, texto_busca=texto_busca)
+
+            # Atribuir filtros: singular ou plural conforme necessidade
+            if len(codigos_funcao) == 1:
+                filtros_sql["funcao"] = codigos_funcao[0]
+            elif len(codigos_funcao) > 1:
+                filtros_sql["funcoes"] = codigos_funcao
+            if len(codigos_subfuncao) == 1:
+                filtros_sql["subfuncao"] = codigos_subfuncao[0]
+            elif len(codigos_subfuncao) > 1:
+                filtros_sql["subfuncoes"] = codigos_subfuncao
 
         # Filtros de beneficiário
         busca_beneficiario = entidades.get("busca_beneficiario", False)
@@ -79,19 +106,85 @@ class HybridDecomposer:
             filtro_beneficiario = entidades["instituicao"]
             busca_beneficiario = True
 
+        # Operação (busca, soma, ranking, contagem, media)
+        operacao = entidades.get("operacao", "busca")
+        operacao_map = {
+            "total": "soma", "quanto": "soma", "valor total": "soma",
+            "quantas": "contagem", "quantos": "contagem", "número": "contagem",
+            "contagem_distinta": "contagem",
+            "maiores": "ranking", "top": "ranking", "quem mais": "ranking",
+            "média": "media", "em média": "media",
+            "comparação": "busca", "comparacao": "busca",
+            "tendência": "busca", "tendencia": "busca",
+        }
+        operacao = operacao_map.get(operacao.lower(), operacao.lower())
+        if operacao not in ("busca", "soma", "contagem", "ranking", "media"):
+            operacao = "busca"
+
         return {
             "filtros_sql": filtros_sql,
             "busca_vetorial": busca_vetorial,
-            "operacao": entidades.get("operacao", "busca"),
+            "operacao": operacao,
             "busca_beneficiario": busca_beneficiario,
             "filtro_beneficiario": filtro_beneficiario,
         }
+
+    def _resolver_area_via_banco(self, area: str, db: Session) -> str | None:
+        """Resolve área via dicionário, funções e subfunções normalizadas."""
+        # 1. Dicionário semântico (sinônimos curados manualmente — prioridade máxima)
+        codigo_dict = self.dicionario.resolver_area(area)
+        if codigo_dict:
+            return codigo_dict
+
+        # 2. Busca em subfuncoes primeiro (mais específico — termos como "educação básica")
+        try:
+            row = db.execute(text(
+                "SELECT codigo FROM subfuncoes WHERE LOWER(nome) LIKE :t LIMIT 1"
+            ), {"t": f"%{area}%"}).fetchone()
+            if row:
+                return row[0]
+        except Exception:
+            pass
+
+        # 3. Busca em funcoes depois (mais abrangente — termos genéricos como "educação")
+        try:
+            row = db.execute(text(
+                "SELECT codigo FROM funcoes WHERE LOWER(nome) LIKE :t LIMIT 1"
+            ), {"t": f"%{area}%"}).fetchone()
+            if row:
+                return row[0]
+        except Exception:
+            pass
+
+        return None
+
+    _NOMES_UF = {
+        "acre": "AC", "alagoas": "AL", "amapa": "AP", "amazonas": "AM",
+        "bahia": "BA", "ceara": "CE", "distrito federal": "DF",
+        "espirito santo": "ES", "goias": "GO", "maranhao": "MA",
+        "mato grosso": "MT", "mato grosso do sul": "MS",
+        "minas gerais": "MG", "para": "PA", "paraiba": "PB",
+        "parana": "PR", "pernambuco": "PE", "piaui": "PI",
+        "rio de janeiro": "RJ", "rio grande do norte": "RN",
+        "rio grande do sul": "RS", "rondonia": "RO", "roraima": "RR",
+        "santa catarina": "SC", "sao paulo": "SP", "sergipe": "SE",
+        "tocantins": "TO",
+    }
 
     def _resolver_uf(self, uf_raw: str) -> str | list:
         """Resolve UF ou região para sigla(s)."""
         regioes = self.dicionario.resolver_regiao(uf_raw)
         if regioes:
             return regioes
+        # Tenta resolver nome completo do estado
+        import unicodedata
+        nome_norm = unicodedata.normalize("NFKD", uf_raw.lower().strip())
+        nome_norm = "".join(c for c in nome_norm if not unicodedata.combining(c))
+        if nome_norm in self._NOMES_UF:
+            return self._NOMES_UF[nome_norm]
+        # Se já é sigla de 2 caracteres, retorna diretamente
+        if len(uf_raw.strip()) == 2:
+            return uf_raw.upper().strip()
         return uf_raw.upper()[:2]
 
     def _busca_vetorial_classificacao(self, embedding, db: Session) -> str | None:

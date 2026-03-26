@@ -9,7 +9,7 @@ _DICT_PATH = Path(__file__).parent.parent.parent.parent / "data" / "dictionary.j
 
 
 class BudgetDictionary:
-    """Wrapper do dicionário orçamentário (87 mapeamentos)."""
+    """Wrapper do dicionário orçamentário (sinônimos informais + regiões)."""
 
     def __init__(self):
         with open(_DICT_PATH, "r", encoding="utf-8") as f:
@@ -27,7 +27,7 @@ class BudgetDictionary:
         return self._subfuncoes.get(termo.lower().strip())
 
     def resolver_area(self, termo: str) -> Optional[str]:
-        """Tenta resolver subfunção (mais específico) e depois função."""
+        """Tenta subfunção (mais específica) antes de função (mais abrangente)."""
         codigo = self.resolver_subfuncao(termo)
         if codigo:
             return codigo

@@ -9,6 +9,8 @@ import { useConsulta } from '../hooks/useQuery'
 export default function HomePage() {
   const { mutate, data, isPending, isError, error } = useConsulta()
 
+  const handleSearch = (q: string) => mutate(q)
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -18,7 +20,7 @@ export default function HomePage() {
         <p className="text-center text-gray-500 mb-8">
           Consulta inteligente de emendas parlamentares federais
         </p>
-        <SearchBar onSearch={(q) => mutate(q)} isLoading={isPending} />
+        <SearchBar onSearch={handleSearch} isLoading={isPending} />
       </div>
 
       {isPending && <LoadingState />}
@@ -31,9 +33,12 @@ export default function HomePage() {
         <>
           <ResponseCard
             resposta={data.resposta}
+            resumo={data.resumo}
             fontes={data.fontes}
             metadata={data.metadata}
             disclaimer={data.disclaimer}
+            sugestoes_followup={data.sugestoes_followup}
+            onFollowUp={handleSearch}
           />
           <DataTable data={data.dados} />
         </>

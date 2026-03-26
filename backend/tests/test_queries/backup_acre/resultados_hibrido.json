@@ -1,0 +1,4324 @@
+{
+  "modo": "hibrido",
+  "timestamp": "2026-03-14 00:19:36",
+  "geral": {
+    "entity_accuracy": 0.7984463276836158,
+    "precision_at_5": 0.6440677966101694,
+    "recall_at_5": 0.2750297390685437,
+    "f1_score": 0.3534314790670723,
+    "ndcg_at_5": 0.711864406779661,
+    "mrr": 0.6440677966101694,
+    "latencia_media_ms": 12483.5,
+    "total": 120,
+    "sucessos": 118
+  },
+  "por_tipo": {
+    "A": {
+      "entity_accuracy": 0.9055555555555556,
+      "precision_at_5": 0.7333333333333333,
+      "recall_at_5": 0.22241647241647242,
+      "f1_score": 0.3339672364672365,
+      "ndcg_at_5": 0.7333333333333333,
+      "mrr": 0.7333333333333333,
+      "latencia_media_ms": 8238.066666666668,
+      "total": 30,
+      "sucessos": 30
+    },
+    "B": {
+      "entity_accuracy": 0.8194444444444444,
+      "precision_at_5": 0.43333333333333335,
+      "recall_at_5": 0.2642857142857143,
+      "f1_score": 0.3022222222222222,
+      "ndcg_at_5": 0.43333333333333335,
+      "mrr": 0.43333333333333335,
+      "latencia_media_ms": 6051.7,
+      "total": 30,
+      "sucessos": 30
+    },
+    "C": {
+      "entity_accuracy": 0.7285714285714285,
+      "precision_at_5": 0.75,
+      "recall_at_5": 0.26785714285714285,
+      "f1_score": 0.3642857142857143,
+      "ndcg_at_5": 0.75,
+      "mrr": 0.75,
+      "latencia_media_ms": 26317.214285714286,
+      "total": 30,
+      "sucessos": 28
+    },
+    "D": {
+      "entity_accuracy": 0.7355555555555555,
+      "precision_at_5": 0.6666666666666666,
+      "recall_at_5": 0.3450814536340852,
+      "f1_score": 0.41397435897435897,
+      "ndcg_at_5": 0.9333333333333333,
+      "mrr": 0.6666666666666666,
+      "latencia_media_ms": 10249.266666666666,
+      "total": 30,
+      "sucessos": 30
+    }
+  },
+  "resultados": [
+    {
+      "id": "A1",
+      "tipo": "A",
+      "consulta": "Qual o valor total das emendas individuais do deputado Roberto Duarte em 2024?",
+      "latencia_ms": 10587,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "ROBERTO DUARTE",
+            "extraido": "Roberto Duarte",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A2",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram destinadas ao Acre em 2023?",
+      "latencia_ms": 8498,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A3",
+      "tipo": "A",
+      "consulta": "Qual deputado do PT mais destinou emendas ao Acre em 2024?",
+      "latencia_ms": 21428,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PT",
+            "extraido": "PT",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "Acre",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A4",
+      "tipo": "A",
+      "consulta": "Quanto foi pago em emendas de bancada para o Acre em 2022?",
+      "latencia_ms": 10280,
+      "num_resultados": 13,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.38461538461538464,
+        "f1_score": 0.5555555555555556,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A5",
+      "tipo": "A",
+      "consulta": "Quantas emendas individuais foram empenhadas no Acre em 2020?",
+      "latencia_ms": 7728,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A6",
+      "tipo": "A",
+      "consulta": "Qual o valor total das emendas de comissão no Acre em 2024?",
+      "latencia_ms": 1595,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "comissao",
+            "extraido": "comissão",
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A7",
+      "tipo": "A",
+      "consulta": "Quais parlamentares do Acre tiveram emendas em 2023?",
+      "latencia_ms": 11026,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A8",
+      "tipo": "A",
+      "consulta": "Qual o valor médio das emendas individuais no Acre em 2024?",
+      "latencia_ms": 9763,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "media",
+            "extraido": "total",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A9",
+      "tipo": "A",
+      "consulta": "Quantos parlamentares distintos tiveram emendas no Acre em 2021?",
+      "latencia_ms": 7572,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem_distinta",
+            "extraido": "total",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A10",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas para o Acre em 2024?",
+      "latencia_ms": 9047,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A11",
+      "tipo": "A",
+      "consulta": "Qual o valor pago em emendas da deputada Jéssica Sales em 2023?",
+      "latencia_ms": 1658,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "autor": {
+            "esperado": "JESSICA SALES",
+            "extraido": "Jéssica Sales",
+            "ok": false
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A12",
+      "tipo": "A",
+      "consulta": "Quantas emendas de bancada existem no Acre em 2024?",
+      "latencia_ms": 9064,
+      "num_resultados": 8,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.625,
+        "f1_score": 0.7692307692307693,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A13",
+      "tipo": "A",
+      "consulta": "Quais emendas foram destinadas ao Acre em 2020?",
+      "latencia_ms": 11692,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A14",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas para o Acre em 2022?",
+      "latencia_ms": 10834,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A15",
+      "tipo": "A",
+      "consulta": "Quais deputados do PL tiveram emendas no Acre em 2023?",
+      "latencia_ms": 2001,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PL",
+            "extraido": "PL",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A16",
+      "tipo": "A",
+      "consulta": "Qual o valor liquidado em emendas individuais do Acre em 2024?",
+      "latencia_ms": 10742,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A17",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram pagas no Acre em 2021?",
+      "latencia_ms": 10323,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A18",
+      "tipo": "A",
+      "consulta": "Qual deputado do MDB mais destinou emendas ao Acre em 2022?",
+      "latencia_ms": 10149,
+      "num_resultados": 15,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "MDB",
+            "extraido": "MDB",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.3333333333333333,
+        "f1_score": 0.5,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A19",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas de relator no Acre em 2023?",
+      "latencia_ms": 1597,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "relator",
+            "extraido": "relator",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A20",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram destinadas ao Acre em 2024?",
+      "latencia_ms": 8426,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A21",
+      "tipo": "A",
+      "consulta": "Qual o valor total das emendas do deputado Alan Rick em 2024?",
+      "latencia_ms": 8089,
+      "num_resultados": 11,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "ALAN RICK",
+            "extraido": "Alan Rick",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.45454545454545453,
+        "f1_score": 0.625,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A22",
+      "tipo": "A",
+      "consulta": "Quanto foi empenhado em emendas para o Acre em 2023?",
+      "latencia_ms": 9551,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A23",
+      "tipo": "A",
+      "consulta": "Quais parlamentares do UNIÃO tiveram emendas no Acre em 2024?",
+      "latencia_ms": 10764,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "partido": {
+            "esperado": "UNIAO",
+            "extraido": "UNIÃO",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A24",
+      "tipo": "A",
+      "consulta": "Qual o valor pago em emendas individuais no Acre em 2022?",
+      "latencia_ms": 10718,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A25",
+      "tipo": "A",
+      "consulta": "Quantas emendas de comissão existem no Acre em 2021?",
+      "latencia_ms": 1558,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "comissao",
+            "extraido": "comissão",
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A26",
+      "tipo": "A",
+      "consulta": "Qual deputado do PP mais destinou emendas ao Acre em 2024?",
+      "latencia_ms": 10431,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PP",
+            "extraido": "PP",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A27",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas da deputada Perpétua Almeida em 2023?",
+      "latencia_ms": 1693,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "autor": {
+            "esperado": "PERPETUA ALMEIDA",
+            "extraido": "Perpétua Almeida",
+            "ok": false
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A28",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram destinadas ao Acre em 2022?",
+      "latencia_ms": 8006,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A29",
+      "tipo": "A",
+      "consulta": "Qual o valor médio das emendas de bancada no Acre em 2024?",
+      "latencia_ms": 10475,
+      "num_resultados": 8,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "media",
+            "extraido": "total",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.625,
+        "f1_score": 0.7692307692307693,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A30",
+      "tipo": "A",
+      "consulta": "Quanto foi pago em emendas do deputado Flaviano Melo no Acre em 2024?",
+      "latencia_ms": 1847,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "FLAVIANO MELO",
+            "extraido": "Flaviano Melo",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B1",
+      "tipo": "B",
+      "consulta": "Quais emendas para saúde foram executadas no Acre em 2023?",
+      "latencia_ms": 13426,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B2",
+      "tipo": "B",
+      "consulta": "Qual partido destinou mais recursos para educação no Acre?",
+      "latencia_ms": 11441,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B3",
+      "tipo": "B",
+      "consulta": "Quanto foi investido em segurança pública no Acre em 2024?",
+      "latencia_ms": 19182,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança pública",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B4",
+      "tipo": "B",
+      "consulta": "Quais emendas para transporte foram pagas no Acre?",
+      "latencia_ms": 8432,
+      "num_resultados": 1,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "transporte",
+            "extraido": "transporte",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B5",
+      "tipo": "B",
+      "consulta": "Qual deputado mais investiu em meio ambiente no Acre em 2023?",
+      "latencia_ms": 1690,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B6",
+      "tipo": "B",
+      "consulta": "Emendas para assistência social no Acre em 2022?",
+      "latencia_ms": 11301,
+      "num_resultados": 7,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.7142857142857143,
+        "f1_score": 0.8333333333333333,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B7",
+      "tipo": "B",
+      "consulta": "Quanto foi pago em emendas para cultura no Acre?",
+      "latencia_ms": 8660,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "cultura",
+            "extraido": "cultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B8",
+      "tipo": "B",
+      "consulta": "Quais parlamentares destinaram emendas para agricultura no Acre?",
+      "latencia_ms": 1609,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B9",
+      "tipo": "B",
+      "consulta": "Valor total das emendas para habitação no Acre em 2024?",
+      "latencia_ms": 1635,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "habitacao",
+            "extraido": "habitação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B10",
+      "tipo": "B",
+      "consulta": "Emendas para saneamento básico no Acre em 2023?",
+      "latencia_ms": 1646,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "saneamento basico",
+            "extraido": "saneamento básico",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B11",
+      "tipo": "B",
+      "consulta": "Quanto foi empenhado em emendas para ciência e tecnologia no Acre em 2024?",
+      "latencia_ms": 2027,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "ciencia e tecnologia",
+            "extraido": "ciência e tecnologia",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B12",
+      "tipo": "B",
+      "consulta": "Quais emendas para defesa nacional foram pagas no Acre em 2023?",
+      "latencia_ms": 9634,
+      "num_resultados": 7,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "defesa nacional",
+            "extraido": "defesa nacional",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.7142857142857143,
+        "f1_score": 0.8333333333333333,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B13",
+      "tipo": "B",
+      "consulta": "Qual deputado mais investiu em educação no Acre em 2024?",
+      "latencia_ms": 9578,
+      "num_resultados": 3,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B14",
+      "tipo": "B",
+      "consulta": "Emendas para trabalho e emprego no Acre em 2023?",
+      "latencia_ms": 1732,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "trabalho",
+            "extraido": "trabalho e emprego",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B15",
+      "tipo": "B",
+      "consulta": "Valor das emendas para desporto e lazer no Acre em 2022?",
+      "latencia_ms": 1931,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "desporto e lazer",
+            "extraido": "desporto e lazer",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B16",
+      "tipo": "B",
+      "consulta": "Quais emendas de saúde foram pagas no Acre em 2024?",
+      "latencia_ms": 11803,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B17",
+      "tipo": "B",
+      "consulta": "Quanto foi investido em comunicações no Acre em 2023?",
+      "latencia_ms": 9237,
+      "num_resultados": 2,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "comunicacoes",
+            "extraido": "comunicações",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B18",
+      "tipo": "B",
+      "consulta": "Emendas para urbanismo no Acre em 2024?",
+      "latencia_ms": 1941,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "urbanismo",
+            "extraido": "urbanismo",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B19",
+      "tipo": "B",
+      "consulta": "Qual partido mais investiu em saúde no Acre em 2024?",
+      "latencia_ms": 10978,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B20",
+      "tipo": "B",
+      "consulta": "Emendas para previdência social no Acre em 2023?",
+      "latencia_ms": 1483,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "previdencia social",
+            "extraido": "previdência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B21",
+      "tipo": "B",
+      "consulta": "Quanto o PL investiu em educação no Acre em 2024?",
+      "latencia_ms": 1834,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "partido": {
+            "esperado": "PL",
+            "extraido": "PL",
+            "ok": true
+          },
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B22",
+      "tipo": "B",
+      "consulta": "Emendas para direitos da cidadania no Acre em 2023?",
+      "latencia_ms": 1817,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "direitos da cidadania",
+            "extraido": "direitos da cidadania",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B23",
+      "tipo": "B",
+      "consulta": "Qual deputado do MDB mais investiu em transporte no Acre em 2022?",
+      "latencia_ms": 1759,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "MDB",
+            "extraido": "MDB",
+            "ok": true
+          },
+          "area": {
+            "esperado": "transporte",
+            "extraido": "transporte",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B24",
+      "tipo": "B",
+      "consulta": "Emendas para segurança pública no Acre em 2024?",
+      "latencia_ms": 1600,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança pública",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B25",
+      "tipo": "B",
+      "consulta": "Valor das emendas para saúde no Acre em 2023?",
+      "latencia_ms": 10920,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B26",
+      "tipo": "B",
+      "consulta": "Quanto foi pago em emendas para educação no Acre em 2024?",
+      "latencia_ms": 9042,
+      "num_resultados": 3,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B27",
+      "tipo": "B",
+      "consulta": "Emendas para agricultura no Acre em 2022?",
+      "latencia_ms": 1577,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B28",
+      "tipo": "B",
+      "consulta": "Qual deputado mais investiu em saneamento no Acre em 2023?",
+      "latencia_ms": 1629,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "saneamento",
+            "extraido": "saneamento",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B29",
+      "tipo": "B",
+      "consulta": "Emendas para meio ambiente no Acre em 2024?",
+      "latencia_ms": 1819,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B30",
+      "tipo": "B",
+      "consulta": "Quanto foi empenhado em assistência social no Acre em 2023?",
+      "latencia_ms": 10188,
+      "num_resultados": 4,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C1",
+      "tipo": "C",
+      "consulta": "Houve aumento nas emendas para saneamento básico no Acre entre 2022 e 2024?",
+      "latencia_ms": 1941,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saneamento",
+            "extraido": "saneamento básico",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C2",
+      "tipo": "C",
+      "consulta": "Compare as emendas para educação entre PT e PL no Acre em 2024.",
+      "latencia_ms": 1714,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C3",
+      "tipo": "C",
+      "consulta": "Qual a tendência das emendas para saúde no Acre de 2020 a 2024?",
+      "latencia_ms": 12784,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C4",
+      "tipo": "C",
+      "consulta": "Quais áreas temáticas mais receberam emendas no Acre em 2023?",
+      "latencia_ms": 1695,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C5",
+      "tipo": "C",
+      "consulta": "Como evoluíram as emendas de bancada vs individuais no Acre entre 2020 e 2024?",
+      "latencia_ms": 12592,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C6",
+      "tipo": "C",
+      "consulta": "Top 3 deputados que mais destinaram para saúde no Acre em 2024?",
+      "latencia_ms": 9905,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C7",
+      "tipo": "C",
+      "consulta": "As emendas para segurança pública cresceram no Acre entre 2021 e 2024?",
+      "latencia_ms": 9864,
+      "num_resultados": 5,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança pública",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C8",
+      "tipo": "C",
+      "consulta": "Compare os investimentos em transporte e saúde no Acre em 2023.",
+      "sucesso": false,
+      "erro": "'list' object has no attribute 'lower'"
+    },
+    {
+      "id": "C9",
+      "tipo": "C",
+      "consulta": "Quais áreas tiveram mais crescimento em emendas no Acre de 2020 a 2024?",
+      "latencia_ms": 473651,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C10",
+      "tipo": "C",
+      "consulta": "Qual a proporção entre valor empenhado e valor pago nas emendas do Acre em 2024?",
+      "latencia_ms": 12636,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C11",
+      "tipo": "C",
+      "consulta": "Como evoluiu o investimento em saúde no Acre entre 2020 e 2024?",
+      "latencia_ms": 12096,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C12",
+      "tipo": "C",
+      "consulta": "Compare as emendas para educação e saúde no Acre em 2023.",
+      "latencia_ms": 10165,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C13",
+      "tipo": "C",
+      "consulta": "Quais partidos mais aumentaram investimento em saúde no Acre de 2021 a 2024?",
+      "latencia_ms": 12067,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "ranking",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C14",
+      "tipo": "C",
+      "consulta": "Top 5 deputados que mais receberam emendas no Acre em 2024?",
+      "latencia_ms": 10201,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C15",
+      "tipo": "C",
+      "consulta": "A taxa de execução (pago/empenhado) melhorou no Acre entre 2022 e 2024?",
+      "latencia_ms": 11206,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C16",
+      "tipo": "C",
+      "consulta": "Compare o investimento em agricultura e urbanismo no Acre em 2023.",
+      "sucesso": false,
+      "erro": "'list' object has no attribute 'lower'"
+    },
+    {
+      "id": "C17",
+      "tipo": "C",
+      "consulta": "Quais deputados do Acre mais aumentaram suas emendas entre 2020 e 2024?",
+      "latencia_ms": 11138,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C18",
+      "tipo": "C",
+      "consulta": "Houve crescimento nas emendas de meio ambiente no Acre de 2021 a 2024?",
+      "latencia_ms": 1697,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C19",
+      "tipo": "C",
+      "consulta": "Compare as emendas para segurança e educação no Acre em 2024.",
+      "latencia_ms": 2042,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C20",
+      "tipo": "C",
+      "consulta": "Qual partido teve maior crescimento em emendas de educação no Acre de 2020 a 2024?",
+      "latencia_ms": 10090,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C21",
+      "tipo": "C",
+      "consulta": "Top 3 partidos que mais investiram em transporte no Acre em 2023?",
+      "latencia_ms": 7688,
+      "num_resultados": 1,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "transporte",
+            "extraido": "transporte",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C22",
+      "tipo": "C",
+      "consulta": "Como evoluíram as emendas para cultura no Acre entre 2020 e 2024?",
+      "latencia_ms": 9709,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "cultura",
+            "extraido": "cultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C23",
+      "tipo": "C",
+      "consulta": "Compare emendas individuais vs de comissão no Acre em 2024.",
+      "latencia_ms": 8269,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C24",
+      "tipo": "C",
+      "consulta": "Quais deputados mais investiram em saúde no Acre em 2023?",
+      "latencia_ms": 11073,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C25",
+      "tipo": "C",
+      "consulta": "A participação do PT em emendas de educação no Acre cresceu de 2020 a 2024?",
+      "latencia_ms": 11901,
+      "num_resultados": 5,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "partido": {
+            "esperado": "PT",
+            "extraido": "PT",
+            "ok": true
+          },
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C26",
+      "tipo": "C",
+      "consulta": "Compare emendas de saúde no Acre entre primeiro e segundo semestre de 2024.",
+      "latencia_ms": 10534,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C27",
+      "tipo": "C",
+      "consulta": "Quais as 5 áreas com mais emendas empenhadas no Acre em 2024?",
+      "latencia_ms": 1613,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C28",
+      "tipo": "C",
+      "consulta": "Houve mudança na distribuição de emendas por tipo no Acre entre 2021 e 2024?",
+      "latencia_ms": 14924,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C29",
+      "tipo": "C",
+      "consulta": "Compare investimentos em habitação e saneamento no Acre em 2023.",
+      "latencia_ms": 33063,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparação",
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C30",
+      "tipo": "C",
+      "consulta": "Qual a evolução do valor médio por emenda no Acre de 2020 a 2024?",
+      "latencia_ms": 10624,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendência",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D1",
+      "tipo": "D",
+      "consulta": "Quais recursos a UFAC recebeu via emendas parlamentares?",
+      "latencia_ms": 14950,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.0,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "UFAC",
+            "extraido": null,
+            "ok": false
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D2",
+      "tipo": "D",
+      "consulta": "A Prefeitura de Rio Branco recebeu emendas em 2024?",
+      "latencia_ms": 13133,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Prefeitura de Rio Branco",
+            "extraido": null,
+            "ok": false
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D3",
+      "tipo": "D",
+      "consulta": "Quais emendas foram destinadas ao IFAC?",
+      "latencia_ms": 12731,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.0,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "IFAC",
+            "extraido": null,
+            "ok": false
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D4",
+      "tipo": "D",
+      "consulta": "A Santa Casa de Misericórdia recebeu recursos de emendas em 2023?",
+      "latencia_ms": 14520,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Santa Casa",
+            "extraido": null,
+            "ok": false
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D5",
+      "tipo": "D",
+      "consulta": "Quais hospitais receberam emendas no Acre em 2024?",
+      "latencia_ms": 9598,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D6",
+      "tipo": "D",
+      "consulta": "A FUNAI recebeu recursos via emendas parlamentares no Acre em 2023?",
+      "latencia_ms": 13136,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "FUNAI",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D7",
+      "tipo": "D",
+      "consulta": "Quais emendas foram destinadas ao IFAC em 2024?",
+      "latencia_ms": 11449,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.3333333333333333,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "IFAC",
+            "extraido": null,
+            "ok": false
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D8",
+      "tipo": "D",
+      "consulta": "A Prefeitura de Cruzeiro do Sul recebeu emendas em 2024?",
+      "latencia_ms": 13797,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Prefeitura de Cruzeiro do Sul",
+            "extraido": null,
+            "ok": false
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D9",
+      "tipo": "D",
+      "consulta": "Quais ONGs receberam emendas para assistência social no Acre em 2023?",
+      "latencia_ms": 8356,
+      "num_resultados": 4,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D10",
+      "tipo": "D",
+      "consulta": "O SESC recebeu recursos de emendas parlamentares no Acre em 2024?",
+      "latencia_ms": 11245,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "SESC",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D11",
+      "tipo": "D",
+      "consulta": "Quais empresas receberam emendas de saúde no Acre em 2024?",
+      "latencia_ms": 12545,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D12",
+      "tipo": "D",
+      "consulta": "Quais prefeituras do Acre receberam mais recursos de emendas em 2023?",
+      "latencia_ms": 9048,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D13",
+      "tipo": "D",
+      "consulta": "Quais instituições de ensino receberam emendas de educação no Acre em 2024?",
+      "latencia_ms": 8654,
+      "num_resultados": 3,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D14",
+      "tipo": "D",
+      "consulta": "Quais entidades receberam emendas de cultura no Acre em 2023?",
+      "latencia_ms": 7402,
+      "num_resultados": 4,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "cultura",
+            "extraido": "cultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D15",
+      "tipo": "D",
+      "consulta": "Quais fundações receberam recursos via emendas no Acre em 2024?",
+      "latencia_ms": 13507,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D16",
+      "tipo": "D",
+      "consulta": "Quais institutos federais receberam emendas para educação no Acre em 2023?",
+      "latencia_ms": 9438,
+      "num_resultados": 7,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.7142857142857143,
+        "f1_score": 0.8333333333333333,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D17",
+      "tipo": "D",
+      "consulta": "Quais municípios do Acre receberam emendas de saúde em 2024?",
+      "latencia_ms": 9512,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D18",
+      "tipo": "D",
+      "consulta": "Quais cooperativas receberam emendas de agricultura no Acre em 2023?",
+      "latencia_ms": 2398,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D19",
+      "tipo": "D",
+      "consulta": "Quais entidades de assistência social receberam emendas no Acre em 2024?",
+      "latencia_ms": 9172,
+      "num_resultados": 4,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D20",
+      "tipo": "D",
+      "consulta": "Quais hospitais receberam mais recursos de emendas no Acre em 2023?",
+      "latencia_ms": 10169,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D21",
+      "tipo": "D",
+      "consulta": "Qual deputado mais destinou recursos para instituições de ensino no Acre em 2024?",
+      "latencia_ms": 10368,
+      "num_resultados": 3,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D22",
+      "tipo": "D",
+      "consulta": "Quais beneficiários receberam emendas do deputado Roberto Duarte em 2024?",
+      "latencia_ms": 8681,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "ROBERTO DUARTE",
+            "extraido": "Roberto Duarte",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D23",
+      "tipo": "D",
+      "consulta": "O PT destinou emendas para quais hospitais no Acre em 2023?",
+      "latencia_ms": 7958,
+      "num_resultados": 4,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PT",
+            "extraido": "PT",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D24",
+      "tipo": "D",
+      "consulta": "Quais entidades receberam emendas de bancada no Acre em 2024?",
+      "latencia_ms": 8766,
+      "num_resultados": 8,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.625,
+        "f1_score": 0.7692307692307693,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D25",
+      "tipo": "D",
+      "consulta": "Qual beneficiário recebeu mais recursos via emendas no Acre em 2023?",
+      "latencia_ms": 10045,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D26",
+      "tipo": "D",
+      "consulta": "Quais prefeituras receberam emendas do PL para educação no Acre em 2024?",
+      "latencia_ms": 1960,
+      "num_resultados": 0,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "partido": {
+            "esperado": "PL",
+            "extraido": "PL",
+            "ok": true
+          },
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D27",
+      "tipo": "D",
+      "consulta": "A UFAC recebeu emendas de quais parlamentares em 2024?",
+      "latencia_ms": 11098,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.3333333333333333,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "UFAC",
+            "extraido": null,
+            "ok": false
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D28",
+      "tipo": "D",
+      "consulta": "Quais beneficiários receberam mais de R$ 1 milhão via emendas no Acre em 2024?",
+      "latencia_ms": 11542,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D29",
+      "tipo": "D",
+      "consulta": "Quais entidades de saúde no Acre receberam emendas individuais em 2023?",
+      "latencia_ms": 8287,
+      "num_resultados": 19,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D30",
+      "tipo": "D",
+      "consulta": "Qual o total de recursos recebidos pela Prefeitura de Rio Branco via emendas entre 2020 e 2024?",
+      "latencia_ms": 14013,
+      "num_resultados": 20,
+      "modo": "hibrido",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Prefeitura de Rio Branco",
+            "extraido": null,
+            "ok": false
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    }
+  ]
+}

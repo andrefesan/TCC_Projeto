@@ -21,6 +21,7 @@ class Settings(BaseSettings):
 
     # API Portal da Transparência (CGU)
     CGU_API_KEY: str = ""
+    CGU_API_KEYS: str = ""  # Comma-separated extra keys for rotation
     CGU_API_BASE_URL: str = "https://api.portaldatransparencia.gov.br/api-de-dados"
     CGU_RATE_LIMIT_RPM: int = 400
 
@@ -36,6 +37,14 @@ class Settings(BaseSettings):
     # Busca
     SIMILARITY_THRESHOLD: float = 0.45
     MAX_RESULTS: int = 20
+    MAX_RESULTS_CAP: int = 50  # Limite máximo absoluto (planner pode sugerir até este valor)
+
+    # RRF (Reciprocal Rank Fusion)
+    RRF_K: int = 60  # Parâmetro k do RRF (Cormack et al., 2009)
+    RRF_FETCH_MULTIPLIER: int = 3  # Buscar N*limit candidatos para fusão
+    RRF_WEIGHT_SQL: float = 0.7  # Peso do ranking SQL na fusão RRF
+    RRF_WEIGHT_VECTOR: float = 0.3  # Peso do ranking vetorial na fusão RRF
+    RRF_SIMILARITY_GATE: float = 0.55  # Similaridade mínima para vetor entrar na fusão
 
     # Aplicação
     APP_HOST: str = "0.0.0.0"

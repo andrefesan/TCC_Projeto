@@ -3,14 +3,19 @@ export interface QueryMetadata {
   entidades: Record<string, unknown>
   modo: string
   num_resultados: number
+  total_no_banco?: number
+  dados_completos?: boolean
 }
 
 export interface QueryResponse {
   resposta: string
+  resumo?: string
   fontes: string[]
   dados: EmendaData[]
   metadata: QueryMetadata
   disclaimer?: string
+  sugestoes_followup?: string[]
+  visualization_hint?: string
 }
 
 export interface EmendaData {

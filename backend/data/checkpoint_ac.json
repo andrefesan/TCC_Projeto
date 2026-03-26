@@ -1,0 +1,79 @@
+{
+  "deputados": {
+    "all": {
+      "status": "completed",
+      "started_at": "2026-03-13T00:57:05.380585+00:00",
+      "total": 1794,
+      "completed_at": "2026-03-13T00:57:22.346010+00:00"
+    }
+  },
+  "emendas": {
+    "2020": {
+      "status": "completed",
+      "started_at": "2026-03-13T00:57:22.347264+00:00",
+      "last_page": 320,
+      "total": 173,
+      "completed_at": "2026-03-13T00:58:51.432554+00:00"
+    },
+    "2021": {
+      "status": "completed",
+      "started_at": "2026-03-13T00:58:51.433468+00:00",
+      "last_page": 369,
+      "total": 127,
+      "completed_at": "2026-03-13T01:01:16.542486+00:00"
+    },
+    "2022": {
+      "status": "completed",
+      "started_at": "2026-03-13T01:03:06.916650+00:00",
+      "last_page": 377,
+      "total": 110,
+      "completed_at": "2026-03-13T01:04:11.868778+00:00"
+    },
+    "2023": {
+      "status": "completed",
+      "started_at": "2026-03-13T01:04:11.869757+00:00",
+      "total": 86,
+      "completed_at": "2026-03-13T01:05:45.688836+00:00"
+    },
+    "2024": {
+      "status": "completed",
+      "started_at": "2026-03-13T01:05:45.689849+00:00",
+      "last_page": 326,
+      "total": 113,
+      "completed_at": "2026-03-13T01:06:45.358908+00:00"
+    }
+  },
+  "documentos": {
+    "all": {
+      "status": "completed",
+      "started_at": "2026-03-13T01:06:45.360524+00:00",
+      "last_index": 607,
+      "total_docs": 12467,
+      "erros": 0,
+      "total": 12467,
+      "completed_at": "2026-03-13T01:14:48.346538+00:00"
+    }
+  },
+  "beneficiarios": {
+    "all": {
+      "status": "completed",
+      "started_at": "2026-03-13T02:42:45.148525+00:00",
+      "last_index": 12350,
+      "total_benef": 8,
+      "erros": 0,
+      "total": 8,
+      "completed_at": "2026-03-13T04:17:45.301959+00:00"
+    }
+  },
+  "detalhes": {
+    "all": {
+      "status": "completed",
+      "started_at": "2026-03-13T12:26:26.278968+00:00",
+      "last_index": 12466,
+      "coletados": 12467,
+      "erros": 0,
+      "total": 12467,
+      "completed_at": "2026-03-13T14:00:31.686751+00:00"
+    }
+  }
+}

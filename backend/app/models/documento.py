@@ -3,6 +3,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from app.database import Base
+from app.models.compat import VectorType
 
 
 class DocumentoEmenda(Base):
@@ -37,6 +38,7 @@ class DocumentoEmenda(Base):
     favorecido_uf = Column(String(2))
     numero_processo = Column(String(50))
     plano_orcamentario = Column(String(300))
+    embedding = Column(VectorType)
     detalhes_coletados = Column(Integer, default=0)  # flag: 1 = detalhes já coletados
 
     created_at = Column(TIMESTAMP, server_default=func.now())
@@ -44,4 +46,7 @@ class DocumentoEmenda(Base):
     emenda = relationship("Emenda", back_populates="documentos")
     beneficiarios = relationship(
         "Beneficiario", back_populates="documento", cascade="all, delete-orphan"
+    )
+    favorecidos_rel = relationship(
+        "DocumentoFavorecido", back_populates="documento", cascade="all, delete-orphan"
     )

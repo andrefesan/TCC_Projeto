@@ -1,0 +1,516 @@
+{
+  "emendas": {
+    "2020": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:10:41.467402+00:00",
+      "last_page": 563,
+      "total": 8207,
+      "skip": 237,
+      "completed_at": "2026-03-15T05:12:49.901931+00:00"
+    },
+    "2021": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:12:49.902802+00:00",
+      "last_page": 436,
+      "total": 6468,
+      "skip": 127,
+      "completed_at": "2026-03-15T05:14:22.572774+00:00"
+    },
+    "2022": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:16:37.734787+00:00",
+      "last_page": 401,
+      "total": 793,
+      "skip": 18,
+      "completed_at": "2026-03-15T05:16:49.278519+00:00"
+    },
+    "2023": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:33:28.507985+00:00",
+      "last_page": 403,
+      "total": 3173,
+      "skip": 70,
+      "completed_at": "2026-03-15T05:36:56.254479+00:00"
+    },
+    "2024": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:36:56.255569+00:00",
+      "last_page": 375,
+      "total": 5539,
+      "skip": 113,
+      "completed_at": "2026-03-15T05:38:22.018618+00:00"
+    }
+  },
+  "documentos": {
+    "AL": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:38:22.021076+00:00",
+      "last_index": 474,
+      "total_docs": 15630,
+      "erros": 0,
+      "total": 15630,
+      "completed_at": "2026-03-15T05:44:53.854987+00:00"
+    },
+    "AM": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:44:53.857140+00:00",
+      "last_index": 495,
+      "total_docs": 13223,
+      "erros": 0,
+      "total": 13223,
+      "completed_at": "2026-03-15T05:51:06.952563+00:00"
+    },
+    "AP": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:51:06.954959+00:00",
+      "last_index": 552,
+      "total_docs": 9448,
+      "erros": 0,
+      "total": 9448,
+      "completed_at": "2026-03-15T05:57:01.548636+00:00"
+    },
+    "BA": {
+      "status": "completed",
+      "started_at": "2026-03-15T05:57:01.550810+00:00",
+      "last_index": 1790,
+      "total_docs": 50657,
+      "erros": 0,
+      "total": 50657,
+      "completed_at": "2026-03-15T06:20:27.005205+00:00"
+    },
+    "CE": {
+      "status": "completed",
+      "started_at": "2026-03-15T06:20:27.007469+00:00",
+      "last_index": 1322,
+      "total_docs": 19047,
+      "erros": 0,
+      "total": 19047,
+      "completed_at": "2026-03-15T06:34:05.097317+00:00"
+    },
+    "DF": {
+      "status": "completed",
+      "started_at": "2026-03-15T06:34:05.099402+00:00",
+      "last_index": 583,
+      "total_docs": 15194,
+      "erros": 0,
+      "total": 15194,
+      "completed_at": "2026-03-15T06:41:11.076075+00:00"
+    },
+    "ES": {
+      "status": "completed",
+      "started_at": "2026-03-15T06:41:11.078429+00:00",
+      "last_index": 699,
+      "total_docs": 22901,
+      "erros": 0,
+      "total": 22901,
+      "completed_at": "2026-03-15T06:50:41.600411+00:00"
+    },
+    "GO": {
+      "status": "completed",
+      "started_at": "2026-03-15T06:50:41.602481+00:00",
+      "last_index": 948,
+      "total_docs": 27410,
+      "erros": 0,
+      "total": 27410,
+      "completed_at": "2026-03-15T07:03:16.199359+00:00"
+    },
+    "MA": {
+      "status": "completed",
+      "started_at": "2026-03-15T07:03:16.201517+00:00",
+      "last_index": 717,
+      "total_docs": 15696,
+      "erros": 0,
+      "total": 15696,
+      "completed_at": "2026-03-15T07:11:43.016183+00:00"
+    },
+    "MG": {
+      "status": "completed",
+      "started_at": "2026-03-15T07:11:43.018560+00:00",
+      "last_index": 2579,
+      "total_docs": 73922,
+      "erros": 0,
+      "total": 73922,
+      "completed_at": "2026-03-15T07:46:51.569076+00:00"
+    },
+    "MS": {
+      "status": "completed",
+      "started_at": "2026-03-15T07:46:51.571709+00:00",
+      "last_index": 631,
+      "total_docs": 39754,
+      "erros": 0,
+      "total": 39754,
+      "completed_at": "2026-03-15T07:58:50.077074+00:00"
+    },
+    "MT": {
+      "status": "completed",
+      "started_at": "2026-03-15T07:58:50.079133+00:00",
+      "last_index": 444,
+      "total_docs": 11093,
+      "erros": 0,
+      "total": 11093,
+      "completed_at": "2026-03-15T08:04:19.774029+00:00"
+    },
+    "PA": {
+      "status": "completed",
+      "started_at": "2026-03-15T08:04:19.776593+00:00",
+      "last_index": 792,
+      "total_docs": 18951,
+      "erros": 0,
+      "total": 18951,
+      "completed_at": "2026-03-15T08:14:24.011550+00:00"
+    },
+    "PB": {
+      "status": "completed",
+      "started_at": "2026-03-15T08:14:24.013560+00:00",
+      "last_index": 867,
+      "total_docs": 22409,
+      "erros": 0,
+      "total": 22409,
+      "completed_at": "2026-03-15T08:25:18.247941+00:00"
+    },
+    "PE": {
+      "status": "completed",
+      "started_at": "2026-03-15T08:25:18.250158+00:00",
+      "last_index": 1446,
+      "total_docs": 26796,
+      "erros": 0,
+      "total": 26796,
+      "completed_at": "2026-03-15T08:41:32.025365+00:00"
+    },
+    "PI": {
+      "status": "completed",
+      "started_at": "2026-03-15T08:41:32.027780+00:00",
+      "last_index": 473,
+      "total_docs": 14162,
+      "erros": 0,
+      "total": 14162,
+      "completed_at": "2026-03-15T08:47:52.507541+00:00"
+    },
+    "PR": {
+      "status": "completed",
+      "started_at": "2026-03-15T08:47:52.509985+00:00",
+      "last_index": 1478,
+      "total_docs": 36089,
+      "erros": 0,
+      "total": 36089,
+      "completed_at": "2026-03-15T09:06:28.602978+00:00"
+    },
+    "RJ": {
+      "status": "completed",
+      "started_at": "2026-03-15T09:06:28.605496+00:00",
+      "last_index": 2898,
+      "total_docs": 43217,
+      "erros": 0,
+      "total": 43217,
+      "completed_at": "2026-03-15T09:36:30.132065+00:00"
+    },
+    "RN": {
+      "status": "completed",
+      "started_at": "2026-03-15T09:36:30.134268+00:00",
+      "last_index": 747,
+      "total_docs": 33175,
+      "erros": 0,
+      "total": 33175,
+      "completed_at": "2026-03-15T09:48:13.672125+00:00"
+    },
+    "RO": {
+      "status": "completed",
+      "started_at": "2026-03-15T09:48:13.674538+00:00",
+      "last_index": 445,
+      "total_docs": 25824,
+      "erros": 0,
+      "total": 25824,
+      "completed_at": "2026-03-15T09:56:22.376214+00:00"
+    },
+    "RR": {
+      "status": "completed",
+      "started_at": "2026-03-15T09:56:22.378726+00:00",
+      "last_index": 455,
+      "total_docs": 7514,
+      "erros": 0,
+      "total": 7514,
+      "completed_at": "2026-03-15T10:01:10.581884+00:00"
+    },
+    "RS": {
+      "status": "completed",
+      "started_at": "2026-03-15T10:01:10.584173+00:00",
+      "last_index": 1712,
+      "total_docs": 57402,
+      "erros": 0,
+      "total": 57402,
+      "completed_at": "2026-03-15T10:26:15.432103+00:00"
+    },
+    "SC": {
+      "status": "completed",
+      "started_at": "2026-03-15T10:26:15.434306+00:00",
+      "last_index": 871,
+      "total_docs": 23006,
+      "erros": 0,
+      "total": 23006,
+      "completed_at": "2026-03-15T10:37:29.586417+00:00"
+    },
+    "SE": {
+      "status": "completed",
+      "started_at": "2026-03-15T10:37:29.588717+00:00",
+      "last_index": 487,
+      "total_docs": 16319,
+      "erros": 0,
+      "total": 16319,
+      "completed_at": "2026-03-15T10:44:13.818628+00:00"
+    },
+    "SP": {
+      "status": "completed",
+      "started_at": "2026-03-15T10:44:13.821100+00:00",
+      "last_index": 3649,
+      "total_docs": 66312,
+      "erros": 0,
+      "total": 66312,
+      "completed_at": "2026-03-15T11:26:23.381952+00:00"
+    },
+    "TO": {
+      "status": "completed",
+      "started_at": "2026-03-15T11:26:23.384241+00:00",
+      "last_index": 503,
+      "total_docs": 12953,
+      "erros": 0,
+      "total": 12953,
+      "completed_at": "2026-03-15T11:32:41.491976+00:00"
+    }
+  },
+  "detalhes": {
+    "AL": {
+      "status": "completed",
+      "started_at": "2026-03-15T11:32:41.494394+00:00",
+      "last_index": 15629,
+      "coletados": 15630,
+      "erros": 0,
+      "total": 15630,
+      "completed_at": "2026-03-15T13:23:08.733759+00:00"
+    },
+    "AM": {
+      "status": "completed",
+      "started_at": "2026-03-15T13:23:08.736273+00:00",
+      "last_index": 13222,
+      "coletados": 13223,
+      "erros": 0,
+      "total": 13223,
+      "completed_at": "2026-03-15T14:57:00.060199+00:00"
+    },
+    "AP": {
+      "status": "completed",
+      "started_at": "2026-03-15T15:50:22.094199+00:00",
+      "last_index": 7449,
+      "coletados": 7450,
+      "erros": 0,
+      "total": 0,
+      "completed_at": "2026-03-15T15:50:22.256816+00:00"
+    },
+    "BA": {
+      "status": "completed",
+      "started_at": "2026-03-16T05:13:08.958470+00:00",
+      "last_index": 26926,
+      "coletados": 2326,
+      "erros": 0,
+      "total": 2326,
+      "completed_at": "2026-03-16T05:15:16.995990+00:00"
+    },
+    "RS": {
+      "status": "completed",
+      "started_at": "2026-03-15T17:36:11.599253+00:00",
+      "last_index": 57352,
+      "coletados": 57352,
+      "erros": 0,
+      "total": 57352,
+      "completed_at": "2026-03-15T19:18:14.124706+00:00"
+    },
+    "PR": {
+      "status": "completed",
+      "started_at": "2026-03-15T19:18:14.126930+00:00",
+      "last_index": 36089,
+      "coletados": 36089,
+      "erros": 0,
+      "total": 36089,
+      "completed_at": "2026-03-15T20:22:24.355210+00:00"
+    },
+    "SC": {
+      "status": "completed",
+      "started_at": "2026-03-15T20:22:24.356977+00:00",
+      "last_index": 23006,
+      "coletados": 23006,
+      "erros": 0,
+      "total": 23006,
+      "completed_at": "2026-03-15T21:03:17.399162+00:00"
+    },
+    "SP": {
+      "status": "completed",
+      "started_at": "2026-03-15T21:03:17.401014+00:00",
+      "last_index": 66312,
+      "coletados": 66312,
+      "erros": 0,
+      "total": 66312,
+      "completed_at": "2026-03-15T23:01:27.499169+00:00"
+    },
+    "RJ": {
+      "status": "completed",
+      "started_at": "2026-03-15T23:01:27.501015+00:00",
+      "last_index": 43217,
+      "coletados": 43217,
+      "erros": 0,
+      "total": 43217,
+      "completed_at": "2026-03-16T00:19:15.178370+00:00"
+    },
+    "MG": {
+      "status": "completed",
+      "started_at": "2026-03-16T00:19:15.180164+00:00",
+      "last_index": 73922,
+      "coletados": 73922,
+      "erros": 0,
+      "total": 73922,
+      "completed_at": "2026-03-16T02:33:23.345290+00:00"
+    },
+    "ES": {
+      "status": "completed",
+      "started_at": "2026-03-16T02:33:23.347522+00:00",
+      "last_index": 22901,
+      "coletados": 22901,
+      "erros": 0,
+      "total": 22901,
+      "completed_at": "2026-03-16T03:14:12.596632+00:00"
+    },
+    "GO": {
+      "status": "completed",
+      "started_at": "2026-03-16T03:15:48.843619+00:00",
+      "last_index": 26760,
+      "coletados": 26160,
+      "erros": 0,
+      "total": 26160,
+      "completed_at": "2026-03-16T03:51:29.214126+00:00"
+    },
+    "MS": {
+      "status": "completed",
+      "started_at": "2026-03-16T03:51:29.216277+00:00",
+      "last_index": 39754,
+      "coletados": 39754,
+      "erros": 0,
+      "total": 39754,
+      "completed_at": "2026-03-16T04:45:41.189162+00:00"
+    },
+    "MT": {
+      "status": "completed",
+      "started_at": "2026-03-16T04:45:41.191084+00:00",
+      "last_index": 11093,
+      "coletados": 11092,
+      "erros": 0,
+      "total": 11093,
+      "completed_at": "2026-03-16T05:00:47.280363+00:00"
+    },
+    "DF": {
+      "status": "completed",
+      "started_at": "2026-03-16T05:00:47.282579+00:00",
+      "last_index": 13504,
+      "coletados": 13504,
+      "erros": 0,
+      "total": 13504,
+      "completed_at": "2026-03-16T05:13:08.956519+00:00"
+    },
+    "CE": {
+      "status": "completed",
+      "started_at": "2026-03-16T05:15:16.998034+00:00",
+      "last_index": 13297,
+      "coletados": 13297,
+      "erros": 0,
+      "total": 13297,
+      "completed_at": "2026-03-16T05:27:27.384007+00:00"
+    },
+    "MA": {
+      "status": "completed",
+      "started_at": "2026-03-16T05:27:27.385800+00:00",
+      "last_index": 15696,
+      "coletados": 15696,
+      "erros": 0,
+      "total": 15696,
+      "completed_at": "2026-03-16T05:41:49.061198+00:00"
+    },
+    "PA": {
+      "status": "completed",
+      "started_at": "2026-03-16T05:41:49.063063+00:00",
+      "last_index": 18951,
+      "coletados": 18951,
+      "erros": 0,
+      "total": 18951,
+      "completed_at": "2026-03-16T05:59:08.735150+00:00"
+    },
+    "PB": {
+      "status": "completed",
+      "started_at": "2026-03-16T05:59:08.737236+00:00",
+      "last_index": 22409,
+      "coletados": 22391,
+      "erros": 0,
+      "total": 22409,
+      "completed_at": "2026-03-16T06:20:11.566775+00:00"
+    },
+    "PE": {
+      "status": "completed",
+      "started_at": "2026-03-16T06:20:11.570100+00:00",
+      "last_index": 26796,
+      "coletados": 26795,
+      "erros": 0,
+      "total": 26796,
+      "completed_at": "2026-03-16T06:44:55.399347+00:00"
+    },
+    "PI": {
+      "status": "completed",
+      "started_at": "2026-03-16T06:44:55.401725+00:00",
+      "last_index": 14162,
+      "coletados": 14147,
+      "erros": 0,
+      "total": 14162,
+      "completed_at": "2026-03-16T06:58:08.004371+00:00"
+    },
+    "RN": {
+      "status": "completed",
+      "started_at": "2026-03-16T06:58:08.006301+00:00",
+      "last_index": 33175,
+      "coletados": 33175,
+      "erros": 0,
+      "total": 33175,
+      "completed_at": "2026-03-16T07:30:12.109103+00:00"
+    },
+    "RO": {
+      "status": "completed",
+      "started_at": "2026-03-16T07:30:12.110956+00:00",
+      "last_index": 25824,
+      "coletados": 25824,
+      "erros": 0,
+      "total": 25824,
+      "completed_at": "2026-03-16T07:57:24.404202+00:00"
+    },
+    "RR": {
+      "status": "completed",
+      "started_at": "2026-03-16T07:57:24.406204+00:00",
+      "last_index": 7514,
+      "coletados": 7512,
+      "erros": 0,
+      "total": 7514,
+      "completed_at": "2026-03-16T08:05:09.150159+00:00"
+    },
+    "SE": {
+      "status": "completed",
+      "started_at": "2026-03-16T08:05:09.152294+00:00",
+      "last_index": 16319,
+      "coletados": 16319,
+      "erros": 0,
+      "total": 16319,
+      "completed_at": "2026-03-16T08:20:53.492904+00:00"
+    },
+    "TO": {
+      "status": "completed",
+      "started_at": "2026-03-16T08:20:53.494673+00:00",
+      "last_index": 12953,
+      "coletados": 12952,
+      "erros": 0,
+      "total": 12953,
+      "completed_at": "2026-03-16T08:33:20.497829+00:00"
+    }
+  }
+}

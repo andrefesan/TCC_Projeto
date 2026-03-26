@@ -1,4 +1,5 @@
 import asyncio
+import itertools
 import re
 import httpx
 from typing import AsyncGenerator
@@ -22,13 +23,19 @@ ESTADOS = {
 }
 
 FUNCOES = {
-    "Saúde": "10", "Educação": "12", "Segurança Pública": "06",
-    "Transporte": "26", "Assistência Social": "08", "Cultura": "13",
-    "Defesa Nacional": "05", "Agricultura": "20",
-    "Ciência e Tecnologia": "19", "Meio Ambiente": "18",
-    "Direitos da Cidadania": "14", "Desporto e Lazer": "27",
-    "Habitação": "16", "Saneamento": "17", "Trabalho": "11",
-    "Previdência Social": "09", "Comunicações": "24", "Turismo": "23",
+    "Legislativa": "01", "Judiciária": "02", "Essencial à Justiça": "03",
+    "Administração": "04", "Defesa Nacional": "05", "Segurança Pública": "06",
+    "Relações Exteriores": "07", "Assistência Social": "08",
+    "Previdência Social": "09", "Saúde": "10", "Trabalho": "11",
+    "Educação": "12", "Cultura": "13", "Direitos da Cidadania": "14",
+    "Urbanismo": "15", "Habitação": "16", "Saneamento": "17",
+    "Gestão Ambiental": "18", "Gestão ambiental": "18",
+    "Ciência e Tecnologia": "19", "Agricultura": "20",
+    "Organização Agrária": "21", "Indústria": "22",
+    "Comércio e Serviços": "23", "Comunicações": "24",
+    "Energia": "25", "Transporte": "26", "Desporto e Lazer": "27",
+    "Encargos Especiais": "28", "Encargos especiais": "28",
+    "Meio Ambiente": "18", "Turismo": "23",
 }
 
 
@@ -38,8 +45,55 @@ class CGUCollector:
     BASE_URL = "https://api.portaldatransparencia.gov.br/api-de-dados"
 
     def __init__(self):
-        self.rate_limiter = RateLimiter(settings.CGU_RATE_LIMIT_RPM)
-        self.headers = {"chave-api-dados": settings.CGU_API_KEY}
+        # Collect all API keys for rotation
+        keys = [k.strip() for k in settings.CGU_API_KEYS.split(",") if k.strip()] if settings.CGU_API_KEYS else []
+        if settings.CGU_API_KEY and settings.CGU_API_KEY not in keys:
+            keys.insert(0, settings.CGU_API_KEY)
+        if not keys:
+            keys = [settings.CGU_API_KEY]
+        self._api_keys = keys
+        self._key_cycle = itertools.cycle(keys)
+        # Dynamic RPM cap based on time of day (night = less WAF risk)
+        from datetime import datetime
+        hour = datetime.now().hour
+        rpm_cap = 1200 if (0 <= hour < 6) else 800 if (hour >= 22 or hour < 8) else 600
+        total_rpm = min(settings.CGU_RATE_LIMIT_RPM * len(keys), rpm_cap)
+        self.rate_limiter = RateLimiter(total_rpm)
+        self.headers = {"chave-api-dados": keys[0]}
+        logger.info("cgu_collector_init", num_keys=len(keys), total_rpm=total_rpm)
+
+    def update_rpm_for_current_hour(self):
+        """Recalculate RPM cap based on current hour (call per-UF)."""
+        from datetime import datetime
+        hour = datetime.now().hour
+        rpm_cap = 1200 if (0 <= hour < 6) else 800 if (hour >= 22 or hour < 8) else 600
+        total_rpm = min(settings.CGU_RATE_LIMIT_RPM * len(self._api_keys), rpm_cap)
+        self.rate_limiter = RateLimiter(total_rpm)
+        logger.info("rpm_updated", rpm=total_rpm, hour=hour)
+
+    def _next_headers(self) -> dict:
+        """Rotate to next API key and return headers."""
+        key = next(self._key_cycle)
+        return {"chave-api-dados": key}
+
+    async def get_shared_client(self) -> httpx.AsyncClient:
+        """Return a shared httpx client (create once, reuse)."""
+        if not hasattr(self, '_shared_client') or self._shared_client is None:
+            self._shared_client = httpx.AsyncClient(
+                timeout=60.0,
+                limits=httpx.Limits(
+                    max_connections=30,
+                    max_keepalive_connections=20,
+                ),
+                follow_redirects=True,
+            )
+        return self._shared_client
+
+    async def close_shared_client(self):
+        """Close the shared client when done."""
+        if hasattr(self, '_shared_client') and self._shared_client is not None:
+            await self._shared_client.aclose()
+            self._shared_client = None
 
     async def coletar_emendas(self, ano: int, start_page: int = 1) -> AsyncGenerator[dict, None]:
         """Coleta todas as emendas de um ano com paginação automática."""
@@ -55,7 +109,7 @@ class CGUCollector:
                     response = await client.get(
                         f"{self.BASE_URL}/emendas",
                         params={"ano": ano, "pagina": pagina},
-                        headers=self.headers,
+                        headers=self._next_headers(),
                     )
 
                     if response.status_code == 429:
@@ -137,18 +191,43 @@ class CGUCollector:
     @staticmethod
     def _extrair_codigo_funcao(funcao_str: str) -> str:
         """Extrai código da função a partir do nome."""
-        for nome, codigo in FUNCOES.items():
-            if nome.lower() in funcao_str.lower():
+        funcao_lower = funcao_str.lower().strip()
+        # Match exato primeiro, depois substring (mais longo primeiro para evitar
+        # "cultura" casar com "agricultura")
+        for nome, codigo in sorted(FUNCOES.items(), key=lambda x: -len(x[0])):
+            if funcao_lower == nome.lower():
+                return codigo
+        for nome, codigo in sorted(FUNCOES.items(), key=lambda x: -len(x[0])):
+            if nome.lower() in funcao_lower:
                 return codigo
         return ""
 
     @staticmethod
-    def _extrair_codigo_subfuncao(subfuncao_str: str) -> str:
-        """Extrai código numérico da subfunção se presente."""
+    def _extrair_codigo_subfuncao(subfuncao_str: str, db=None) -> str:
+        """Extrai código numérico da subfunção.
+
+        Aceita formatos:
+        - "244 - Assistência comunitária" (documentos) → extrai "244"
+        - "Assistência comunitária" (emendas) → busca na tabela subfuncoes
+        """
         if not subfuncao_str:
             return ""
+        # Formato com código numérico prefixado
         match = re.match(r"^(\d{3})", subfuncao_str)
-        return match.group(1) if match else ""
+        if match:
+            return match.group(1)
+        # Formato apenas nome — busca na tabela subfuncoes se db disponível
+        if db:
+            from sqlalchemy import text
+            try:
+                row = db.execute(text(
+                    "SELECT codigo FROM subfuncoes WHERE LOWER(nome) = :n LIMIT 1"
+                ), {"n": subfuncao_str.lower().strip()}).fetchone()
+                if row:
+                    return row[0]
+            except Exception:
+                pass
+        return ""
 
     async def coletar_documentos_emenda(self, codigo_emenda: str,
                                         max_network_retries: int = 5) -> list[dict]:
@@ -164,7 +243,7 @@ class CGUCollector:
                     response = await client.get(
                         f"{self.BASE_URL}/emendas/documentos/{codigo_emenda}",
                         params={"pagina": pagina},
-                        headers=self.headers,
+                        headers=self._next_headers(),
                     )
 
                     if response.status_code == 429:
@@ -230,7 +309,7 @@ class CGUCollector:
                     response = await client.get(
                         f"{self.BASE_URL}/despesas/favorecidos-finais-por-documento",
                         params={"codigoDocumento": codigo_documento, "pagina": pagina},
-                        headers=self.headers,
+                        headers=self._next_headers(),
                     )
 
                     if response.status_code == 429:
@@ -283,43 +362,241 @@ class CGUCollector:
         return beneficiarios
 
     async def coletar_detalhes_documento(self, codigo_documento: str,
-                                        max_network_retries: int = 5) -> dict | None:
+                                        max_network_retries: int = 5,
+                                        client: httpx.AsyncClient | None = None) -> dict | None:
         """Coleta detalhes completos de um documento de despesa."""
         network_retries = 0
-        async with httpx.AsyncClient(timeout=30.0) as client:
+        _client = client or await self.get_shared_client()
+        while True:
+            await self.rate_limiter.acquire()
+            try:
+                response = await _client.get(
+                    f"{self.BASE_URL}/despesas/documentos/{codigo_documento}",
+                    headers=self._next_headers(),
+                )
+
+                if response.status_code in (429, 401, 405):
+                    network_retries += 1
+                    if network_retries <= 2:
+                        logger.warning("rate_limit_or_auth_retry",
+                                       status=response.status_code,
+                                       codigo=codigo_documento,
+                                       retry=network_retries)
+                    if network_retries >= max_network_retries:
+                        raise httpx.HTTPStatusError(
+                            f"Max retries on {response.status_code}",
+                            request=response.request,
+                            response=response,
+                        )
+                    await asyncio.sleep(3 * network_retries)
+                    continue
+
+                if response.status_code == 404:
+                    return None
+
+                response.raise_for_status()
+                return response.json()
+
+            except httpx.HTTPStatusError as e:
+                logger.error("http_error_doc_detalhe", status=e.response.status_code,
+                             codigo=codigo_documento)
+                if e.response.status_code >= 500:
+                    await asyncio.sleep(30)
+                    continue
+                raise
+            except (httpx.ReadError, httpx.ConnectError, httpx.RemoteProtocolError,
+                    httpx.ReadTimeout, httpx.ConnectTimeout) as e:
+                network_retries += 1
+                logger.warning("network_error_detalhe", tipo=type(e).__name__,
+                               codigo=codigo_documento, retry=network_retries)
+                if network_retries >= max_network_retries:
+                    logger.error("max_retries_detalhe", codigo=codigo_documento)
+                    return None
+                await asyncio.sleep(10)
+                continue
+
+    # -----------------------------------------------------------------------
+    # Sanções
+    # -----------------------------------------------------------------------
+    async def _coletar_paginado(self, endpoint: str, label: str,
+                                start_page: int = 1,
+                                params_extra: dict | None = None,
+                                max_network_retries: int = 5) -> AsyncGenerator[dict, None]:
+        """Coleta genérica paginada para qualquer endpoint da API CGU."""
+        pagina = start_page
+        self.current_page = start_page
+        total = 0
+        network_retries = 0
+
+        async with httpx.AsyncClient(timeout=60.0) as client:
             while True:
                 await self.rate_limiter.acquire()
+                params = {"pagina": pagina}
+                if params_extra:
+                    params.update(params_extra)
+
                 try:
                     response = await client.get(
-                        f"{self.BASE_URL}/despesas/documentos/{codigo_documento}",
-                        headers=self.headers,
+                        f"{self.BASE_URL}/{endpoint}",
+                        params=params,
+                        headers=self._next_headers(),
                     )
 
                     if response.status_code == 429:
-                        logger.warning("rate_limit_hit_detalhe", codigo=codigo_documento)
+                        logger.warning("rate_limit_hit", endpoint=label, pagina=pagina)
                         await asyncio.sleep(10)
                         continue
 
-                    if response.status_code == 404:
-                        return None
+                    if response.status_code in (301, 302, 303, 307, 308, 404):
+                        logger.info("paginacao_fim", endpoint=label,
+                                    pagina=pagina, status=response.status_code)
+                        break
 
                     response.raise_for_status()
-                    return response.json()
+                    data = response.json()
+
+                    if not data:
+                        logger.info("coleta_completa", endpoint=label, total=total)
+                        break
+
+                    for item in data:
+                        yield item
+                        total += 1
+
+                    pagina += 1
+                    self.current_page = pagina
+                    network_retries = 0
 
                 except httpx.HTTPStatusError as e:
-                    logger.error("http_error_doc_detalhe", status=e.response.status_code,
-                                 codigo=codigo_documento)
+                    logger.error("http_error", endpoint=label,
+                                 status=e.response.status_code, pagina=pagina)
                     if e.response.status_code >= 500:
                         await asyncio.sleep(30)
                         continue
-                    return None
-                except (httpx.ReadError, httpx.ConnectError, httpx.RemoteProtocolError,
+                    raise
+                except (httpx.ReadError, httpx.ConnectError,
+                        httpx.RemoteProtocolError,
                         httpx.ReadTimeout, httpx.ConnectTimeout) as e:
                     network_retries += 1
-                    logger.warning("network_error_detalhe", tipo=type(e).__name__,
-                                   codigo=codigo_documento, retry=network_retries)
+                    logger.warning("network_error", endpoint=label,
+                                   tipo=type(e).__name__, pagina=pagina,
+                                   retry=network_retries)
                     if network_retries >= max_network_retries:
-                        logger.error("max_retries_detalhe", codigo=codigo_documento)
-                        return None
+                        logger.error("max_retries", endpoint=label, pagina=pagina)
+                        break
                     await asyncio.sleep(10)
                     continue
+
+    async def coletar_sancoes_ceis(self, start_page: int = 1) -> AsyncGenerator[dict, None]:
+        """Coleta cadastro CEIS (empresas inidôneas e suspensas)."""
+        async for item in self._coletar_paginado("ceis", "ceis", start_page):
+            yield self._normalizar_sancao(item, "CEIS")
+
+    async def coletar_sancoes_cnep(self, start_page: int = 1) -> AsyncGenerator[dict, None]:
+        """Coleta cadastro CNEP (empresas punidas)."""
+        async for item in self._coletar_paginado("cnep", "cnep", start_page):
+            yield self._normalizar_sancao(item, "CNEP")
+
+    async def coletar_sancoes_cepim(self, start_page: int = 1) -> AsyncGenerator[dict, None]:
+        """Coleta cadastro CEPIM (entidades impedidas)."""
+        async for item in self._coletar_paginado("cepim", "cepim", start_page):
+            yield {
+                "cnpj": (item.get("cnpjSancionado") or item.get("cnpj", "")).strip(),
+                "nome": (item.get("nomeSancionado") or item.get("razaoSocial", "")).strip(),
+                "motivo": self._flatten_field(item.get("motivoImpedimento", "")),
+                "orgao_maximo": self._flatten_field(item.get("orgaoEntidade", "")),
+            }
+
+    async def coletar_sancoes_ceaf(self, start_page: int = 1) -> AsyncGenerator[dict, None]:
+        """Coleta cadastro CEAF (servidores punidos)."""
+        async for item in self._coletar_paginado("ceaf", "ceaf", start_page):
+            yield {
+                "cpf": (item.get("cpfSancionado") or "").strip(),
+                "nome": (item.get("nomeSancionado") or "").strip(),
+                "tipo_punicao": self._flatten_field(item.get("descricaoPunicao", "")),
+                "orgao_lotacao": self._flatten_field(item.get("orgaoLotacao", "")),
+                "data_inicio": item.get("dataPublicacao"),
+                "data_fim": item.get("dataFimPunicao"),
+            }
+
+    @staticmethod
+    def _flatten_field(val, preferred_keys=("descricao", "nome", "razaoSocial")) -> str:
+        """Converte campo que pode ser dict/list para string."""
+        if val is None:
+            return ""
+        if isinstance(val, str):
+            return val.strip()
+        if isinstance(val, dict):
+            for k in preferred_keys:
+                for dk in val:
+                    if k.lower() in dk.lower() and val[dk]:
+                        return str(val[dk]).strip()
+            # fallback: primeiro valor string não-vazio
+            for v in val.values():
+                if isinstance(v, str) and v.strip():
+                    return v.strip()
+            return str(val)
+        if isinstance(val, list):
+            return "; ".join(str(v) for v in val)
+        return str(val)
+
+    def _normalizar_sancao(self, raw: dict, tipo: str) -> dict:
+        """Normaliza dados de sanção CEIS/CNEP."""
+        cpf_cnpj = (raw.get("cpfCnpjSancionado")
+                     or raw.get("codigoSancionado")
+                     or raw.get("cnpjCpf", "")).strip()
+        result = {
+            "cpf_cnpj": cpf_cnpj,
+            "nome": (raw.get("nomeSancionado") or "").strip(),
+            "tipo_sancao": self._flatten_field(raw.get("tipoSancao", "")),
+            "orgao_sancionador": self._flatten_field(raw.get("orgaoSancionador", "")),
+            "data_inicio": raw.get("dataInicioSancao"),
+            "data_fim": raw.get("dataFimSancao"),
+        }
+        if tipo == "CNEP":
+            result["valor_multa"] = self._parse_valor(raw.get("valorMulta", "0"))
+        else:
+            result["fundamentacao"] = raw.get("fundamentacaoLegal", "")
+        return result
+
+    # -----------------------------------------------------------------------
+    # Convênios
+    # -----------------------------------------------------------------------
+    async def coletar_convenios(self, data_inicial: str, data_final: str,
+                                start_page: int = 1) -> AsyncGenerator[dict, None]:
+        """Coleta convênios do Poder Executivo Federal."""
+        params = {"dataInicial": data_inicial, "dataFinal": data_final}
+        async for item in self._coletar_paginado("convenios", "convenios",
+                                                  start_page, params):
+            dim = item.get("dimConvenio") or {}
+            convenente = item.get("convenente") or {}
+            mun = item.get("municipioConvenente") or {}
+            uf_obj = mun.get("uf") or {}
+            orgao = item.get("orgao") or {}
+            orgao_max = orgao.get("orgaoMaximo") or {}
+            subfuncao_obj = item.get("subfuncao") or {}
+            funcao_obj = subfuncao_obj.get("funcao") or {}
+
+            cpf_cnpj = (convenente.get("cnpjFormatado")
+                        or convenente.get("cpfFormatado") or "").strip()
+            # API tem sigla/nome invertidos para UF
+            uf_sigla = uf_obj.get("nome") or uf_obj.get("sigla", "")
+            if len(uf_sigla) > 2:
+                uf_sigla = uf_obj.get("sigla", uf_sigla)
+
+            yield {
+                "numero_convenio": str(dim.get("numero") or dim.get("codigo", "")),
+                "situacao": item.get("situacao", ""),
+                "orgao_concedente": orgao_max.get("nome") or orgao.get("nome", ""),
+                "cpf_cnpj_convenente": cpf_cnpj,
+                "nome_convenente": (convenente.get("nome") or "").strip(),
+                "uf": uf_sigla,
+                "municipio": mun.get("nomeIBGE", ""),
+                "objeto": dim.get("objeto", ""),
+                "valor_convenio": self._parse_valor(item.get("valor", 0)),
+                "valor_liberado": self._parse_valor(item.get("valorLiberado", 0)),
+                "data_inicio": item.get("dataInicioVigencia"),
+                "data_fim": item.get("dataFinalVigencia"),
+                "funcao": funcao_obj.get("codigoFuncao", ""),
+                "subfuncao": subfuncao_obj.get("codigoSubfuncao", ""),
+            }

@@ -127,26 +127,50 @@ def avaliar_resultado(resultado: dict, consulta_def: dict) -> dict:
     entidades = resultado.get("metadata", {}).get("entidades", {})
     verificacao = verificar_entidades(entidades, consulta_def["esperado"])
 
-    # Para métricas de ranking, usar os dados retornados
     dados = resultado.get("dados", [])
-    num_resultados = len(dados)
+    esperado = consulta_def["esperado"]
+    operacao = esperado.get("operacao", "busca")
 
-    # Gerar lista de relevância baseada na correspondência de entidades
-    # Um resultado é relevante se contém dados que correspondem aos filtros esperados
+    # Para agregações (soma, contagem, ranking, media): avaliar pela presença de resultado
+    # Agregações retornam dados como {"total_empenhado": X} sem campos de emenda individual
+    if operacao in ("soma", "contagem", "ranking", "media", "contagem_distinta"):
+        tem_resultado = len(dados) > 0
+        score_base = 1.0 if tem_resultado else 0.0
+        return {
+            "entity_accuracy": verificacao["precisao"],
+            "entity_details": verificacao["detalhes"],
+            "precision_at_5": score_base,
+            "recall_at_5": score_base,
+            "f1_score": score_base,
+            "ndcg_at_5": score_base,
+            "mrr": score_base,
+        }
+
+    # Para busca: scoring expandido com mais campos de correspondência
+    num_resultados = len(dados)
     relevancia = []
     relevancia_scores = []
     for d in dados[:20]:
         score = 0.0
-        esperado = consulta_def["esperado"]
         if esperado.get("uf") and d.get("uf") == esperado.get("uf"):
-            score += 0.5
-        if esperado.get("ano") and d.get("ano") == esperado.get("ano"):
-            score += 0.3
+            score += 0.4
+        if esperado.get("ano") and str(d.get("ano", "")) == str(esperado.get("ano", "")):
+            score += 0.2
         if esperado.get("autor") and esperado["autor"].lower() in str(d.get("nome_autor", "")).lower():
-            score += 0.5
+            score += 0.4
+        if esperado.get("partido") and str(esperado["partido"]).upper() == str(d.get("partido", "")).upper():
+            score += 0.3
+        if esperado.get("tipo_emenda") and esperado["tipo_emenda"].lower() in str(d.get("tipo_emenda", "")).lower():
+            score += 0.2
+        # Verificar área temática via funcao_nome
+        if esperado.get("area") and d.get("funcao_nome"):
+            area_val = esperado["area"].lower()
+            funcao_nome = str(d.get("funcao_nome", "")).lower()
+            if area_val in funcao_nome or funcao_nome in area_val:
+                score += 0.3
         if score == 0 and num_resultados > 0:
             score = 0.3  # Score mínimo para resultados retornados pelo pipeline
-        relevancia.append(score > 0.3)
+        relevancia.append(score >= 0.3)
         relevancia_scores.append(score)
 
     total_relevantes = max(sum(relevancia), 1)

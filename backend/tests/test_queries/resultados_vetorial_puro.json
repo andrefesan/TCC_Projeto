@@ -1,0 +1,4549 @@
+{
+  "modo": "vetorial_puro",
+  "timestamp": "2026-03-26 16:32:46",
+  "geral": {
+    "entity_accuracy": 0.868361581920904,
+    "precision_at_5": 0.9322033898305084,
+    "recall_at_5": 0.576556410077885,
+    "f1_score": 0.6539346258084494,
+    "ndcg_at_5": 0.9179037981266641,
+    "mrr": 0.9531880548829702,
+    "latencia_media_ms": 14315.822033898305,
+    "total": 120,
+    "sucessos": 118
+  },
+  "por_tipo": {
+    "A": {
+      "entity_accuracy": 0.9722222222222222,
+      "precision_at_5": 1.0,
+      "recall_at_5": 0.9254385964912281,
+      "f1_score": 0.9405555555555555,
+      "ndcg_at_5": 0.9922155600530946,
+      "mrr": 1.0,
+      "latencia_media_ms": 12608.9,
+      "total": 30,
+      "sucessos": 30
+    },
+    "B": {
+      "entity_accuracy": 0.8544444444444445,
+      "precision_at_5": 0.8666666666666667,
+      "recall_at_5": 0.5277376447655086,
+      "f1_score": 0.599855976646258,
+      "ndcg_at_5": 0.8213920621426084,
+      "mrr": 0.8666666666666667,
+      "latencia_media_ms": 13305.2,
+      "total": 30,
+      "sucessos": 30
+    },
+    "C": {
+      "entity_accuracy": 0.9244047619047618,
+      "precision_at_5": 0.9928571428571429,
+      "recall_at_5": 0.43655037772684835,
+      "f1_score": 0.5564640974967062,
+      "ndcg_at_5": 0.9671732796740755,
+      "mrr": 1.0,
+      "latencia_media_ms": 15657.964285714286,
+      "total": 30,
+      "sucessos": 28
+    },
+    "D": {
+      "entity_accuracy": 0.7261111111111112,
+      "precision_at_5": 0.8733333333333333,
+      "recall_at_5": 0.40716528583788647,
+      "f1_score": 0.5123648383144951,
+      "ndcg_at_5": 0.8941189227400387,
+      "mrr": 0.9492063492063492,
+      "latencia_media_ms": 15780.7,
+      "total": 30,
+      "sucessos": 30
+    }
+  },
+  "resultados": [
+    {
+      "id": "A1",
+      "tipo": "A",
+      "consulta": "Quantas emendas individuais o deputado Tasso Jereissati destinou ao Ceará em 2022?",
+      "latencia_ms": 10898,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "TASSO JEREISSATI",
+            "extraido": "Tasso Jereissati",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "CE",
+            "extraido": "CE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A2",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram destinadas ao Acre em 2023?",
+      "latencia_ms": 10717,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A3",
+      "tipo": "A",
+      "consulta": "Qual deputado do PT mais destinou emendas a Minas Gerais em 2024?",
+      "latencia_ms": 13183,
+      "num_resultados": 7,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PT",
+            "extraido": "PT",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A4",
+      "tipo": "A",
+      "consulta": "Quanto foi pago em emendas de bancada para o Rio de Janeiro em 2022?",
+      "latencia_ms": 14162,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A5",
+      "tipo": "A",
+      "consulta": "Quantas emendas individuais foram empenhadas na Bahia em 2020?",
+      "latencia_ms": 18423,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A6",
+      "tipo": "A",
+      "consulta": "Qual o valor total das emendas de comissão no Rio Grande do Sul em 2024?",
+      "latencia_ms": 12050,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "comissao",
+            "extraido": "comissão",
+            "ok": false
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A7",
+      "tipo": "A",
+      "consulta": "Quais parlamentares de Pernambuco tiveram emendas em 2023?",
+      "latencia_ms": 12157,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PE",
+            "extraido": "PE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A8",
+      "tipo": "A",
+      "consulta": "Qual o valor médio das emendas individuais em Goiás em 2024?",
+      "latencia_ms": 11359,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "GO",
+            "extraido": "GO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "media",
+            "extraido": "media",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A9",
+      "tipo": "A",
+      "consulta": "Quantos parlamentares distintos tiveram emendas no Ceará em 2021?",
+      "latencia_ms": 11081,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "CE",
+            "extraido": "CE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem_distinta",
+            "extraido": "contagem_distinta",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A10",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas para o Paraná em 2024?",
+      "latencia_ms": 13587,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A11",
+      "tipo": "A",
+      "consulta": "Quantas emendas individuais o deputado Otto Alencar destinou à Bahia em 2021?",
+      "latencia_ms": 11463,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "OTTO ALENCAR",
+            "extraido": "Otto Alencar",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A12",
+      "tipo": "A",
+      "consulta": "Quantas emendas de bancada existem em Santa Catarina em 2024?",
+      "latencia_ms": 10265,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "SC",
+            "extraido": "SC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A13",
+      "tipo": "A",
+      "consulta": "Quais emendas foram destinadas ao Pará em 2020?",
+      "latencia_ms": 28025,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PA",
+            "extraido": "PA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A14",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas para o Espírito Santo em 2022?",
+      "latencia_ms": 12681,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "ES",
+            "extraido": "ES",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A15",
+      "tipo": "A",
+      "consulta": "Quais deputados do PL tiveram emendas no Distrito Federal em 2023?",
+      "latencia_ms": 13152,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PL",
+            "extraido": "PL",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "DF",
+            "extraido": "DF",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 0.7664668015928381,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A16",
+      "tipo": "A",
+      "consulta": "Qual o valor liquidado em emendas individuais de Rondônia em 2024?",
+      "latencia_ms": 13481,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RO",
+            "extraido": "RO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A17",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram pagas no Maranhão em 2021?",
+      "latencia_ms": 9876,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "MA",
+            "extraido": "MA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A18",
+      "tipo": "A",
+      "consulta": "Qual deputado do MDB mais destinou emendas à Bahia em 2022?",
+      "latencia_ms": 11709,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "MDB",
+            "extraido": "MDB",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A19",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas de relator no Rio Grande do Norte em 2023?",
+      "latencia_ms": 12127,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RN",
+            "extraido": "RN",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "relator",
+            "extraido": "relator",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A20",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram destinadas ao Mato Grosso do Sul em 2024?",
+      "latencia_ms": 9599,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "MS",
+            "extraido": "MS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A21",
+      "tipo": "A",
+      "consulta": "Qual o total empenhado em emendas individuais do PL no Tocantins em 2024?",
+      "latencia_ms": 12491,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PL",
+            "extraido": "PL",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "TO",
+            "extraido": "TO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A22",
+      "tipo": "A",
+      "consulta": "Quanto foi empenhado em emendas para a Paraíba em 2023?",
+      "latencia_ms": 12375,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PB",
+            "extraido": "PB",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A23",
+      "tipo": "A",
+      "consulta": "Quais parlamentares do UNIÃO tiveram emendas no Amapá em 2024?",
+      "latencia_ms": 13120,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "partido": {
+            "esperado": "UNIAO",
+            "extraido": "UNIÃO",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AP",
+            "extraido": "AP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A24",
+      "tipo": "A",
+      "consulta": "Qual o valor pago em emendas individuais no Piauí em 2022?",
+      "latencia_ms": 13358,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PI",
+            "extraido": "PI",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A25",
+      "tipo": "A",
+      "consulta": "Quantas emendas de comissão existem em Goiás em 2021?",
+      "latencia_ms": 10166,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "GO",
+            "extraido": "GO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "comissao",
+            "extraido": "comissão",
+            "ok": false
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A26",
+      "tipo": "A",
+      "consulta": "Qual deputado do PP mais destinou emendas ao Paraná em 2024?",
+      "latencia_ms": 11511,
+      "num_resultados": 4,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PP",
+            "extraido": "PP",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A27",
+      "tipo": "A",
+      "consulta": "Quantas emendas individuais do REPUBLICANOS foram destinadas a São Paulo em 2022?",
+      "latencia_ms": 11711,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "REPUBLICANOS",
+            "extraido": "REPUBLICANOS",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "SP",
+            "extraido": "SP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A28",
+      "tipo": "A",
+      "consulta": "Quantas emendas foram destinadas a Sergipe em 2022?",
+      "latencia_ms": 10279,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "SE",
+            "extraido": "SE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "contagem",
+            "extraido": "contagem",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A29",
+      "tipo": "A",
+      "consulta": "Qual o valor médio das emendas de bancada em Roraima em 2024?",
+      "latencia_ms": 11503,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RR",
+            "extraido": "RR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "media",
+            "extraido": "media",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "A30",
+      "tipo": "A",
+      "consulta": "Qual o valor empenhado em emendas do deputado Juarez Costa no Mato Grosso em 2021?",
+      "latencia_ms": 11758,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "JUAREZ COSTA",
+            "extraido": "Juarez Costa",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "MT",
+            "extraido": "MT",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B1",
+      "tipo": "B",
+      "consulta": "Quais emendas para saúde foram executadas no Distrito Federal em 2023?",
+      "latencia_ms": 15490,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "DF",
+            "extraido": "DF",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 0.8721445442095548,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B2",
+      "tipo": "B",
+      "consulta": "Qual partido destinou mais recursos para educação em Minas Gerais?",
+      "latencia_ms": 14289,
+      "num_resultados": 10,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B3",
+      "tipo": "B",
+      "consulta": "Quanto foi investido em segurança pública no Rio de Janeiro em 2024?",
+      "latencia_ms": 13786,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança pública",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B4",
+      "tipo": "B",
+      "consulta": "Quais emendas para transporte foram pagas na Bahia?",
+      "latencia_ms": 14655,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "transporte",
+            "extraido": "transporte",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.8196294557259917,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B5",
+      "tipo": "B",
+      "consulta": "Qual deputado mais investiu em meio ambiente no Pará em 2023?",
+      "latencia_ms": 11645,
+      "num_resultados": 0,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "PA",
+            "extraido": "PA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B6",
+      "tipo": "B",
+      "consulta": "Emendas para assistência social no Rio Grande do Sul em 2022?",
+      "latencia_ms": 13142,
+      "num_resultados": 25,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 0.8869465982421278,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B7",
+      "tipo": "B",
+      "consulta": "Quanto foi pago em emendas para cultura em Pernambuco?",
+      "latencia_ms": 13050,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "cultura",
+            "extraido": "cultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "PE",
+            "extraido": "PE",
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B8",
+      "tipo": "B",
+      "consulta": "Quais parlamentares destinaram emendas para agricultura no Paraná?",
+      "latencia_ms": 12953,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.9437692524947107,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B9",
+      "tipo": "B",
+      "consulta": "Quanto foi investido em saúde no Acre em 2024?",
+      "latencia_ms": 12477,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B10",
+      "tipo": "B",
+      "consulta": "Emendas para saneamento básico no Ceará em 2023?",
+      "latencia_ms": 14877,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "saneamento basico",
+            "extraido": "saneamento básico",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "CE",
+            "extraido": "CE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2777777777777778,
+        "f1_score": 0.4347826086956522,
+        "ndcg_at_5": 0.8510488233360478,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B11",
+      "tipo": "B",
+      "consulta": "Quanto foi empenhado em emendas para agricultura no Tocantins em 2024?",
+      "latencia_ms": 12186,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "TO",
+            "extraido": "TO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B12",
+      "tipo": "B",
+      "consulta": "Quais emendas para segurança pública foram pagas em Roraima em 2023?",
+      "latencia_ms": 13968,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança pública",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RR",
+            "extraido": "RR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2777777777777778,
+        "f1_score": 0.4347826086956522,
+        "ndcg_at_5": 0.8613632863224758,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B13",
+      "tipo": "B",
+      "consulta": "Qual deputado mais investiu em agricultura em Rondônia em 2024?",
+      "latencia_ms": 12112,
+      "num_resultados": 2,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "RO",
+            "extraido": "RO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B14",
+      "tipo": "B",
+      "consulta": "Emendas para trabalho e emprego no Rio Grande do Sul em 2023?",
+      "latencia_ms": 13565,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "trabalho",
+            "extraido": "trabalho e emprego",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B15",
+      "tipo": "B",
+      "consulta": "Valor das emendas para desporto e lazer em Santa Catarina em 2022?",
+      "latencia_ms": 12744,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "desporto e lazer",
+            "extraido": "desporto e lazer",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "SC",
+            "extraido": "SC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B16",
+      "tipo": "B",
+      "consulta": "Quais emendas de saúde foram pagas na Bahia em 2024?",
+      "latencia_ms": 13113,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.4166666666666667,
+        "f1_score": 0.5882352941176471,
+        "ndcg_at_5": 0.9075755242149839,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B17",
+      "tipo": "B",
+      "consulta": "Quanto foi investido em comunicações no Paraná em 2023?",
+      "latencia_ms": 11066,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "comunicacoes",
+            "extraido": "comunicações",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B18",
+      "tipo": "B",
+      "consulta": "Emendas para urbanismo em Goiás em 2024?",
+      "latencia_ms": 14347,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "urbanismo",
+            "extraido": "urbanismo",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "GO",
+            "extraido": "GO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 0.9091661842715323,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B19",
+      "tipo": "B",
+      "consulta": "Qual partido mais investiu em meio ambiente no Amapá em 2024?",
+      "latencia_ms": 12894,
+      "num_resultados": 0,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AP",
+            "extraido": "AP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B20",
+      "tipo": "B",
+      "consulta": "Emendas para previdência social em Pernambuco em 2023?",
+      "latencia_ms": 13802,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "previdencia social",
+            "extraido": "previdência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "PE",
+            "extraido": "PE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B21",
+      "tipo": "B",
+      "consulta": "Quanto o PL investiu em educação no Espírito Santo em 2024?",
+      "latencia_ms": 12674,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "partido": {
+            "esperado": "PL",
+            "extraido": "PL",
+            "ok": true
+          },
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "ES",
+            "extraido": "ES",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B22",
+      "tipo": "B",
+      "consulta": "Emendas para direitos da cidadania na Paraíba em 2023?",
+      "latencia_ms": 12738,
+      "num_resultados": 25,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "direitos da cidadania",
+            "extraido": "direitos da cidadania",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "PB",
+            "extraido": "PB",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.8297071810054671,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B23",
+      "tipo": "B",
+      "consulta": "Qual deputado do MDB mais investiu em transporte em Mato Grosso do Sul em 2022?",
+      "latencia_ms": 11612,
+      "num_resultados": 0,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "MDB",
+            "extraido": "MDB",
+            "ok": true
+          },
+          "area": {
+            "esperado": "transporte",
+            "extraido": "transporte",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "MS",
+            "extraido": "MS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B24",
+      "tipo": "B",
+      "consulta": "Emendas para segurança pública em São Paulo em 2024?",
+      "latencia_ms": 15739,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança pública",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "SP",
+            "extraido": "SP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 0.8382571482945591,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B25",
+      "tipo": "B",
+      "consulta": "Valor das emendas para saúde no Ceará em 2023?",
+      "latencia_ms": 13614,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "CE",
+            "extraido": "CE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B26",
+      "tipo": "B",
+      "consulta": "Quanto foi pago em emendas para educação no Rio Grande do Sul em 2024?",
+      "latencia_ms": 12711,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B27",
+      "tipo": "B",
+      "consulta": "Emendas para agricultura no Paraná em 2022?",
+      "latencia_ms": 17920,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.9221538661607998,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B28",
+      "tipo": "B",
+      "consulta": "Qual deputado mais investiu em saneamento em Alagoas em 2023?",
+      "latencia_ms": 11228,
+      "num_resultados": 0,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "saneamento",
+            "extraido": "saneamento",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AL",
+            "extraido": "AL",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.0,
+        "mrr": 0.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B29",
+      "tipo": "B",
+      "consulta": "Emendas para meio ambiente no Amazonas em 2024?",
+      "latencia_ms": 12500,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AM",
+            "extraido": "AM",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.29411764705882354,
+        "f1_score": 0.45454545454545453,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "B30",
+      "tipo": "B",
+      "consulta": "Quanto foi empenhado em assistência social na Bahia em 2023?",
+      "latencia_ms": 12259,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C1",
+      "tipo": "C",
+      "consulta": "Houve aumento nas emendas para agricultura no Tocantins entre 2022 e 2024?",
+      "latencia_ms": 15775,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "agricultura",
+            "extraido": "agricultura",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "TO",
+            "extraido": "TO",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.8425677949220601,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C2",
+      "tipo": "C",
+      "consulta": "Compare as emendas para educação entre PT e PL em Minas Gerais em 2024.",
+      "sucesso": false,
+      "erro": "'list' object has no attribute 'upper'"
+    },
+    {
+      "id": "C3",
+      "tipo": "C",
+      "consulta": "Qual a tendência das emendas para saúde no Rio de Janeiro de 2020 a 2024?",
+      "latencia_ms": 17462,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C4",
+      "tipo": "C",
+      "consulta": "Quais áreas temáticas mais receberam emendas na Bahia em 2023?",
+      "latencia_ms": 13175,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C5",
+      "tipo": "C",
+      "consulta": "Como evoluíram as emendas de bancada vs individuais no Paraná entre 2020 e 2024?",
+      "latencia_ms": 15382,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C6",
+      "tipo": "C",
+      "consulta": "Top 3 deputados que mais destinaram emendas para saúde no Distrito Federal em 2024?",
+      "latencia_ms": 15606,
+      "num_resultados": 5,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "DF",
+            "extraido": "DF",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C7",
+      "tipo": "C",
+      "consulta": "As emendas para segurança pública cresceram no Rio de Janeiro entre 2021 e 2024?",
+      "latencia_ms": 17611,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança pública",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C8",
+      "tipo": "C",
+      "consulta": "Compare os investimentos em transporte e saúde no Rio Grande do Sul em 2023.",
+      "latencia_ms": 16354,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C9",
+      "tipo": "C",
+      "consulta": "Quais áreas tiveram mais crescimento em emendas em Pernambuco de 2020 a 2024?",
+      "latencia_ms": 15904,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PE",
+            "extraido": "PE",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C10",
+      "tipo": "C",
+      "consulta": "Qual a proporção entre valor empenhado e valor pago nas emendas de Rondônia em 2024?",
+      "latencia_ms": 17236,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RO",
+            "extraido": "RO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.3333333333333333,
+        "f1_score": 0.5,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C11",
+      "tipo": "C",
+      "consulta": "Como evoluiu o investimento em saúde no Ceará entre 2020 e 2024?",
+      "latencia_ms": 15717,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "CE",
+            "extraido": "CE",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C12",
+      "tipo": "C",
+      "consulta": "Compare as emendas para educação e saúde em Sergipe em 2023.",
+      "latencia_ms": 16062,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "SE",
+            "extraido": "SE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.45454545454545453,
+        "f1_score": 0.625,
+        "ndcg_at_5": 0.8304198973631919,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C13",
+      "tipo": "C",
+      "consulta": "O investimento em saúde no Acre cresceu entre 2021 e 2024?",
+      "latencia_ms": 16625,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.9248037049627126,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C14",
+      "tipo": "C",
+      "consulta": "Top 5 deputados que mais receberam emendas no Rio de Janeiro em 2024?",
+      "latencia_ms": 16062,
+      "num_resultados": 5,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C15",
+      "tipo": "C",
+      "consulta": "A taxa de execução (pago/empenhado) melhorou no Paraná entre 2022 e 2024?",
+      "latencia_ms": 16411,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2022,
+            "extraido": 2022,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C16",
+      "tipo": "C",
+      "consulta": "Compare o investimento em agricultura e urbanismo em Goiás em 2023.",
+      "latencia_ms": 18438,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "GO",
+            "extraido": "GO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.8,
+        "recall_at_5": 0.36363636363636365,
+        "f1_score": 0.5000000000000001,
+        "ndcg_at_5": 0.7945221224571118,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C17",
+      "tipo": "C",
+      "consulta": "Quais deputados de Minas Gerais mais aumentaram suas emendas entre 2020 e 2024?",
+      "latencia_ms": 15498,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C18",
+      "tipo": "C",
+      "consulta": "Houve crescimento nas emendas de meio ambiente no Pará de 2021 a 2024?",
+      "latencia_ms": 14968,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "PA",
+            "extraido": "PA",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.8633420161317487,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C19",
+      "tipo": "C",
+      "consulta": "Compare as emendas para segurança e educação no Rio Grande do Sul em 2024.",
+      "latencia_ms": 16120,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C20",
+      "tipo": "C",
+      "consulta": "Qual partido teve maior crescimento em emendas de educação em Pernambuco de 2020 a 2024?",
+      "latencia_ms": 13439,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "PE",
+            "extraido": "PE",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C21",
+      "tipo": "C",
+      "consulta": "Top 3 partidos que mais investiram em transporte em Santa Catarina em 2023?",
+      "latencia_ms": 13100,
+      "num_resultados": 4,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "transporte",
+            "extraido": "transporte",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "SC",
+            "extraido": "SC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C22",
+      "tipo": "C",
+      "consulta": "Como evoluíram as emendas para segurança em Roraima entre 2020 e 2024?",
+      "latencia_ms": 17108,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "seguranca",
+            "extraido": "segurança",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RR",
+            "extraido": "RR",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C23",
+      "tipo": "C",
+      "consulta": "Compare emendas individuais vs de comissão em São Paulo em 2024.",
+      "latencia_ms": 17993,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "SP",
+            "extraido": "SP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.29411764705882354,
+        "f1_score": 0.45454545454545453,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C24",
+      "tipo": "C",
+      "consulta": "Quais deputados mais investiram em saúde na Bahia em 2023?",
+      "latencia_ms": 15792,
+      "num_resultados": 10,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C25",
+      "tipo": "C",
+      "consulta": "A participação do PT em emendas de educação no Ceará cresceu de 2020 a 2024?",
+      "latencia_ms": 14938,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8333333333333334,
+        "entity_details": {
+          "partido": {
+            "esperado": "PT",
+            "extraido": "PT",
+            "ok": true
+          },
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "CE",
+            "extraido": "CE",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.8251962950372874,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C26",
+      "tipo": "C",
+      "consulta": "Compare emendas de São Paulo e Rio de Janeiro em 2024.",
+      "sucesso": false,
+      "erro": "'list' object has no attribute 'lower'"
+    },
+    {
+      "id": "C27",
+      "tipo": "C",
+      "consulta": "Quais as 5 áreas com mais emendas empenhadas em Minas Gerais em 2024?",
+      "latencia_ms": 13657,
+      "num_resultados": 5,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C28",
+      "tipo": "C",
+      "consulta": "Houve mudança na distribuição de emendas por tipo no Rio Grande do Sul entre 2021 e 2024?",
+      "latencia_ms": 14581,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2021,
+            "extraido": 2021,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "tendencia",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C29",
+      "tipo": "C",
+      "consulta": "Compare investimentos em habitação e saneamento no Maranhão em 2023.",
+      "latencia_ms": 13096,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "MA",
+            "extraido": "MA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "comparacao",
+            "extraido": "comparacao",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2777777777777778,
+        "f1_score": 0.4347826086956522,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "C30",
+      "tipo": "C",
+      "consulta": "Qual a evolução do valor médio por emenda em São Paulo de 2020 a 2024?",
+      "latencia_ms": 14313,
+      "num_resultados": 10,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "SP",
+            "extraido": "SP",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "tendencia",
+            "extraido": "tendencia",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.5,
+        "f1_score": 0.6666666666666666,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D1",
+      "tipo": "D",
+      "consulta": "Quais recursos o Fundo Municipal de Saúde recebeu via emendas em Minas Gerais?",
+      "latencia_ms": 19119,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.3333333333333333,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Municipal de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D2",
+      "tipo": "D",
+      "consulta": "O Banco do Brasil recebeu emendas no Distrito Federal em 2024?",
+      "latencia_ms": 16199,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Banco do Brasil",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "DF",
+            "extraido": "DF",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D3",
+      "tipo": "D",
+      "consulta": "Quais emendas foram destinadas ao Fundo Estadual de Saúde no Rio Grande do Sul?",
+      "latencia_ms": 16817,
+      "num_resultados": 25,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.3333333333333333,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Estadual de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D4",
+      "tipo": "D",
+      "consulta": "O Fundo Municipal de Assistência Social recebeu recursos de emendas no Tocantins em 2023?",
+      "latencia_ms": 15976,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Municipal de Assistencia Social",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "TO",
+            "extraido": "TO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.4,
+        "recall_at_5": 0.2,
+        "f1_score": 0.26666666666666666,
+        "ndcg_at_5": 0.6724935386069495,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D5",
+      "tipo": "D",
+      "consulta": "Quais hospitais receberam emendas no Rio de Janeiro em 2024?",
+      "latencia_ms": 15899,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.6,
+        "recall_at_5": 0.1875,
+        "f1_score": 0.2857142857142857,
+        "ndcg_at_5": 0.8151510484299679,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D6",
+      "tipo": "D",
+      "consulta": "O Fundo Municipal de Saúde recebeu recursos via emendas no Paraná em 2023?",
+      "latencia_ms": 17106,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Municipal de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D7",
+      "tipo": "D",
+      "consulta": "Quais emendas foram destinadas ao Fundo Municipal de Saúde em Goiás em 2024?",
+      "latencia_ms": 18770,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Municipal de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "GO",
+            "extraido": "GO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.3333333333333333,
+        "f1_score": 0.5,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D8",
+      "tipo": "D",
+      "consulta": "O Fundo Estadual de Saúde recebeu emendas no Acre em 2024?",
+      "latencia_ms": 14762,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Estadual de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AC",
+            "extraido": "AC",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 0.6,
+        "recall_at_5": 0.42857142857142855,
+        "f1_score": 0.5,
+        "ndcg_at_5": 0.6518777552113243,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D9",
+      "tipo": "D",
+      "consulta": "Quais entidades de assistência social receberam emendas na Bahia em 2023?",
+      "latencia_ms": 14216,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.6,
+        "recall_at_5": 0.2727272727272727,
+        "f1_score": 0.37499999999999994,
+        "ndcg_at_5": 0.7020976466720957,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D10",
+      "tipo": "D",
+      "consulta": "O Fundo Municipal de Saúde recebeu recursos de emendas no Ceará em 2024?",
+      "latencia_ms": 16775,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Municipal de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "CE",
+            "extraido": "CE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.35714285714285715,
+        "f1_score": 0.5263157894736842,
+        "ndcg_at_5": 0.9562649741625527,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D11",
+      "tipo": "D",
+      "consulta": "Quais empresas receberam emendas de saúde em Rondônia em 2024?",
+      "latencia_ms": 15893,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RO",
+            "extraido": "RO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.8,
+        "recall_at_5": 0.25,
+        "f1_score": 0.38095238095238093,
+        "ndcg_at_5": 0.6801279630735614,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D12",
+      "tipo": "D",
+      "consulta": "Quais prefeituras de Minas Gerais receberam mais recursos de emendas em 2023?",
+      "latencia_ms": 16727,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D13",
+      "tipo": "D",
+      "consulta": "Quais instituições de ensino receberam emendas de educação no Rio de Janeiro em 2024?",
+      "latencia_ms": 15404,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D14",
+      "tipo": "D",
+      "consulta": "Quais entidades receberam emendas de meio ambiente no Amapá em 2023?",
+      "latencia_ms": 14422,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AP",
+            "extraido": "AP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.0,
+        "recall_at_5": 0.0,
+        "f1_score": 0.0,
+        "ndcg_at_5": 0.3333333333333333,
+        "mrr": 0.14285714285714285
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D15",
+      "tipo": "D",
+      "consulta": "Quais fundos receberam recursos via emendas no Rio Grande do Sul em 2024?",
+      "latencia_ms": 15297,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D16",
+      "tipo": "D",
+      "consulta": "Quais entidades receberam emendas para educação em Pernambuco em 2023?",
+      "latencia_ms": 14214,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "PE",
+            "extraido": "PE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2631578947368421,
+        "f1_score": 0.4166666666666667,
+        "ndcg_at_5": 0.9562649741625527,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D17",
+      "tipo": "D",
+      "consulta": "Quais municípios do Paraná receberam emendas de saúde em 2024?",
+      "latencia_ms": 15789,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "PR",
+            "extraido": "PR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.29411764705882354,
+        "f1_score": 0.45454545454545453,
+        "ndcg_at_5": 0.9434732991210639,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D18",
+      "tipo": "D",
+      "consulta": "Quais entidades receberam emendas de meio ambiente no Amazonas em 2023?",
+      "latencia_ms": 19962,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "area": {
+            "esperado": "meio ambiente",
+            "extraido": "meio ambiente",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "AM",
+            "extraido": "AM",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.6,
+        "recall_at_5": 0.2727272727272727,
+        "f1_score": 0.37499999999999994,
+        "ndcg_at_5": 0.6312356866612375,
+        "mrr": 0.3333333333333333
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D19",
+      "tipo": "D",
+      "consulta": "Quais entidades de assistência social receberam emendas no Amapá em 2024?",
+      "latencia_ms": 16045,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "area": {
+            "esperado": "assistencia social",
+            "extraido": "assistência social",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "AP",
+            "extraido": "AP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.8,
+        "recall_at_5": 0.2222222222222222,
+        "f1_score": 0.3478260869565218,
+        "ndcg_at_5": 0.886946598242128,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D20",
+      "tipo": "D",
+      "consulta": "Quais hospitais receberam mais recursos de emendas em Minas Gerais em 2023?",
+      "latencia_ms": 13272,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D21",
+      "tipo": "D",
+      "consulta": "Qual deputado mais destinou recursos para instituições de ensino no Rio de Janeiro em 2024?",
+      "latencia_ms": 15757,
+      "num_resultados": 10,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D22",
+      "tipo": "D",
+      "consulta": "Quais beneficiários receberam emendas da deputada Jandira Feghali em 2024?",
+      "latencia_ms": 14497,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "autor": {
+            "esperado": "JANDIRA FEGHALI",
+            "extraido": "Jandira Feghali",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D23",
+      "tipo": "D",
+      "consulta": "O PT destinou emendas para quais hospitais em Roraima em 2023?",
+      "latencia_ms": 11597,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "partido": {
+            "esperado": "PT",
+            "extraido": "PT",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "RR",
+            "extraido": "RR",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 0.8,
+        "recall_at_5": 0.2222222222222222,
+        "f1_score": 0.3478260869565218,
+        "ndcg_at_5": 0.6271021339024797,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D24",
+      "tipo": "D",
+      "consulta": "Quais entidades receberam emendas de bancada no Rio Grande do Sul em 2024?",
+      "latencia_ms": 15008,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "tipo_emenda": {
+            "esperado": "bancada",
+            "extraido": "bancada",
+            "ok": true
+          },
+          "uf": {
+            "esperado": "RS",
+            "extraido": "RS",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.2777777777777778,
+        "f1_score": 0.4347826086956522,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D25",
+      "tipo": "D",
+      "consulta": "Qual beneficiário recebeu mais recursos via emendas em São Paulo em 2023?",
+      "latencia_ms": 15367,
+      "num_resultados": 10,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 1.0,
+        "entity_details": {
+          "uf": {
+            "esperado": "SP",
+            "extraido": "SP",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "ranking",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D26",
+      "tipo": "D",
+      "consulta": "Quais prefeituras receberam emendas do PL para educação na Bahia em 2024?",
+      "latencia_ms": 17817,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6,
+        "entity_details": {
+          "partido": {
+            "esperado": "PL",
+            "extraido": "PL",
+            "ok": true
+          },
+          "area": {
+            "esperado": "educacao",
+            "extraido": "educação",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "BA",
+            "extraido": "BA",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D27",
+      "tipo": "D",
+      "consulta": "O Fundo Municipal de Saúde recebeu emendas de quais parlamentares em Goiás em 2024?",
+      "latencia_ms": 16700,
+      "num_resultados": 20,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.5,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Municipal de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "GO",
+            "extraido": "GO",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.35714285714285715,
+        "f1_score": 0.5263157894736842,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D28",
+      "tipo": "D",
+      "consulta": "Quais beneficiários receberam mais de R$ 1 milhão via emendas no Rio de Janeiro em 2024?",
+      "latencia_ms": 14946,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.75,
+        "entity_details": {
+          "uf": {
+            "esperado": "RJ",
+            "extraido": "RJ",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          },
+          "operacao": {
+            "esperado": "ranking",
+            "extraido": "busca",
+            "ok": false
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D29",
+      "tipo": "D",
+      "consulta": "Quais entidades de saúde em Pernambuco receberam emendas individuais em 2023?",
+      "latencia_ms": 14754,
+      "num_resultados": 30,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.8,
+        "entity_details": {
+          "area": {
+            "esperado": "saude",
+            "extraido": "saúde",
+            "ok": false
+          },
+          "uf": {
+            "esperado": "PE",
+            "extraido": "PE",
+            "ok": true
+          },
+          "ano": {
+            "esperado": 2023,
+            "extraido": 2023,
+            "ok": true
+          },
+          "tipo_emenda": {
+            "esperado": "individual",
+            "extraido": "individual",
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": true,
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 0.25,
+        "f1_score": 0.4,
+        "ndcg_at_5": 0.9671987306219146,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    },
+    {
+      "id": "D30",
+      "tipo": "D",
+      "consulta": "Qual o total de recursos recebidos pelo Fundo Municipal de Saúde via emendas em Minas Gerais entre 2020 e 2024?",
+      "latencia_ms": 14314,
+      "num_resultados": 1,
+      "modo": "vetorial_puro",
+      "metricas": {
+        "entity_accuracy": 0.6666666666666666,
+        "entity_details": {
+          "beneficiario": {
+            "esperado": "Fundo Municipal de Saude",
+            "extraido": null,
+            "ok": false
+          },
+          "uf": {
+            "esperado": "MG",
+            "extraido": "MG",
+            "ok": true
+          },
+          "ano_inicio": {
+            "esperado": 2020,
+            "extraido": 2020,
+            "ok": true
+          },
+          "ano_fim": {
+            "esperado": 2024,
+            "extraido": 2024,
+            "ok": true
+          },
+          "busca_beneficiario": {
+            "esperado": true,
+            "extraido": null,
+            "ok": false
+          },
+          "operacao": {
+            "esperado": "soma",
+            "extraido": "soma",
+            "ok": true
+          }
+        },
+        "precision_at_5": 1.0,
+        "recall_at_5": 1.0,
+        "f1_score": 1.0,
+        "ndcg_at_5": 1.0,
+        "mrr": 1.0
+      },
+      "sucesso": true
+    }
+  ]
+}

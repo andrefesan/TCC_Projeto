@@ -11,11 +11,16 @@ class QueryMetadata(BaseModel):
     entidades: dict
     modo: str
     num_resultados: int
+    total_no_banco: int | None = None
+    dados_completos: bool | None = None
 
 
 class QueryResponse(BaseModel):
     resposta: str
+    resumo: str | None = None
     fontes: list[str]
     dados: list[dict]
     metadata: QueryMetadata
     disclaimer: str | None = None
+    sugestoes_followup: list[str] = []
+    visualization_hint: str | None = None

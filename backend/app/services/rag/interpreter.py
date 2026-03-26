@@ -18,12 +18,23 @@ Campos possíveis:
 - "ano_inicio" e "ano_fim": para períodos (ex: "de 2020 a 2024")
 - "area": área temática (saúde, educação, etc.)
 - "tipo_emenda": tipo (individual, bancada, comissão)
-- "operacao": tipo de operação (total, ranking, comparação, tendência)
-- "instituicao": nome de instituição específica mencionada (ex: UFAC, IFAC, Hospital das Clínicas, Prefeitura de Rio Branco)
+- "operacao": tipo de operação. Valores possíveis:
+  - "busca" (padrão, listar registros individuais)
+  - "soma" (quando pergunta "quanto", "total", "valor total")
+  - "contagem" (quando pergunta "quantas", "número de")
+  - "contagem_distinta" (quando pergunta "quantos X distintos/diferentes")
+  - "ranking" (quando pergunta "maiores", "top", "quem mais")
+  - "media" (quando pergunta "média", "em média")
+  - "tendencia" (quando pergunta sobre evolução, crescimento, tendência ao longo do tempo)
+  - "comparacao" (quando pede comparação entre partidos, áreas, estados ou tipos)
+- "instituicao": nome de instituição específica mencionada (ex: Hospital das Clínicas, Prefeitura de Salvador, USP, UFMG, Fundo Municipal de Saúde)
 - "beneficiario": nome de beneficiário final (pessoa física ou jurídica que recebeu recursos)
 - "busca_beneficiario": true se a consulta pede informações sobre beneficiários, favorecidos ou destinatários finais dos recursos
+- "ambiguidade": null se a consulta é clara, ou uma string descritiva se há ambiguidade
+  (ex: "O sobrenome 'Silva' pode se referir a múltiplos parlamentares",
+   "Não ficou claro se 'Acre' refere-se ao estado ou à Bancada do Acre")
 
-Responda SOMENTE com o JSON. Exemplo: {{"autor": "nome", "ano": 2024}}
+Responda SOMENTE com o JSON. Exemplo: {{"autor": "nome", "ano": 2024, "ambiguidade": null}}
 
 PERGUNTA: {consulta}"""
 
