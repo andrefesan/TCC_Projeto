@@ -34,7 +34,7 @@ function App() {
           <a href="https://dadosabertos.camara.leg.br" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Câmara dos Deputados</a>
         </p>
         <p className="mt-1 px-2">Respostas geradas por IA — verifique sempre nas fontes oficiais.</p>
-        <p className="mt-0.5">TCC — André Ferreira Santana — UFAC</p>
+        <p className="mt-0.5">Trabalho de Conclusão de Curso</p>
       </footer>
     </div>
   )

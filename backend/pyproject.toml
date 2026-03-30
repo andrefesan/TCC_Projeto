@@ -2,7 +2,7 @@
 name = "transparencia-fiscal"
 version = "1.0.0"
 description = "Plataforma RAG Híbrido para Transparência Fiscal"
-authors = ["André Ferreira Santana"]
+authors = ["Anonymous"]
 
 [tool.poetry.dependencies]
 python = "^3.11"

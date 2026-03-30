@@ -47,4 +47,17 @@ supabase/.env
 
 mock_data.json
 mock_server.py
-.env.example
+
+# Dados brutos e artefatos de desenvolvimento
+infos/
+
+# Estado de ingestão (runtime)
+backend/data/checkpoint_*.json
+backend/data/dead_letter_*.json
+backend/data/ingestion_checkpoint.json
+
+# Bancos de dados locais
+*.db
+
+# Backups intermediários de testes
+backend/tests/test_queries/backup_*/

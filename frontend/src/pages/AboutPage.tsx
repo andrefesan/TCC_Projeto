@@ -48,13 +48,10 @@ export default function AboutPage() {
         <section>
           <h2 className="text-lg font-semibold text-gray-800 mb-2">Trabalho acadêmico</h2>
           <p>
-            Esta plataforma foi desenvolvida como parte do TCC
-            &quot;Arquitetura de Plataforma Baseada em LLM e RAG para Consulta
-            Inteligente de Dados de Transparência Fiscal&quot; do curso de
-            Sistemas de Informação da Universidade Federal do Acre (UFAC).
-          </p>
-          <p className="mt-2">
-            <strong>Autor:</strong> André Ferreira Santana
+            Esta plataforma foi desenvolvida como Trabalho de Conclusão de Curso
+            em Sistemas de Informação, com o tema &quot;Arquitetura RAG Híbrida
+            para Consulta em Linguagem Natural a Dados de Emendas Parlamentares
+            Brasileiras&quot;.
           </p>
         </section>
 
