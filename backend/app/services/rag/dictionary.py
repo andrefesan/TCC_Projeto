@@ -17,6 +17,7 @@ class BudgetDictionary:
         self._funcoes = self._data.get("mapeamentos_funcao", {})
         self._subfuncoes = self._data.get("mapeamentos_subfuncao", {})
         self._regioes = self._data.get("mapeamentos_regiao", {})
+        self._subfuncoes_por_funcao = self._data.get("subfuncoes_por_funcao", {})
 
     def resolver_funcao(self, termo: str) -> Optional[str]:
         """Resolve um termo para código de função orçamentária."""
@@ -32,6 +33,10 @@ class BudgetDictionary:
         if codigo:
             return codigo
         return self.resolver_funcao(termo)
+
+    def obter_subfuncoes_tipicas(self, funcao_codigo: str) -> list[str]:
+        """Retorna subfunções típicas de uma função orçamentária."""
+        return self._subfuncoes_por_funcao.get(funcao_codigo, [])
 
     def resolver_regiao(self, nome: str) -> Optional[list[str]]:
         """Resolve nome de região para lista de UFs."""

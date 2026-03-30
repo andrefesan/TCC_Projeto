@@ -50,7 +50,19 @@ class SQLSearchService:
             where_clauses.append(f"{alias_parlamentar}.partido IN ({placeholders})")
             for i, p in enumerate(filtros["partidos"]):
                 params[f"partido_{i}"] = p
-        if "funcao" in filtros:
+        # Filtro OR: funcao OU subfuncoes típicas (captura subfunções atípicas)
+        if "funcao_ou_subfuncoes" in filtros:
+            fos = filtros["funcao_ou_subfuncoes"]
+            or_parts = []
+            params["fos_funcao"] = fos["funcao"]
+            or_parts.append(f"{alias_emenda}.funcao = :fos_funcao")
+            if fos.get("subfuncoes"):
+                ph = ", ".join(f":fos_sf_{i}" for i in range(len(fos["subfuncoes"])))
+                or_parts.append(f"{alias_emenda}.subfuncao IN ({ph})")
+                for i, sf in enumerate(fos["subfuncoes"]):
+                    params[f"fos_sf_{i}"] = sf
+            where_clauses.append(f"({' OR '.join(or_parts)})")
+        elif "funcao" in filtros:
             where_clauses.append(f"{alias_emenda}.funcao = :funcao")
             params["funcao"] = filtros["funcao"]
         if "funcoes" in filtros and filtros["funcoes"]:
@@ -59,10 +71,10 @@ class SQLSearchService:
             where_clauses.append(f"{alias_emenda}.funcao IN ({placeholders})")
             for i, f in enumerate(filtros["funcoes"]):
                 params[f"funcao_{i}"] = f
-        if "subfuncao" in filtros:
+        if "funcao_ou_subfuncoes" not in filtros and "subfuncao" in filtros:
             where_clauses.append(f"{alias_emenda}.subfuncao = :subfuncao")
             params["subfuncao"] = filtros["subfuncao"]
-        if "subfuncoes" in filtros and filtros["subfuncoes"]:
+        if "funcao_ou_subfuncoes" not in filtros and "subfuncoes" in filtros and filtros["subfuncoes"]:
             placeholders = ", ".join(
                 f":subfuncao_{i}" for i in range(len(filtros["subfuncoes"])))
             where_clauses.append(

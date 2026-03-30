@@ -336,7 +336,7 @@ class ResponseSynthesizer:
             return " | ".join(partes)
 
         linhas = []
-        for i, d in enumerate(dados[:20], 1):
+        for i, d in enumerate(dados, 1):
             # Ranking
             if operacao == "ranking" and "total_empenhado" in d:
                 linha = (

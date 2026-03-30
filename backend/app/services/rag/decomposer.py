@@ -94,15 +94,26 @@ class HybridDecomposer:
                         busca_vetorial = {"termo": texto_busca, "embedding": embedding_enriquecido.tolist()}
                         logger.warning("area_nao_resolvida", area=area, texto_busca=texto_busca)
 
-            # Atribuir filtros: singular ou plural conforme necessidade
-            if len(codigos_funcao) == 1:
-                filtros_sql["funcao"] = codigos_funcao[0]
+            # Atribuir filtros: usar OR (funcao OU subfuncoes típicas) para
+            # capturar subfunções atípicas (ex: policiamento sob outra função)
+            if len(codigos_funcao) == 1 and not codigos_subfuncao:
+                sf_tipicas = self.dicionario.obter_subfuncoes_tipicas(codigos_funcao[0])
+                if sf_tipicas:
+                    filtros_sql["funcao_ou_subfuncoes"] = {
+                        "funcao": codigos_funcao[0],
+                        "subfuncoes": sf_tipicas,
+                    }
+                    logger.info("filtro_or_funcao_subfuncoes",
+                                funcao=codigos_funcao[0], subfuncoes=sf_tipicas)
+                else:
+                    filtros_sql["funcao"] = codigos_funcao[0]
             elif len(codigos_funcao) > 1:
                 filtros_sql["funcoes"] = codigos_funcao
-            if len(codigos_subfuncao) == 1:
-                filtros_sql["subfuncao"] = codigos_subfuncao[0]
-            elif len(codigos_subfuncao) > 1:
-                filtros_sql["subfuncoes"] = codigos_subfuncao
+            if codigos_subfuncao and "funcao_ou_subfuncoes" not in filtros_sql:
+                if len(codigos_subfuncao) == 1:
+                    filtros_sql["subfuncao"] = codigos_subfuncao[0]
+                else:
+                    filtros_sql["subfuncoes"] = codigos_subfuncao
 
         # Filtros de beneficiário
         busca_beneficiario = entidades.get("busca_beneficiario", False)
