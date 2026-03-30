@@ -52,28 +52,37 @@ class CGUCollector:
         if not keys:
             keys = [settings.CGU_API_KEY]
         self._api_keys = keys
-        self._key_cycle = itertools.cycle(keys)
-        # Dynamic RPM cap based on time of day (night = less WAF risk)
-        from datetime import datetime
-        hour = datetime.now().hour
-        rpm_cap = 1200 if (0 <= hour < 6) else 800 if (hour >= 22 or hour < 8) else 600
-        total_rpm = min(settings.CGU_RATE_LIMIT_RPM * len(keys), rpm_cap)
+        self._key_index = 0
+        self._key_lock = asyncio.Lock()
+        # Rate limiter POR CHAVE — cada chave tem seu próprio limite
+        rpm_per_key = settings.CGU_RATE_LIMIT_RPM  # 400 RPM por chave
+        self._rate_limiters = {key: RateLimiter(rpm_per_key) for key in keys}
+        # Manter rate_limiter global para compatibilidade (endpoints que não usam _next_headers_with_limit)
+        total_rpm = rpm_per_key * len(keys)
         self.rate_limiter = RateLimiter(total_rpm)
         self.headers = {"chave-api-dados": keys[0]}
-        logger.info("cgu_collector_init", num_keys=len(keys), total_rpm=total_rpm)
+        logger.info("cgu_collector_init", num_keys=len(keys),
+                     rpm_per_key=rpm_per_key, total_rpm=total_rpm)
 
     def update_rpm_for_current_hour(self):
-        """Recalculate RPM cap based on current hour (call per-UF)."""
-        from datetime import datetime
-        hour = datetime.now().hour
-        rpm_cap = 1200 if (0 <= hour < 6) else 800 if (hour >= 22 or hour < 8) else 600
-        total_rpm = min(settings.CGU_RATE_LIMIT_RPM * len(self._api_keys), rpm_cap)
+        """Recalculate RPM — agora é no-op pois cada chave tem seu próprio limiter."""
+        total_rpm = settings.CGU_RATE_LIMIT_RPM * len(self._api_keys)
         self.rate_limiter = RateLimiter(total_rpm)
-        logger.info("rpm_updated", rpm=total_rpm, hour=hour)
+        logger.info("rpm_updated", rpm_per_key=settings.CGU_RATE_LIMIT_RPM,
+                     total_rpm=total_rpm, num_keys=len(self._api_keys))
 
     def _next_headers(self) -> dict:
         """Rotate to next API key and return headers."""
-        key = next(self._key_cycle)
+        key = self._api_keys[self._key_index % len(self._api_keys)]
+        self._key_index += 1
+        return {"chave-api-dados": key}
+
+    async def _acquire_and_get_headers(self) -> dict:
+        """Rotate to next key AND acquire its per-key rate limiter."""
+        async with self._key_lock:
+            key = self._api_keys[self._key_index % len(self._api_keys)]
+            self._key_index += 1
+        await self._rate_limiters[key].acquire()
         return {"chave-api-dados": key}
 
     async def get_shared_client(self) -> httpx.AsyncClient:
@@ -82,8 +91,8 @@ class CGUCollector:
             self._shared_client = httpx.AsyncClient(
                 timeout=60.0,
                 limits=httpx.Limits(
-                    max_connections=30,
-                    max_keepalive_connections=20,
+                    max_connections=60,
+                    max_keepalive_connections=40,
                 ),
                 follow_redirects=True,
             )
@@ -103,13 +112,13 @@ class CGUCollector:
 
         async with httpx.AsyncClient(timeout=30.0) as client:
             while True:
-                await self.rate_limiter.acquire()
+                headers = await self._acquire_and_get_headers()
 
                 try:
                     response = await client.get(
                         f"{self.BASE_URL}/emendas",
                         params={"ano": ano, "pagina": pagina},
-                        headers=self._next_headers(),
+                        headers=headers,
                     )
 
                     if response.status_code == 429:
@@ -238,12 +247,12 @@ class CGUCollector:
 
         async with httpx.AsyncClient(timeout=30.0) as client:
             while True:
-                await self.rate_limiter.acquire()
+                headers = await self._acquire_and_get_headers()
                 try:
                     response = await client.get(
                         f"{self.BASE_URL}/emendas/documentos/{codigo_emenda}",
                         params={"pagina": pagina},
-                        headers=self._next_headers(),
+                        headers=headers,
                     )
 
                     if response.status_code == 429:
@@ -304,12 +313,12 @@ class CGUCollector:
 
         async with httpx.AsyncClient(timeout=30.0) as client:
             while True:
-                await self.rate_limiter.acquire()
+                headers = await self._acquire_and_get_headers()
                 try:
                     response = await client.get(
                         f"{self.BASE_URL}/despesas/favorecidos-finais-por-documento",
                         params={"codigoDocumento": codigo_documento, "pagina": pagina},
-                        headers=self._next_headers(),
+                        headers=headers,
                     )
 
                     if response.status_code == 429:
@@ -368,11 +377,11 @@ class CGUCollector:
         network_retries = 0
         _client = client or await self.get_shared_client()
         while True:
-            await self.rate_limiter.acquire()
+            headers = await self._acquire_and_get_headers()
             try:
                 response = await _client.get(
                     f"{self.BASE_URL}/despesas/documentos/{codigo_documento}",
-                    headers=self._next_headers(),
+                    headers=headers,
                 )
 
                 if response.status_code in (429, 401, 405):
@@ -430,7 +439,7 @@ class CGUCollector:
 
         async with httpx.AsyncClient(timeout=60.0) as client:
             while True:
-                await self.rate_limiter.acquire()
+                headers = await self._acquire_and_get_headers()
                 params = {"pagina": pagina}
                 if params_extra:
                     params.update(params_extra)
@@ -439,7 +448,7 @@ class CGUCollector:
                     response = await client.get(
                         f"{self.BASE_URL}/{endpoint}",
                         params=params,
-                        headers=self._next_headers(),
+                        headers=headers,
                     )
 
                     if response.status_code == 429:

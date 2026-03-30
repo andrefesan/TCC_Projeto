@@ -2,10 +2,19 @@ import { Loader2 } from 'lucide-react'
 
 export function LoadingState() {
   return (
-    <div className="text-center py-16">
-      <Loader2 size={48} className="mx-auto text-primary-500 animate-spin mb-4" />
-      <p className="text-gray-500">Consultando dados e gerando resposta...</p>
-      <p className="text-xs text-gray-400 mt-1">Isso pode levar alguns segundos</p>
+    <div className="py-12">
+      <div className="flex items-center gap-3 mb-4">
+        <Loader2 size={18} className="text-brand-500 animate-spin" />
+        <span className="text-body font-medium text-brand-800">Processando consulta</span>
+      </div>
+      <div className="space-y-2.5 max-w-md">
+        <div className="h-3 bg-surface-200 rounded animate-pulse w-full" />
+        <div className="h-3 bg-surface-200 rounded animate-pulse w-4/5" />
+        <div className="h-3 bg-surface-200 rounded animate-pulse w-3/5" />
+      </div>
+      <p className="text-caption text-brand-400 mt-4">
+        Buscando nos dados oficiais e gerando resposta fundamentada...
+      </p>
     </div>
   )
 }

@@ -1,64 +1,110 @@
+import { ExternalLink, AlertTriangle } from 'lucide-react'
+
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Sobre o Projeto</h1>
+    <div className="max-w-content mx-auto px-4 sm:px-6 py-12">
+      <h1 className="text-title text-brand-900 mb-2">Sobre o Fiscalia</h1>
+      <p className="text-body text-brand-500 mb-12 max-w-[480px]">
+        Uma plataforma aberta para consultar emendas parlamentares
+        brasileiras em linguagem natural.
+      </p>
 
-      <div className="space-y-6 text-gray-600 leading-relaxed">
+      <div className="space-y-12">
+        {/* O projeto */}
         <section>
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">O que é</h2>
-          <p>
-            A <strong>Transparência Fiscal</strong> é uma plataforma que permite
-            ao cidadão consultar dados sobre emendas parlamentares federais
-            brasileiras em linguagem natural, recebendo respostas fundamentadas
-            com citações verificáveis de fontes governamentais.
+          <h2 className="text-caption font-medium uppercase tracking-wider text-brand-400 mb-3">
+            O projeto
+          </h2>
+          <p className="text-body text-brand-700 leading-relaxed max-w-[560px]">
+            O Fiscalia permite consultar dados sobre emendas parlamentares
+            federais em linguagem natural, recebendo respostas fundamentadas com
+            citações verificáveis de fontes governamentais. É um projeto acadêmico
+            sem fins lucrativos, desenvolvido como Trabalho de Conclusão de Curso
+            em Sistemas de Informação.
           </p>
         </section>
 
+        {/* Arquitetura */}
         <section>
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Como funciona</h2>
-          <p>
-            O sistema utiliza uma arquitetura de RAG (Retrieval-Augmented Generation)
-            híbrido que combina:
+          <h2 className="text-caption font-medium uppercase tracking-wider text-brand-400 mb-3">
+            Arquitetura
+          </h2>
+          <p className="text-body text-brand-700 leading-relaxed mb-4 max-w-[560px]">
+            O sistema utiliza uma arquitetura RAG (Retrieval-Augmented Generation) híbrida:
           </p>
-          <ul className="list-disc list-inside mt-2 space-y-1">
-            <li><strong>Text-to-SQL:</strong> para consultas estruturadas (autor, ano, UF)</li>
-            <li><strong>Busca vetorial semântica:</strong> para termos que exigem interpretação</li>
-            <li><strong>LLM (Claude):</strong> para síntese de respostas acessíveis</li>
-          </ul>
+          <div className="space-y-3 max-w-[560px]">
+            <div className="flex gap-3 items-start">
+              <span className="text-caption font-mono text-brand-400 mt-0.5 shrink-0">01</span>
+              <div>
+                <span className="text-small font-semibold text-brand-800">Text-to-SQL</span>
+                <span className="text-small text-brand-500"> — para consultas estruturadas (autor, ano, UF)</span>
+              </div>
+            </div>
+            <div className="flex gap-3 items-start">
+              <span className="text-caption font-mono text-brand-400 mt-0.5 shrink-0">02</span>
+              <div>
+                <span className="text-small font-semibold text-brand-800">Busca vetorial semântica</span>
+                <span className="text-small text-brand-500"> — para termos que exigem interpretação</span>
+              </div>
+            </div>
+            <div className="flex gap-3 items-start">
+              <span className="text-caption font-mono text-brand-400 mt-0.5 shrink-0">03</span>
+              <div>
+                <span className="text-small font-semibold text-brand-800">LLM (Claude)</span>
+                <span className="text-small text-brand-500"> — para síntese de respostas acessíveis</span>
+              </div>
+            </div>
+          </div>
         </section>
 
+        {/* Fontes */}
         <section>
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Fontes de dados</h2>
-          <ul className="list-disc list-inside space-y-1">
-            <li>
-              <a href="https://portaldatransparencia.gov.br" target="_blank"
-                 rel="noopener noreferrer" className="text-primary-600 hover:underline">
-                Portal da Transparência (CGU)
-              </a> — dados de emendas parlamentares
-            </li>
-            <li>
-              <a href="https://dadosabertos.camara.leg.br" target="_blank"
-                 rel="noopener noreferrer" className="text-primary-600 hover:underline">
-                Câmara dos Deputados — Dados Abertos
-              </a> — dados de parlamentares
-            </li>
-          </ul>
+          <h2 className="text-caption font-medium uppercase tracking-wider text-brand-400 mb-3">
+            Fontes de dados
+          </h2>
+          <div className="space-y-2">
+            <a
+              href="https://portaldatransparencia.gov.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-body text-brand-600 hover:text-brand-800 transition-colors group"
+            >
+              <ExternalLink size={14} className="text-brand-400 group-hover:text-brand-600" />
+              Portal da Transparência (CGU)
+            </a>
+            <a
+              href="https://dadosabertos.camara.leg.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-body text-brand-600 hover:text-brand-800 transition-colors group"
+            >
+              <ExternalLink size={14} className="text-brand-400 group-hover:text-brand-600" />
+              Câmara dos Deputados — Dados Abertos
+            </a>
+          </div>
         </section>
 
+        {/* Contexto acadêmico */}
         <section>
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Trabalho acadêmico</h2>
-          <p>
-            Esta plataforma foi desenvolvida como Trabalho de Conclusão de Curso
-            em Sistemas de Informação, com o tema &quot;Arquitetura RAG Híbrida
-            para Consulta em Linguagem Natural a Dados de Emendas Parlamentares
-            Brasileiras&quot;.
+          <h2 className="text-caption font-medium uppercase tracking-wider text-brand-400 mb-3">
+            Contexto acadêmico
+          </h2>
+          <p className="text-body text-brand-700 leading-relaxed max-w-[560px]">
+            Trabalho de Conclusão de Curso em Sistemas de Informação com o tema
+            "Arquitetura RAG Híbrida para Consulta em Linguagem Natural a Dados
+            de Emendas Parlamentares Brasileiras".
           </p>
         </section>
 
-        <section className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm">
-          <strong>Aviso:</strong> As respostas são geradas por inteligência
-          artificial e podem conter imprecisões. Sempre verifique as informações
-          nas fontes oficiais indicadas.
+        {/* Disclaimer */}
+        <section className="border-t border-surface-200 pt-8">
+          <div className="flex items-start gap-2.5 text-small text-brand-500">
+            <AlertTriangle size={14} className="text-caution-500 mt-0.5 shrink-0" />
+            <p className="leading-relaxed max-w-[560px]">
+              As respostas são geradas por inteligência artificial e podem conter
+              imprecisões. Sempre verifique as informações nas fontes oficiais indicadas.
+            </p>
+          </div>
         </section>
       </div>
     </div>

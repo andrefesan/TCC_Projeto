@@ -516,7 +516,8 @@ def _atualizar_documento_detalhes(db, doc_id: int, detalhe: dict):
             favorecido_uf = :fav_uf,
             numero_processo = :processo,
             plano_orcamentario = :plano,
-            observacao = :observacao,
+            observacao = CASE WHEN :observacao != '' THEN :observacao
+                             ELSE COALESCE(observacao, '') END,
             detalhes_coletados = 1
         WHERE id = :id
     """), {

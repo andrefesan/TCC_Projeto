@@ -35,9 +35,21 @@ class SQLSearchService:
         if "autor" in filtros:
             where_clauses.append(f"{alias_emenda}.nome_autor LIKE :autor")
             params["autor"] = f"%{filtros['autor']}%"
+        if "autores" in filtros and filtros["autores"]:
+            autor_conds = []
+            for i, autor in enumerate(filtros["autores"]):
+                autor_conds.append(f"{alias_emenda}.nome_autor LIKE :autor_{i}")
+                params[f"autor_{i}"] = f"%{autor}%"
+            where_clauses.append(f"({' OR '.join(autor_conds)})")
         if "partido" in filtros:
             where_clauses.append(f"{alias_parlamentar}.partido = :partido")
             params["partido"] = filtros["partido"]
+        if "partidos" in filtros and filtros["partidos"]:
+            placeholders = ", ".join(
+                f":partido_{i}" for i in range(len(filtros["partidos"])))
+            where_clauses.append(f"{alias_parlamentar}.partido IN ({placeholders})")
+            for i, p in enumerate(filtros["partidos"]):
+                params[f"partido_{i}"] = p
         if "funcao" in filtros:
             where_clauses.append(f"{alias_emenda}.funcao = :funcao")
             params["funcao"] = filtros["funcao"]
@@ -118,9 +130,20 @@ class SQLSearchService:
         if "autor" in filtros:
             doc_clauses.append("e.nome_autor LIKE :autor")
             doc_params["autor"] = f"%{filtros['autor']}%"
+        if "autores" in filtros and filtros["autores"]:
+            autor_conds = []
+            for i, autor in enumerate(filtros["autores"]):
+                autor_conds.append(f"e.nome_autor LIKE :autor_{i}")
+                doc_params[f"autor_{i}"] = f"%{autor}%"
+            doc_clauses.append(f"({' OR '.join(autor_conds)})")
         if "partido" in filtros:
             doc_clauses.append("p.partido = :partido")
             doc_params["partido"] = filtros["partido"]
+        if "partidos" in filtros and filtros["partidos"]:
+            ph = ", ".join(f":partido_{i}" for i in range(len(filtros["partidos"])))
+            doc_clauses.append(f"p.partido IN ({ph})")
+            for i, p in enumerate(filtros["partidos"]):
+                doc_params[f"partido_{i}"] = p
 
         # Filtro por funcao/subfuncao nos documentos (LIKE para formato "18 - Gestão ambiental")
         if "funcao" in filtros:

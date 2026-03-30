@@ -11,11 +11,11 @@ export function SourceLink({ url, label }: SourceLinkProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-sm px-3 py-1
-                 bg-success-50 text-success-500 rounded-full
-                 hover:bg-green-100 transition"
+      className="inline-flex items-center gap-1.5 text-caption px-2.5 py-1
+                 border border-surface-200 rounded-md
+                 text-brand-500 hover:text-brand-700 hover:border-brand-300 transition-colors"
     >
-      <ExternalLink size={14} />
+      <ExternalLink size={12} />
       {label}
     </a>
   )

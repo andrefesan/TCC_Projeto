@@ -42,9 +42,17 @@ class HybridDecomposer:
             else:
                 filtros_sql["uf"] = uf
         if entidades.get("autor"):
-            filtros_sql["autor"] = entidades["autor"].upper()
+            autor = entidades["autor"]
+            if isinstance(autor, list):
+                filtros_sql["autores"] = [a.upper() if isinstance(a, str) else str(a).upper() for a in autor]
+            else:
+                filtros_sql["autor"] = autor.upper()
         if entidades.get("partido"):
-            filtros_sql["partido"] = entidades["partido"].upper()
+            partido = entidades["partido"]
+            if isinstance(partido, list):
+                filtros_sql["partidos"] = [p.upper() if isinstance(p, str) else str(p).upper() for p in partido]
+            else:
+                filtros_sql["partido"] = partido.upper()
         if entidades.get("tipo_emenda"):
             filtros_sql["tipo_emenda"] = entidades["tipo_emenda"]
 
@@ -171,21 +179,31 @@ class HybridDecomposer:
         "tocantins": "TO",
     }
 
-    def _resolver_uf(self, uf_raw: str) -> str | list:
+    def _resolver_uf(self, uf_raw) -> str | list:
         """Resolve UF ou região para sigla(s)."""
+        # Se o LLM retornou uma lista (consultas comparativas), resolver cada uma
+        if isinstance(uf_raw, list):
+            resultado = []
+            for item in uf_raw:
+                resolvido = self._resolver_uf(item)
+                if isinstance(resolvido, list):
+                    resultado.extend(resolvido)
+                else:
+                    resultado.append(resolvido)
+            return resultado
         regioes = self.dicionario.resolver_regiao(uf_raw)
         if regioes:
             return regioes
         # Tenta resolver nome completo do estado
         import unicodedata
-        nome_norm = unicodedata.normalize("NFKD", uf_raw.lower().strip())
+        nome_norm = unicodedata.normalize("NFKD", str(uf_raw).lower().strip())
         nome_norm = "".join(c for c in nome_norm if not unicodedata.combining(c))
         if nome_norm in self._NOMES_UF:
             return self._NOMES_UF[nome_norm]
         # Se já é sigla de 2 caracteres, retorna diretamente
-        if len(uf_raw.strip()) == 2:
-            return uf_raw.upper().strip()
-        return uf_raw.upper()[:2]
+        if len(str(uf_raw).strip()) == 2:
+            return str(uf_raw).upper().strip()
+        return str(uf_raw).upper()[:2]
 
     def _busca_vetorial_classificacao(self, embedding, db: Session) -> str | None:
         """Busca classificação mais similar por embedding."""

@@ -10,29 +10,35 @@ export default function ResultsPage() {
   const { data, isLoading, isError } = useEmendas(filters)
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">
-        Explorar Emendas
-      </h1>
+    <div className="max-w-wide mx-auto px-4 sm:px-6 py-8">
+      <div className="mb-8">
+        <h1 className="text-title text-brand-900">Explorar emendas</h1>
+        <p className="text-small text-brand-500 mt-1">
+          Navegue pelos dados brutos filtrando por ano, estado e partido.
+        </p>
+      </div>
 
       <FilterPanel filters={filters} onChange={setFilters} />
 
-      <div className="mt-6">
+      <div className="mt-8">
         {isLoading && <LoadingState />}
         {isError && <ErrorState message="Erro ao buscar emendas." />}
         {data && (
           <>
-            <p className="text-sm text-gray-500 mb-3">
-              {data.total} emendas encontradas (página {data.page} de{' '}
-              {Math.ceil(data.total / data.page_size)})
+            <p className="text-caption text-brand-400 mb-4">
+              {data.total.toLocaleString('pt-BR')} emendas encontradas
+              <span className="mx-1.5 text-brand-300">|</span>
+              Página {data.page} de {Math.ceil(data.total / data.page_size)}
             </p>
-            <DataTable data={data.items} />
+            <DataTable data={data.items} defaultExpanded />
           </>
         )}
         {!data && !isLoading && Object.keys(filters).length === 0 && (
-          <p className="text-gray-400 text-center py-12">
-            Selecione pelo menos um filtro para explorar emendas.
-          </p>
+          <div className="py-16 text-center">
+            <p className="text-body text-brand-400">
+              Selecione ao menos um filtro para explorar os dados.
+            </p>
+          </div>
         )}
       </div>
     </div>

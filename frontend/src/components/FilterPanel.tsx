@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 interface FilterPanelProps {
   filters: Record<string, string>
   onChange: (filters: Record<string, string>) => void
@@ -11,52 +13,49 @@ const UFS = [
 ]
 const PARTIDOS = ['PT', 'PL', 'MDB', 'PP', 'PSD', 'PSDB', 'UNIÃO', 'PDT', 'PSB', 'REPUBLICANOS']
 
+const FILTER_CONFIG = [
+  { key: 'ano', label: 'Ano', options: ANOS },
+  { key: 'uf', label: 'Estado', options: UFS },
+  { key: 'partido', label: 'Partido', options: PARTIDOS },
+]
+
 export function FilterPanel({ filters, onChange }: FilterPanelProps) {
   const update = (key: string, value: string) => {
     const next = { ...filters }
-    if (value) {
-      next[key] = value
-    } else {
-      delete next[key]
-    }
+    if (value) next[key] = value
+    else delete next[key]
     onChange(next)
   }
 
+  const activeCount = Object.keys(filters).length
+
   return (
-    <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3 items-center">
-      <select
-        value={filters.ano || ''}
-        onChange={(e) => update('ano', e.target.value)}
-        className="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm bg-white"
-      >
-        <option value="">Ano</option>
-        {ANOS.map((a) => <option key={a} value={a}>{a}</option>)}
-      </select>
+    <div className="flex flex-wrap items-center gap-3">
+      {FILTER_CONFIG.map(({ key, label, options }) => (
+        <select
+          key={key}
+          value={filters[key] || ''}
+          onChange={(e) => update(key, e.target.value)}
+          className={clsx(
+            'px-3 py-2 border rounded-md text-small bg-white transition-colors appearance-none pr-8',
+            filters[key]
+              ? 'border-brand-400 text-brand-800'
+              : 'border-surface-200 text-brand-400'
+          )}
+        >
+          <option value="">{label}</option>
+          {options.map((o) => (
+            <option key={o} value={o}>{o}</option>
+          ))}
+        </select>
+      ))}
 
-      <select
-        value={filters.uf || ''}
-        onChange={(e) => update('uf', e.target.value)}
-        className="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm bg-white"
-      >
-        <option value="">UF</option>
-        {UFS.map((u) => <option key={u} value={u}>{u}</option>)}
-      </select>
-
-      <select
-        value={filters.partido || ''}
-        onChange={(e) => update('partido', e.target.value)}
-        className="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm bg-white"
-      >
-        <option value="">Partido</option>
-        {PARTIDOS.map((p) => <option key={p} value={p}>{p}</option>)}
-      </select>
-
-      {Object.keys(filters).length > 0 && (
+      {activeCount > 0 && (
         <button
           onClick={() => onChange({})}
-          className="col-span-3 sm:col-span-1 text-xs text-gray-500 hover:text-danger-500 underline"
+          className="text-caption text-brand-400 hover:text-destructive-500 transition-colors"
         >
-          Limpar filtros
+          Limpar ({activeCount})
         </button>
       )}
     </div>

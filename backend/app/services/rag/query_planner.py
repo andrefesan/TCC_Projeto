@@ -18,15 +18,19 @@ Campos obrigatórios:
 - "volume_esperado": "poucos" (1-20 resultados prováveis), "moderado" (20-100), "muitos" (100+)
 - "threshold_suficiencia": número inteiro — mínimo de resultados SQL para considerar busca suficiente (1 para consultas específicas, 20 para exploratórias)
 - "precisa_busca_vetorial": true/false — se a consulta depende de busca semântica (áreas temáticas sem filtro SQL direto)
+- "precisa_busca_documentos": true/false — se a consulta menciona obra, projeto, equipamento, serviço, material ou finalidade específica que requer busca nas observações dos documentos de despesa
 - "limite_sugerido": número de resultados ideal (5-50, default 20)
-- "estrategia_hibrida": "rrf" (fusão completa SQL+vetorial para buscas com área temática ou amplas), "sql_first" (SQL prioritário, vetorial como complemento se insuficiente), "sql_only" (SQL suficiente, vetorial desnecessário — para consultas com autor+ano/UF)
+- "estrategia_hibrida": "rrf" (fusão completa SQL+vetorial para buscas com área temática, obras específicas ou amplas), "sql_first" (SQL prioritário, vetorial como complemento se insuficiente), "sql_only" (SQL suficiente, vetorial desnecessário — para consultas com autor+ano/UF sem componente semântico)
 
 Regras de classificação:
-- Se tem "autor" + "ano" ou "autor" + "uf": especifica, alta, poucos, threshold=1, estrategia_hibrida="sql_only"
+- Se tem "autor" + "ano" ou "autor" + "uf" (sem area e sem obra): especifica, alta, poucos, threshold=1, estrategia_hibrida="sql_only"
 - Se tem "autor" sem ano/uf: especifica, media, moderado, threshold=5, estrategia_hibrida="sql_first"
 - Se tem só "area" ou "uf" sem autor: exploratoria, baixa, muitos, threshold=20, estrategia_hibrida="rrf"
-- Se operacao é soma/contagem/media/ranking: analitica (threshold não se aplica, use 1), estrategia_hibrida="sql_only"
-- precisa_busca_vetorial=true apenas quando "area" está presente sem resolução SQL direta
+- Se operacao é soma/contagem/media/ranking SEM "area": analitica, threshold=1, estrategia_hibrida="sql_only"
+- Se operacao é soma/contagem/media/ranking COM "area": analitica, threshold=1, estrategia_hibrida="sql_first", precisa_busca_vetorial=true
+- Se a consulta menciona obra, projeto, equipamento, serviço, material ou finalidade específica (ponte, escola, hospital, construção, reforma, pavimentação, UBS, creche, quadra, barragem, rodovia, ambulância, equipamento, caminhão, escavadeira, trator, veículo, esgoto, saneamento, irrigação, habitação, moradia, aquisição, medicamento, insumo, consultoria, capacitação, treinamento, bolsa, laboratório, informática, computador, mobiliário, uniforme): estrategia_hibrida="rrf", precisa_busca_documentos=true, precisa_busca_vetorial=true
+- precisa_busca_vetorial=true quando "area" está presente ou consulta é exploratória
+- precisa_busca_documentos=true quando a consulta busca detalhes de obras, projetos, equipamentos, serviços ou finalidades específicas
 
 ENTIDADES EXTRAÍDAS:
 {entidades_json}
@@ -81,6 +85,7 @@ class QueryPlanner:
             plano.setdefault("precisa_busca_vetorial", True)
             plano.setdefault("limite_sugerido", 20)
             plano.setdefault("estrategia_hibrida", "rrf")
+            plano.setdefault("precisa_busca_documentos", False)
             # Cap de segurança no limite
             plano["limite_sugerido"] = min(max(plano["limite_sugerido"], 5), 50)
             plano["threshold_suficiencia"] = max(plano["threshold_suficiencia"], 1)
@@ -91,14 +96,62 @@ class QueryPlanner:
             return plano
         except Exception as e:
             logger.warning("planner_fallback", erro=str(e))
-            return self._plano_fallback(entidades)
+            return self._plano_fallback(entidades, consulta)
 
-    def _plano_fallback(self, entidades: dict) -> dict:
+    _KEYWORDS_DOCUMENTO = frozenset({
+        # Obras civis
+        "ponte", "escola", "hospital", "construcao", "construção", "reforma",
+        "creche", "quadra", "ubs", "posto de saude", "posto de saúde",
+        "unidade de saude", "unidade de saúde", "barragem", "academia de saude",
+        # Infraestrutura
+        "pavimentacao", "pavimentação", "asfalto", "rodovia", "estrada",
+        # Equipamentos e veículos
+        "ambulancia", "ambulância", "equipamento", "caminhao", "caminhão",
+        "escavadeira", "trator", "retroescavadeira", "onibus", "ônibus",
+        "veiculo", "veículo",
+        # Saneamento e água
+        "esgoto", "saneamento", "irrigacao", "irrigação", "abastecimento de agua",
+        # Habitação
+        "habitacao", "habitação", "moradia",
+        # Serviços e capacitação
+        "consultoria", "capacitacao", "capacitação", "treinamento",
+        "servico", "serviço",
+        # Materiais e insumos
+        "medicamento", "insumo", "material",
+        "informatica", "informática", "computador", "mobiliario", "mobiliário",
+        "uniforme", "laboratorio", "laboratório",
+        # Assistência social
+        "bolsa", "auxilio", "auxílio",
+        # Genéricos
+        "obra", "projeto", "aquisicao de", "aquisição de",
+    })
+
+    def _detectar_busca_documentos(self, consulta: str) -> bool:
+        """Detecta se a consulta menciona obra, equipamento, serviço ou finalidade específica."""
+        consulta_lower = consulta.lower()
+        return any(kw in consulta_lower for kw in self._KEYWORDS_DOCUMENTO)
+
+    def _plano_fallback(self, entidades: dict, consulta: str = "") -> dict:
         """Plano heurístico quando o LLM falha."""
         tem_autor = bool(entidades.get("autor"))
         tem_ano = bool(entidades.get("ano"))
         tem_uf = bool(entidades.get("uf"))
+        tem_area = bool(entidades.get("area"))
         operacao = entidades.get("operacao", "busca")
+        precisa_documentos = self._detectar_busca_documentos(consulta)
+
+        # Consultas sobre obras específicas → sempre rrf + busca em documentos
+        if precisa_documentos:
+            return {
+                "tipo_consulta": "exploratoria",
+                "especificidade": "baixa",
+                "volume_esperado": "muitos",
+                "threshold_suficiencia": 5,
+                "precisa_busca_vetorial": True,
+                "precisa_busca_documentos": True,
+                "limite_sugerido": 20,
+                "estrategia_hibrida": "rrf",
+            }
 
         if operacao in ("soma", "contagem", "ranking", "media"):
             return {
@@ -106,9 +159,10 @@ class QueryPlanner:
                 "especificidade": "alta",
                 "volume_esperado": "poucos",
                 "threshold_suficiencia": 1,
-                "precisa_busca_vetorial": False,
+                "precisa_busca_vetorial": tem_area,
+                "precisa_busca_documentos": False,
                 "limite_sugerido": 20,
-                "estrategia_hibrida": "sql_only",
+                "estrategia_hibrida": "sql_first" if tem_area else "sql_only",
             }
 
         if tem_autor and (tem_ano or tem_uf):
@@ -118,6 +172,7 @@ class QueryPlanner:
                 "volume_esperado": "poucos",
                 "threshold_suficiencia": 1,
                 "precisa_busca_vetorial": False,
+                "precisa_busca_documentos": False,
                 "limite_sugerido": 20,
                 "estrategia_hibrida": "sql_only",
             }
@@ -129,6 +184,7 @@ class QueryPlanner:
                 "volume_esperado": "moderado",
                 "threshold_suficiencia": 5,
                 "precisa_busca_vetorial": False,
+                "precisa_busca_documentos": False,
                 "limite_sugerido": 20,
                 "estrategia_hibrida": "sql_first",
             }
@@ -138,7 +194,8 @@ class QueryPlanner:
             "especificidade": "baixa",
             "volume_esperado": "muitos",
             "threshold_suficiencia": 20,
-            "precisa_busca_vetorial": bool(entidades.get("area")),
+            "precisa_busca_vetorial": tem_area,
+            "precisa_busca_documentos": False,
             "limite_sugerido": 20,
-            "estrategia_hibrida": "rrf" if entidades.get("area") else "sql_first",
+            "estrategia_hibrida": "rrf" if tem_area else "sql_first",
         }

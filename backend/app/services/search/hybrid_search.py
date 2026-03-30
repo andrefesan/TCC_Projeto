@@ -59,6 +59,8 @@ class HybridSearchService:
             doc_id = d["id"]
             if doc_id not in all_docs:
                 all_docs[doc_id] = d
+            elif "doc_observacao" in d and "doc_observacao" not in all_docs[doc_id]:
+                all_docs[doc_id]["doc_observacao"] = d["doc_observacao"]
             scores[doc_id] = scores.get(doc_id, 0) + w_vec / (k + rank + 1)
 
         ranked_ids = sorted(scores.keys(), key=lambda x: scores[x], reverse=True)
@@ -88,7 +90,8 @@ class HybridSearchService:
                sufficiency_threshold: Optional[int] = None,
                busca_beneficiario: bool = False,
                filtro_beneficiario: Optional[str] = None,
-               estrategia: str = "rrf") -> List[dict]:
+               estrategia: str = "rrf",
+               buscar_documentos: bool = False) -> List[dict]:
         """Executa busca híbrida com estratégia configurável.
 
         Args:
@@ -102,6 +105,8 @@ class HybridSearchService:
             filtro_beneficiario: nome do beneficiário para filtrar
             estrategia: "rrf" (fusão completa), "sql_first" (SQL prioritário),
                 "sql_only" (apenas SQL)
+            buscar_documentos: se deve buscar em documentos_emenda.embedding
+                (observações de obras/projetos)
 
         Returns:
             Lista de dicts com resultados combinados
@@ -157,7 +162,9 @@ class HybridSearchService:
                              resultados=len(dados_sql), threshold=effective_threshold)
                 return dados_sql[:limit]
             # SQL insuficiente — complementar com vetor e fusionar via RRF
-            dados_vetoriais = self.vector_search.buscar(busca_vetorial, db, fetch_limit)
+            dados_vetoriais = self._combinar_vetoriais(
+                busca_vetorial, db, fetch_limit, buscar_documentos
+            )
             return self._fusionar_rrf(dados_sql, dados_vetoriais, limit)
 
         # Estratégia rrf (padrão): SEMPRE executar ambos e fusionar
@@ -165,8 +172,48 @@ class HybridSearchService:
             logger.warning("busca_rrf_sem_vetorial_fallback", resultados=len(dados_sql))
             return dados_sql[:limit]
 
-        dados_vetoriais = self.vector_search.buscar(busca_vetorial, db, fetch_limit)
+        dados_vetoriais = self._combinar_vetoriais(
+            busca_vetorial, db, fetch_limit, buscar_documentos
+        )
         return self._fusionar_rrf(dados_sql, dados_vetoriais, limit)
+
+    def _combinar_vetoriais(self, busca_vetorial: dict, db: Session,
+                             fetch_limit: int, buscar_documentos: bool) -> List[dict]:
+        """Combina resultados de busca vetorial em emendas e documentos.
+
+        Quando buscar_documentos=True, busca também em documentos_emenda.embedding
+        e combina os resultados, deduplicando por emenda_id e mantendo a maior
+        similaridade.
+        """
+        dados_emendas = self.vector_search.buscar(busca_vetorial, db, fetch_limit)
+
+        if not buscar_documentos:
+            return dados_emendas
+
+        dados_documentos = self.vector_search.buscar_documentos(
+            busca_vetorial, db, fetch_limit
+        )
+
+        if not dados_documentos:
+            return dados_emendas
+
+        # Combinar: deduplicar por id, manter maior similaridade
+        combined = {}
+        for d in dados_emendas:
+            combined[d["id"]] = d
+
+        for d in dados_documentos:
+            eid = d["id"]
+            if eid not in combined or d.get("similaridade", 0) > combined[eid].get("similaridade", 0):
+                combined[eid] = d
+
+        result = sorted(combined.values(), key=lambda x: x.get("similaridade", 0), reverse=True)
+
+        logger.info("vetorial_combinado",
+                     emendas=len(dados_emendas),
+                     documentos=len(dados_documentos),
+                     combinado=len(result))
+        return result
 
     def _buscar_beneficiarios_semantico(self, busca_vetorial: dict,
                                          filtros_sql: dict, db: Session,

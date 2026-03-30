@@ -91,7 +91,8 @@ class ResponseSynthesizer:
                          operacao: str = "busca",
                          tem_sancoes: bool = False,
                          completude: dict | None = None,
-                         entidades: dict | None = None) -> dict:
+                         entidades: dict | None = None,
+                         contexto_documentos: list[dict] | None = None) -> dict:
         """Gera resposta em linguagem natural.
 
         Args:
@@ -153,6 +154,26 @@ class ResponseSynthesizer:
                 "finais (pessoas físicas ou jurídicas que receberam os recursos). "
                 "Apresente o nome do beneficiário, CPF/CNPJ (parcialmente oculto para PF) "
                 "e o valor recebido de forma clara e organizada."
+            )
+
+        # Contexto adicional de documentos de despesa (observações de obras/equipamentos/serviços)
+        if contexto_documentos:
+            obs_lines = []
+            for doc in contexto_documentos[:5]:
+                obs = doc.get("doc_observacao", "")
+                autor = doc.get("nome_autor", "N/A")
+                uf = doc.get("uf", "N/A")
+                ano = doc.get("ano", "N/A")
+                valor = doc.get("valor_pago") or doc.get("valor_empenhado") or 0
+                obs_lines.append(
+                    f"  - {obs} (Autor: {autor}, UF: {uf}, Ano: {ano}, "
+                    f"Valor: R$ {valor:,.2f})"
+                )
+            regras_extras.append(
+                "OBSERVAÇÕES DE DOCUMENTOS DE DESPESA encontradas:\n"
+                + "\n".join(obs_lines) + "\n"
+                "Use essas observações para enriquecer a resposta com detalhes "
+                "específicos sobre obras, equipamentos ou serviços financiados."
             )
 
         bloco_regras = ""
@@ -344,6 +365,8 @@ class ResponseSynthesizer:
                     f" | CPF/CNPJ: {d.get('beneficiario_cpf_cnpj', 'N/A')}"
                     f" | Valor Recebido: R$ {(d.get('beneficiario_valor') or 0):,.2f}"
                 )
+            if d.get("doc_observacao"):
+                linha += f" | Observação do documento: {d['doc_observacao']}"
             if d.get("sancoes"):
                 for s in d["sancoes"]:
                     linha += (

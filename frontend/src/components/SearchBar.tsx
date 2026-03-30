@@ -1,21 +1,25 @@
 import { useState } from 'react'
 import { Search, Loader2 } from 'lucide-react'
+import clsx from 'clsx'
 
 interface SearchBarProps {
   onSearch: (query: string) => void
   isLoading: boolean
+  variant?: 'hero' | 'compact'
 }
 
 const SUGESTOES = [
-  'Quais as emendas do deputado Roberto Duarte em 2024?',
-  'Emendas para saúde no Acre em 2024?',
-  'Quanto a Bancada do Acre destinou para defesa nacional?',
-  'Top 5 parlamentares do Acre por valor empenhado?',
-  'Emendas de Sergio Petecão para o Acre?',
-  'Quais emendas foram destinadas a educação no Acre?',
+  { text: 'Quais deputados mais destinaram emendas para saúde em 2024?', tema: 'Saúde' },
+  { text: 'Emendas do senador Flávio Bolsonaro para o Rio de Janeiro', tema: 'Parlamentar' },
+  { text: 'Quanto o PT destinou para educação entre 2020 e 2024?', tema: 'Partido' },
+  { text: 'Maiores emendas para infraestrutura no Nordeste em 2023', tema: 'Região' },
+  { text: 'Emendas de bancada para o estado de Minas Gerais', tema: 'Estado' },
+  { text: 'Quais foram as emendas para segurança pública em São Paulo?', tema: 'Tema' },
+  { text: 'Top 10 parlamentares por valor pago em 2024', tema: 'Ranking' },
+  { text: 'Emendas destinadas à cultura no Rio Grande do Sul', tema: 'Estado' },
 ]
 
-export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
+export function SearchBar({ onSearch, isLoading, variant = 'hero' }: SearchBarProps) {
   const [query, setQuery] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,45 +27,65 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
     if (query.trim()) onSearch(query)
   }
 
+  const isHero = variant === 'hero'
+
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="relative">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Digite sua pergunta sobre emendas parlamentares..."
-          className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg
-                     focus:ring-2 focus:ring-primary-500 focus:border-transparent
-                     outline-none transition"
+          placeholder="Faça uma pergunta sobre emendas parlamentares..."
+          className={clsx(
+            'w-full bg-white border border-surface-200 outline-none transition-colors',
+            'placeholder:text-brand-300',
+            'focus:border-brand-400 focus:ring-1 focus:ring-brand-400',
+            isHero
+              ? 'text-body px-4 py-3.5 pr-28 rounded-lg'
+              : 'text-small px-4 py-2.5 pr-24 rounded-md'
+          )}
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={isLoading || !query.trim()}
-          className="px-6 py-3 bg-primary-600 text-white rounded-lg
-                     hover:bg-primary-700 disabled:opacity-50
-                     flex items-center justify-center gap-2 transition font-medium
-                     shrink-0"
+          className={clsx(
+            'absolute flex items-center gap-1.5 font-medium transition-colors',
+            'bg-brand-900 text-white rounded-md',
+            'hover:bg-brand-800 disabled:opacity-40 disabled:cursor-not-allowed',
+            isHero
+              ? 'right-1.5 top-1.5 px-4 py-2 text-small'
+              : 'right-1 top-1 px-3 py-1.5 text-caption'
+          )}
         >
-          {isLoading ? <Loader2 size={20} className="animate-spin" /> : <Search size={20} />}
+          {isLoading ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Search size={16} />
+          )}
           Consultar
         </button>
       </form>
 
-      <div className="flex flex-wrap gap-2 mt-4">
-        {SUGESTOES.map((s, i) => (
-          <button
-            key={i}
-            onClick={() => { setQuery(s); onSearch(s) }}
-            className="text-xs px-3 py-1.5 bg-gray-100 rounded-full
-                       hover:bg-primary-50 hover:text-primary-600
-                       text-gray-600 transition"
-          >
-            {s}
-          </button>
-        ))}
-      </div>
+      {isHero && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {SUGESTOES.slice(0, 6).map((s, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setQuery(s.text)
+                onSearch(s.text)
+              }}
+              className="text-caption px-3 py-1.5 bg-white border border-surface-200
+                         rounded-md hover:border-brand-300 hover:text-brand-700
+                         text-brand-500 transition-colors"
+            >
+              {s.text}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

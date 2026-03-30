@@ -3,7 +3,67 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
-    @apply antialiased overflow-x-hidden;
+  html {
+    @apply antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  body {
+    @apply overflow-x-hidden text-body;
+  }
+
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-200 rounded-full;
+  }
+
+  ::selection {
+    @apply bg-brand-200 text-brand-900;
+  }
+}
+
+@layer components {
+  .prose-response h1,
+  .prose-response h2,
+  .prose-response h3 {
+    @apply text-heading text-brand-900 mt-5 mb-2;
+  }
+  .prose-response p {
+    @apply text-body text-brand-800 my-2 leading-relaxed;
+  }
+  .prose-response ul,
+  .prose-response ol {
+    @apply my-2 pl-5;
+  }
+  .prose-response li {
+    @apply text-body text-brand-800 my-0.5;
+  }
+  .prose-response strong {
+    @apply font-semibold text-brand-900;
+  }
+  .prose-response a {
+    @apply text-brand-600 underline underline-offset-2 hover:text-brand-800;
+  }
+  .prose-response table {
+    @apply w-full text-small my-4;
+  }
+  .prose-response th {
+    @apply text-left text-caption font-medium uppercase tracking-wider text-brand-500 pb-2 border-b border-surface-200;
+  }
+  .prose-response td {
+    @apply py-1.5 pr-4 text-brand-700 border-b border-surface-100;
+  }
+  .prose-response code {
+    @apply font-mono text-small bg-surface-100 px-1.5 py-0.5 rounded text-brand-800;
   }
 }

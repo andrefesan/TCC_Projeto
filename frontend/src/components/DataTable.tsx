@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react'
+import clsx from 'clsx'
 import type { EmendaData } from '../types'
 
 interface DataTableProps {
   data: EmendaData[]
+  defaultExpanded?: boolean
 }
 
 type SortField = 'nome_autor' | 'partido' | 'uf' | 'funcao_nome' | 'valor_empenhado' | 'valor_pago' | 'ano'
@@ -15,8 +17,18 @@ function formatarReal(valor: number): string {
   }).format(valor)
 }
 
-export function DataTable({ data }: DataTableProps) {
-  const [isExpanded, setIsExpanded] = useState(false)
+const COLUMNS: [SortField, string][] = [
+  ['nome_autor', 'Parlamentar'],
+  ['partido', 'Partido'],
+  ['uf', 'UF'],
+  ['funcao_nome', 'Função'],
+  ['valor_empenhado', 'Empenhado'],
+  ['valor_pago', 'Pago'],
+  ['ano', 'Ano'],
+]
+
+export function DataTable({ data, defaultExpanded = false }: DataTableProps) {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded)
   const [sortField, setSortField] = useState<SortField>('valor_empenhado')
   const [sortAsc, setSortAsc] = useState(false)
   const [page, setPage] = useState(0)
@@ -27,9 +39,10 @@ export function DataTable({ data }: DataTableProps) {
   const sorted = [...data].sort((a, b) => {
     const aVal = a[sortField] ?? ''
     const bVal = b[sortField] ?? ''
-    const cmp = typeof aVal === 'number' && typeof bVal === 'number'
-      ? aVal - bVal
-      : String(aVal).localeCompare(String(bVal))
+    const cmp =
+      typeof aVal === 'number' && typeof bVal === 'number'
+        ? aVal - bVal
+        : String(aVal).localeCompare(String(bVal))
     return sortAsc ? cmp : -cmp
   })
 
@@ -51,79 +64,91 @@ export function DataTable({ data }: DataTableProps) {
   }
 
   return (
-    <div className="mt-4">
+    <div className="mt-6 border-t border-surface-200 pt-6">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+        className="flex items-center gap-2 text-small text-brand-500 hover:text-brand-700 transition-colors"
       >
-        {isExpanded ? 'Ocultar' : 'Ver'} dados brutos ({data.length} registros)
+        {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        <span className="font-medium">
+          {isExpanded ? 'Ocultar' : 'Ver'} dados tabulares
+        </span>
+        <span className="text-caption text-brand-400">
+          ({data.length} registros)
+        </span>
       </button>
 
       {isExpanded && (
-        <div className="mt-3 overflow-x-auto rounded-lg border border-gray-200">
-          <table className="min-w-full text-sm">
-            <thead className="bg-gray-50">
-              <tr>
-                {([
-                  ['nome_autor', 'Parlamentar'],
-                  ['partido', 'Partido'],
-                  ['uf', 'UF'],
-                  ['funcao_nome', 'Função'],
-                  ['valor_empenhado', 'Empenhado'],
-                  ['valor_pago', 'Pago'],
-                  ['ano', 'Ano'],
-                ] as [SortField, string][]).map(([field, label]) => (
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full text-small">
+            <thead>
+              <tr className="border-b border-surface-200">
+                {COLUMNS.map(([field, label]) => (
                   <th
                     key={field}
                     onClick={() => handleSort(field)}
-                    className="px-3 py-2 text-left cursor-pointer hover:bg-gray-100
-                               select-none whitespace-nowrap"
+                    className={clsx(
+                      'px-3 py-2.5 text-left text-caption font-medium uppercase tracking-wider cursor-pointer',
+                      'select-none whitespace-nowrap transition-colors',
+                      field === sortField
+                        ? 'text-brand-800'
+                        : 'text-brand-400 hover:text-brand-600'
+                    )}
                   >
                     <span className="inline-flex items-center gap-1">
                       {label} <SortIcon field={field} />
                     </span>
                   </th>
                 ))}
-                <th className="px-3 py-2 text-left whitespace-nowrap">Fonte</th>
+                <th className="px-3 py-2.5 text-left text-caption font-medium uppercase tracking-wider text-brand-400">
+                  Fonte
+                </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
-              {paged.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-50">
-                  <td className="px-3 py-2">
+            <tbody>
+              {paged.map((row, idx) => (
+                <tr
+                  key={row.id}
+                  className={clsx(
+                    'border-b border-surface-100 hover:bg-brand-50/50 transition-colors',
+                    idx % 2 === 0 ? 'bg-white' : 'bg-surface-50'
+                  )}
+                >
+                  <td className="px-3 py-2.5">
                     {row.parlamentar_url ? (
                       <a
                         href={row.parlamentar_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="text-brand-600 hover:text-brand-800 underline underline-offset-2"
                       >
-                        {row.nome_autor || '-'}
+                        {row.nome_autor || '—'}
                       </a>
                     ) : (
-                      row.nome_autor || '-'
+                      <span className="text-brand-800">{row.nome_autor || '—'}</span>
                     )}
                   </td>
-                  <td className="px-3 py-2">{row.partido || '-'}</td>
-                  <td className="px-3 py-2">{row.uf || '-'}</td>
-                  <td className="px-3 py-2">{row.funcao_nome || '-'}</td>
-                  <td className="px-3 py-2 text-right font-mono">
+                  <td className="px-3 py-2.5 text-brand-600">{row.partido || '—'}</td>
+                  <td className="px-3 py-2.5 text-brand-600">{row.uf || '—'}</td>
+                  <td className="px-3 py-2.5 text-brand-600">{row.funcao_nome || '—'}</td>
+                  <td className="px-3 py-2.5 text-right font-mono text-brand-800">
                     {formatarReal(row.valor_empenhado)}
                   </td>
-                  <td className="px-3 py-2 text-right font-mono">
+                  <td className="px-3 py-2.5 text-right font-mono text-brand-800">
                     {formatarReal(row.valor_pago)}
                   </td>
-                  <td className="px-3 py-2 text-center">{row.ano}</td>
-                  <td className="px-3 py-2">
+                  <td className="px-3 py-2.5 text-center font-mono text-brand-600">
+                    {row.ano}
+                  </td>
+                  <td className="px-3 py-2.5">
                     {row.source_url && (
                       <a
                         href={row.source_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        title="Ver no Portal da Transparência"
-                        className="text-green-600 hover:text-green-800"
+                        className="text-brand-400 hover:text-brand-700 transition-colors"
                       >
-                        <ExternalLink size={14} />
+                        <ExternalLink size={13} />
                       </a>
                     )}
                   </td>
@@ -133,20 +158,24 @@ export function DataTable({ data }: DataTableProps) {
           </table>
 
           {totalPages > 1 && (
-            <div className="flex items-center justify-between px-3 py-2 bg-gray-50 text-xs">
-              <span>Página {page + 1} de {totalPages}</span>
-              <div className="flex gap-2">
+            <div className="flex items-center justify-between py-3 border-t border-surface-200 text-caption">
+              <span className="text-brand-400">
+                Página {page + 1} de {totalPages}
+              </span>
+              <div className="flex gap-1.5">
                 <button
                   onClick={() => setPage(Math.max(0, page - 1))}
                   disabled={page === 0}
-                  className="px-2 py-1 border rounded disabled:opacity-50"
+                  className="px-3 py-1.5 border border-surface-200 rounded-md text-brand-600
+                             hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   Anterior
                 </button>
                 <button
                   onClick={() => setPage(Math.min(totalPages - 1, page + 1))}
                   disabled={page >= totalPages - 1}
-                  className="px-2 py-1 border rounded disabled:opacity-50"
+                  className="px-3 py-1.5 border border-surface-200 rounded-md text-brand-600
+                             hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   Próximo
                 </button>

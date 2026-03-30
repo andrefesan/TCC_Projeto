@@ -59,13 +59,21 @@ class RAGPipeline:
         filtros_sql = decomposicao["filtros_sql"]
         limit = min(plano.get("limite_sugerido", settings.MAX_RESULTS), settings.MAX_RESULTS_CAP)
         threshold = plano.get("threshold_suficiencia", limit)
-        estrategia = None  # Definida apenas para modo híbrido
+        estrategia = plano.get("estrategia_hibrida") if modo == "hibrido" else None
 
         if operacao in ("soma", "contagem", "ranking", "media"):
-            # Modo de agregação — ignora modo híbrido/sql_puro
             dados = self.sql_search.construir_agregacao(
                 filtros_sql, operacao, db, limit
             )
+            # Suplementar com contexto de documentos se planner pediu
+            if modo == "hibrido" and plano.get("precisa_busca_documentos"):
+                embedding = self.decomposer.embedder.encode(consulta).tolist()
+                docs_ctx = self.vector_search.buscar_documentos(
+                    {"termo": consulta, "embedding": embedding}, db,
+                    limit=5,
+                )
+                if docs_ctx:
+                    plano["contexto_documentos"] = docs_ctx
         elif modo == "sql_puro":
             if decomposicao.get("busca_beneficiario") and decomposicao.get("filtro_beneficiario"):
                 dados = self.sql_search.buscar_por_beneficiario(
@@ -79,21 +87,26 @@ class RAGPipeline:
                 {"termo": consulta, "embedding": embedding}, db, limit=limit
             )
         else:  # "hibrido" (padrão)
-            # Estratégia adaptativa: usar recomendação do planner,
-            # mas forçar RRF para buscas de beneficiário (vetor agrega valor)
+            # Estratégia adaptativa: respeitar recomendação do planner
             is_beneficiario = decomposicao.get("busca_beneficiario", False)
             planner_strategy = plano.get("estrategia_hibrida", "rrf")
+            precisa_documentos = plano.get("precisa_busca_documentos", False)
 
-            if is_beneficiario:
+            # Quando busca é sobre obras/projetos, desativar path de beneficiário
+            # para priorizar busca em documentos via RRF
+            if precisa_documentos:
+                is_beneficiario = False
+
+            if is_beneficiario and planner_strategy not in ("sql_only", "sql_first"):
                 estrategia = "rrf"
-            elif planner_strategy == "sql_only":
-                estrategia = "sql_first"  # permitir fallback vetorial se SQL falhar
             else:
-                estrategia = planner_strategy  # "rrf" ou "sql_first"
+                estrategia = planner_strategy  # respeitar: sql_only, sql_first ou rrf
 
-            # Gerar embedding da consulta bruta para componente vetorial
-            embedding = self.decomposer.embedder.encode(consulta).tolist()
-            busca_vetorial = {"termo": consulta, "embedding": embedding}
+            # Embedding condicional: só gerar quando a estratégia precisa de vetor
+            busca_vetorial = None
+            if estrategia != "sql_only":
+                embedding = self.decomposer.embedder.encode(consulta).tolist()
+                busca_vetorial = {"termo": consulta, "embedding": embedding}
 
             dados = self.search.buscar(
                 filtros_sql,
@@ -104,17 +117,16 @@ class RAGPipeline:
                 busca_beneficiario=is_beneficiario,
                 filtro_beneficiario=decomposicao.get("filtro_beneficiario"),
                 estrategia=estrategia,
+                buscar_documentos=plano.get("precisa_busca_documentos", False),
             )
 
-        # Contagem total para completude (apenas para busca, não agregações)
-        completude = None
-        if operacao == "busca" and dados:
-            total_no_banco = self.sql_search.contar_total(filtros_sql, db)
-            completude = {
-                "total_no_banco": total_no_banco,
-                "resultados_exibidos": len(dados),
-                "dados_completos": len(dados) >= total_no_banco,
-            }
+        # Contagem total para completude e cálculo de recall (sempre computar)
+        total_no_banco = self.sql_search.contar_total(filtros_sql, db)
+        completude = {
+            "total_no_banco": total_no_banco,
+            "resultados_exibidos": len(dados),
+            "dados_completos": len(dados) >= total_no_banco if total_no_banco > 0 else True,
+        }
 
         # Cruzamento com sanções para beneficiários encontrados
         self._enriquecer_com_sancoes(dados, db)
@@ -129,6 +141,7 @@ class RAGPipeline:
             consulta, dados, instituicao=instituicao,
             operacao=operacao, tem_sancoes=tem_sancoes,
             completude=completude, entidades=entidades,
+            contexto_documentos=plano.get("contexto_documentos"),
         )
 
         # Disclaimer contextual
@@ -162,10 +175,9 @@ class RAGPipeline:
             "estrategia_hibrida": estrategia if modo == "hibrido" else None,
         }
 
-        # Adicionar completude ao metadata
-        if completude:
-            resultado["metadata"]["total_no_banco"] = completude["total_no_banco"]
-            resultado["metadata"]["dados_completos"] = completude["dados_completos"]
+        # Adicionar completude ao metadata (sempre presente)
+        resultado["metadata"]["total_no_banco"] = completude["total_no_banco"]
+        resultado["metadata"]["dados_completos"] = completude["dados_completos"]
 
         # Log de consulta
         self._registrar_consulta(db, consulta, entidades, resultado)
