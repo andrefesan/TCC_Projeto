@@ -2,27 +2,15 @@
 
 Plataforma web que permite consultar dados sobre emendas parlamentares federais brasileiras usando **linguagem natural**. O sistema interpreta perguntas como *"Quanto o estado do Pará recebeu em emendas de saúde em 2023?"* e retorna respostas fundamentadas, com citações verificáveis de fontes governamentais oficiais.
 
-> **Acesse a plataforma:** [www.astrosoft.com.br/fiscalia](https://www.astrosoft.com.br/fiscalia)
+> **Acesse a plataforma:** [fiscalia.astrosoft.com.br](https://fiscalia.astrosoft.com.br)
 
 ---
 
-## Contexto acadêmico
+## Sobre
 
-Este projeto foi desenvolvido como Trabalho de Conclusão de Curso (TCC) em Sistemas de Informação e publicado no **SEMISH 2026** (Seminário Integrado de Software e Hardware), evento integrante do CSBC (Congresso da Sociedade Brasileira de Computação).
+Iniciativa acadêmica sem fins lucrativos. O objetivo é tornar os dados de emendas parlamentares mais acessíveis, permitindo que qualquer pessoa consulte informações públicas sem precisar navegar entre múltiplos portais governamentais ou entender vocabulários orçamentários especializados.
 
-O artigo apresenta e avalia a arquitetura RAG híbrida implementada nesta plataforma, comparando três estratégias de recuperação (SQL puro, vetorial puro e híbrido) em um corpus de 32.787 emendas parlamentares e 915 parlamentares.
-
-### Citação
-
-```bibtex
-@inproceedings{Anonimo2026_Fiscalia,
-  title     = {Arquitetura RAG Híbrida para Consulta em Linguagem Natural
-               a Dados de Emendas Parlamentares Brasileiras},
-  booktitle = {Seminário Integrado de Software e Hardware (SEMISH)},
-  year      = {2026},
-  note      = {Repositório: https://github.com/anonymus-astro/Fiscalia}
-}
-```
+O artigo associado apresenta e avalia a arquitetura RAG híbrida implementada nesta plataforma, comparando três estratégias de recuperação (SQL puro, vetorial puro e híbrido) em um corpus de 32.787 emendas parlamentares e 915 parlamentares.
 
 ---
 

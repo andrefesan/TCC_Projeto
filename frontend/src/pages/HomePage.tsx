@@ -15,84 +15,87 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* ── Landing (shown when no results) ── */}
+      {/* ── Landing ── */}
       {!hasResults && !isPending && !isError && (
         <>
-          {/* Hero */}
-          <section className="max-w-content mx-auto px-4 sm:px-6 pt-16 pb-8 sm:pt-24 sm:pb-12">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="inline-flex items-center gap-1.5 text-caption font-medium px-2.5 py-1 rounded-full border border-surface-200 text-brand-500">
-                <BookOpen size={12} />
-                Projeto acadêmico sem fins lucrativos
-              </span>
+          {/* Hero with gradient */}
+          <section className="hero-gradient">
+            <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-12 sm:pt-20 sm:pb-16 text-center">
+              <div className="flex justify-center mb-5">
+                <span className="inline-flex items-center gap-1.5 text-caption font-medium px-3 py-1 rounded-full border border-brand-200/60 bg-white/70 text-brand-600 backdrop-blur-sm">
+                  <BookOpen size={12} />
+                  Iniciativa acadêmica sem fins lucrativos
+                </span>
+              </div>
+
+              <h1 className="text-display text-brand-950 mx-auto max-w-[640px]">
+                Consulte emendas parlamentares em linguagem natural
+              </h1>
+              <p className="text-body text-brand-500 mt-5 mx-auto max-w-[520px] leading-relaxed">
+                Faça perguntas sobre os R$ 200+ bilhões em emendas parlamentares federais
+                de 2020 a 2024. Respostas fundamentadas com fontes oficiais do governo.
+              </p>
+
+              <div className="mt-8 max-w-[640px] mx-auto">
+                <SearchBar onSearch={handleSearch} isLoading={isPending} variant="hero" />
+              </div>
             </div>
-
-            <h1 className="text-display text-brand-950 max-w-[560px]">
-              Consulte emendas parlamentares em linguagem natural
-            </h1>
-            <p className="text-body text-brand-500 mt-4 max-w-[480px] leading-relaxed">
-              Faça perguntas sobre os R$ 200+ bilhões em emendas parlamentares federais
-              de 2020 a 2024. Respostas fundamentadas com fontes oficiais do governo.
-            </p>
-          </section>
-
-          {/* Search */}
-          <section className="max-w-content mx-auto px-4 sm:px-6">
-            <SearchBar onSearch={handleSearch} isLoading={isPending} variant="hero" />
           </section>
 
           {/* How it works */}
-          <section className="max-w-wide mx-auto px-4 sm:px-6 pt-20 pb-12">
-            <h2 className="text-heading text-brand-900 mb-8">Como funciona</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-              <div>
-                <div className="text-caption font-mono font-medium text-brand-400 mb-2">01</div>
-                <h3 className="text-body font-semibold text-brand-800 mb-1">
-                  Pergunte em linguagem natural
-                </h3>
-                <p className="text-small text-brand-500">
-                  Escreva sua dúvida como faria a um especialista. O sistema entende contexto, nomes e temas.
-                </p>
-              </div>
-              <div>
-                <div className="text-caption font-mono font-medium text-brand-400 mb-2">02</div>
-                <h3 className="text-body font-semibold text-brand-800 mb-1">
-                  Busca nos dados oficiais
-                </h3>
-                <p className="text-small text-brand-500">
-                  O sistema combina busca estruturada (SQL) e semântica em 32.787 emendas de 27 estados.
-                </p>
-              </div>
-              <div>
-                <div className="text-caption font-mono font-medium text-brand-400 mb-2">03</div>
-                <h3 className="text-body font-semibold text-brand-800 mb-1">
-                  Resposta com fontes
-                </h3>
-                <p className="text-small text-brand-500">
-                  Receba uma resposta clara com citações verificáveis do Portal da Transparência e Câmara dos Deputados.
-                </p>
+          <section className="bg-white border-t border-surface-200">
+            <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+              <h2 className="text-heading text-brand-900 mb-10 text-center">Como funciona</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-10">
+                <div className="surface-card p-5 sm:p-6">
+                  <div className="text-caption font-mono font-medium text-accent-500 mb-2">01</div>
+                  <h3 className="text-body font-semibold text-brand-800 mb-1.5">
+                    Pergunte em linguagem natural
+                  </h3>
+                  <p className="text-small text-brand-500 leading-relaxed">
+                    Escreva sua dúvida como faria a um especialista. O sistema entende contexto, nomes e temas.
+                  </p>
+                </div>
+                <div className="surface-card p-5 sm:p-6">
+                  <div className="text-caption font-mono font-medium text-accent-500 mb-2">02</div>
+                  <h3 className="text-body font-semibold text-brand-800 mb-1.5">
+                    Busca nos dados oficiais
+                  </h3>
+                  <p className="text-small text-brand-500 leading-relaxed">
+                    O sistema combina busca estruturada (SQL) e semântica em 32.787 emendas de 27 estados.
+                  </p>
+                </div>
+                <div className="surface-card p-5 sm:p-6">
+                  <div className="text-caption font-mono font-medium text-accent-500 mb-2">03</div>
+                  <h3 className="text-body font-semibold text-brand-800 mb-1.5">
+                    Resposta com fontes
+                  </h3>
+                  <p className="text-small text-brand-500 leading-relaxed">
+                    Receba uma resposta clara com citações verificáveis do Portal da Transparência e Câmara.
+                  </p>
+                </div>
               </div>
             </div>
           </section>
 
           {/* Stats */}
-          <section className="border-y border-surface-200 bg-white">
-            <div className="max-w-wide mx-auto px-4 sm:px-6 py-8 flex flex-wrap gap-x-12 gap-y-4">
+          <section className="bg-brand-950">
+            <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 text-center">
               <div>
-                <div className="text-title font-bold text-brand-900 font-mono">32.787</div>
-                <div className="text-caption text-brand-500">emendas indexadas</div>
+                <div className="text-title font-bold text-white font-mono">32.787</div>
+                <div className="text-caption text-brand-400 mt-1">emendas indexadas</div>
               </div>
               <div>
-                <div className="text-title font-bold text-brand-900 font-mono">27</div>
-                <div className="text-caption text-brand-500">unidades federativas</div>
+                <div className="text-title font-bold text-white font-mono">27</div>
+                <div className="text-caption text-brand-400 mt-1">unidades federativas</div>
               </div>
               <div>
-                <div className="text-title font-bold text-brand-900 font-mono">2020–2024</div>
-                <div className="text-caption text-brand-500">período coberto</div>
+                <div className="text-title font-bold text-white font-mono">2020–2024</div>
+                <div className="text-caption text-brand-400 mt-1">período coberto</div>
               </div>
               <div>
-                <div className="text-title font-bold text-brand-900 font-mono">100%</div>
-                <div className="text-caption text-brand-500">dados abertos</div>
+                <div className="text-title font-bold text-accent-400 font-mono">100%</div>
+                <div className="text-caption text-brand-400 mt-1">dados abertos</div>
               </div>
             </div>
           </section>
@@ -101,7 +104,7 @@ export default function HomePage() {
 
       {/* ── Loading ── */}
       {isPending && (
-        <div className="max-w-content mx-auto px-4 sm:px-6 py-8">
+        <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <SearchBar onSearch={handleSearch} isLoading={isPending} variant="compact" />
           <LoadingState />
         </div>
@@ -109,7 +112,7 @@ export default function HomePage() {
 
       {/* ── Error ── */}
       {isError && (
-        <div className="max-w-content mx-auto px-4 sm:px-6 py-8">
+        <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <SearchBar onSearch={handleSearch} isLoading={isPending} variant="compact" />
           <ErrorState message={error?.message} />
         </div>
@@ -117,7 +120,7 @@ export default function HomePage() {
 
       {/* ── Results ── */}
       {hasResults && (
-        <div className="max-w-content mx-auto px-4 sm:px-6 py-8">
+        <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <SearchBar onSearch={handleSearch} isLoading={isPending} variant="compact" />
           <ResponseCard
             resposta={data.resposta}

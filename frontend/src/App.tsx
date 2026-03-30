@@ -1,15 +1,38 @@
 import { Routes, Route, NavLink } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { AlertTriangle, Database } from 'lucide-react'
 import clsx from 'clsx'
 import HomePage from './pages/HomePage'
 import ResultsPage from './pages/ResultsPage'
 import AboutPage from './pages/AboutPage'
+import { checkHealth } from './services/api'
 
 export default function App() {
+  const health = useQuery({
+    queryKey: ['health'],
+    queryFn: checkHealth,
+    retry: 2,
+    refetchInterval: 60_000,
+    refetchOnWindowFocus: true,
+  })
+
+  const dbDown = health.isError || (health.data && health.data.database !== 'connected')
+
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Database status banner */}
+      {dbDown && (
+        <div className="status-banner bg-destructive-50 text-destructive-600 border-b border-destructive-500/20 flex items-center justify-center gap-2">
+          <Database size={14} />
+          <span>
+            O banco de dados está indisponível no momento. As consultas podem não funcionar corretamente.
+          </span>
+        </div>
+      )}
+
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-surface-200">
-        <div className="max-w-wide mx-auto h-14 px-4 sm:px-6 flex items-center justify-between">
+        <div className="max-w-wide mx-auto h-14 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <NavLink to="/" className="flex items-center gap-2">
             <span className="w-1.5 h-6 bg-accent-400 rounded-sm" />
             <span className="text-lg font-bold tracking-tight text-brand-900">
@@ -17,7 +40,7 @@ export default function App() {
             </span>
           </NavLink>
 
-          <nav className="flex items-center gap-6 text-small">
+          <nav className="flex items-center gap-4 sm:gap-6 text-small">
             <NavLink
               to="/"
               end
@@ -66,30 +89,29 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-surface-200 bg-white">
-        <div className="max-w-wide mx-auto px-4 sm:px-6 py-8">
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6">
-            <div className="max-w-xs">
-              <div className="flex items-center gap-2 mb-2">
+      <footer className="border-t border-surface-200 bg-brand-950 text-brand-400">
+        <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-5 bg-accent-400 rounded-sm" />
-                <span className="font-bold text-brand-900">Fiscalia</span>
+                <span className="font-bold text-white">Fiscalia</span>
               </div>
               <p className="text-caption text-brand-400 leading-relaxed">
-                Projeto acadêmico sem fins lucrativos.
-                Trabalho de Conclusão de Curso em Sistemas de Informação.
+                Iniciativa acadêmica sem fins lucrativos.
               </p>
             </div>
 
             <div>
-              <p className="text-caption font-medium text-brand-600 mb-2 uppercase tracking-wider">
+              <p className="text-caption font-medium text-brand-300 mb-3 uppercase tracking-wider">
                 Fontes de dados
               </p>
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <a
                   href="https://portaldatransparencia.gov.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-small text-brand-500 hover:text-brand-700 transition-colors"
+                  className="block text-small text-brand-400 hover:text-white transition-colors"
                 >
                   Portal da Transparência
                 </a>
@@ -97,7 +119,7 @@ export default function App() {
                   href="https://dadosabertos.camara.leg.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-small text-brand-500 hover:text-brand-700 transition-colors"
+                  className="block text-small text-brand-400 hover:text-white transition-colors"
                 >
                   Câmara dos Deputados
                 </a>
@@ -105,13 +127,13 @@ export default function App() {
             </div>
 
             <div>
-              <p className="text-caption font-medium text-brand-600 mb-2 uppercase tracking-wider">
+              <p className="text-caption font-medium text-brand-300 mb-3 uppercase tracking-wider">
                 Projeto
               </p>
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <NavLink
                   to="/about"
-                  className="block text-small text-brand-500 hover:text-brand-700 transition-colors"
+                  className="block text-small text-brand-400 hover:text-white transition-colors"
                 >
                   Sobre
                 </NavLink>
@@ -119,7 +141,7 @@ export default function App() {
                   href="https://github.com/anonymus-astro/Fiscalia"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-small text-brand-500 hover:text-brand-700 transition-colors"
+                  className="block text-small text-brand-400 hover:text-white transition-colors"
                 >
                   Código fonte
                 </a>
@@ -127,8 +149,11 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-8 pt-4 border-t border-surface-200 flex flex-col sm:flex-row justify-between gap-2 text-caption text-brand-400">
-            <p>Respostas geradas por IA — verifique sempre nas fontes oficiais.</p>
+          <div className="mt-10 pt-6 border-t border-brand-800 flex flex-col sm:flex-row justify-between gap-2 text-caption text-brand-500">
+            <div className="flex items-center gap-1.5">
+              <AlertTriangle size={11} />
+              <span>Respostas geradas por IA — verifique sempre nas fontes oficiais.</span>
+            </div>
             <p>2024–2026</p>
           </div>
         </div>

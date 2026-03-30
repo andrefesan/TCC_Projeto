@@ -69,8 +69,8 @@ export default {
         'caption': ['0.75rem', { lineHeight: '1.4' }],
       },
       maxWidth: {
-        'content': '720px',
-        'wide': '1080px',
+        'content': '860px',
+        'wide': '1200px',
       },
       borderRadius: {
         'sm': '4px',

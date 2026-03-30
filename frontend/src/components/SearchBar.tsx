@@ -69,21 +69,24 @@ export function SearchBar({ onSearch, isLoading, variant = 'hero' }: SearchBarPr
       </form>
 
       {isHero && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {SUGESTOES.slice(0, 6).map((s, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                setQuery(s.text)
-                onSearch(s.text)
-              }}
-              className="text-caption px-3 py-1.5 bg-white border border-surface-200
-                         rounded-md hover:border-brand-300 hover:text-brand-700
-                         text-brand-500 transition-colors"
-            >
-              {s.text}
-            </button>
-          ))}
+        <div className="mt-4">
+          <p className="text-caption text-brand-400 mb-2">Experimente:</p>
+          <div className="flex flex-wrap gap-2">
+            {SUGESTOES.slice(0, 6).map((s, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setQuery(s.text)
+                  onSearch(s.text)
+                }}
+                className="text-caption px-3 py-1.5 bg-white/70 border border-surface-200
+                           rounded-md hover:border-brand-300 hover:text-brand-700 hover:bg-white
+                           text-brand-500 transition-colors text-left"
+              >
+                {s.text}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>
