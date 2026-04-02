@@ -91,7 +91,8 @@ class HybridSearchService:
                busca_beneficiario: bool = False,
                filtro_beneficiario: Optional[str] = None,
                estrategia: str = "rrf",
-               buscar_documentos: bool = False) -> List[dict]:
+               buscar_documentos: bool = False,
+               palavras_chave_documento: Optional[List[str]] = None) -> List[dict]:
         """Executa busca híbrida com estratégia configurável.
 
         Args:
@@ -149,14 +150,31 @@ class HybridSearchService:
         sql_limit = fetch_limit if estrategia == "rrf" else limit
         dados_sql = self.sql_search.construir_e_executar(filtros_sql, db, sql_limit)
 
+        # Busca textual em observações de documentos (complementa vetorial)
+        dados_texto_docs = []
+        if palavras_chave_documento and buscar_documentos:
+            dados_texto_docs = self.sql_search.buscar_por_palavras_chave_documento(
+                palavras_chave_documento, filtros_sql, db, fetch_limit
+            )
+
         # Estratégia sql_only: retorna apenas SQL
+        # Exceção: se há palavras-chave de documento, incluir resultados textuais
         if estrategia == "sql_only":
+            if dados_texto_docs:
+                return self._fusionar_rrf(dados_sql, dados_texto_docs, limit)
             logger.info("busca_sql_only", resultados=len(dados_sql))
             return dados_sql[:limit]
 
         # Estratégia sql_first: vetor apenas se SQL insuficiente
         if estrategia == "sql_first":
             effective_threshold = sufficiency_threshold if sufficiency_threshold is not None else limit
+            # Se há resultados de busca textual em documentos, sempre fusionar
+            if dados_texto_docs:
+                dados_vetoriais = self._combinar_vetoriais(
+                    busca_vetorial, db, fetch_limit, buscar_documentos
+                ) if busca_vetorial else []
+                todos_vetoriais = dados_texto_docs + dados_vetoriais
+                return self._fusionar_rrf(dados_sql, todos_vetoriais, limit)
             if not busca_vetorial or len(dados_sql) >= effective_threshold:
                 logger.info("busca_sql_first_suficiente",
                              resultados=len(dados_sql), threshold=effective_threshold)
@@ -168,13 +186,21 @@ class HybridSearchService:
             return self._fusionar_rrf(dados_sql, dados_vetoriais, limit)
 
         # Estratégia rrf (padrão): SEMPRE executar ambos e fusionar
-        if not busca_vetorial:
+        if not busca_vetorial and not dados_texto_docs:
             logger.warning("busca_rrf_sem_vetorial_fallback", resultados=len(dados_sql))
             return dados_sql[:limit]
 
         dados_vetoriais = self._combinar_vetoriais(
             busca_vetorial, db, fetch_limit, buscar_documentos
-        )
+        ) if busca_vetorial else []
+
+        # Unir resultados de busca vetorial em documentos + busca textual
+        if dados_texto_docs:
+            ids_vetoriais = {d["id"] for d in dados_vetoriais}
+            for d in dados_texto_docs:
+                if d["id"] not in ids_vetoriais:
+                    dados_vetoriais.append(d)
+
         return self._fusionar_rrf(dados_sql, dados_vetoriais, limit)
 
     def _combinar_vetoriais(self, busca_vetorial: dict, db: Session,

@@ -61,6 +61,11 @@ class RAGPipeline:
         threshold = plano.get("threshold_suficiencia", limit)
         estrategia = plano.get("estrategia_hibrida") if modo == "hibrido" else None
 
+        # Extrair palavras-chave de documento da consulta (para busca textual)
+        palavras_chave_doc = None
+        if plano.get("precisa_busca_documentos"):
+            palavras_chave_doc = self._extrair_palavras_chave_documento(consulta)
+
         if operacao in ("soma", "contagem", "ranking", "media"):
             dados = self.sql_search.construir_agregacao(
                 filtros_sql, operacao, db, limit
@@ -118,6 +123,7 @@ class RAGPipeline:
                 filtro_beneficiario=decomposicao.get("filtro_beneficiario"),
                 estrategia=estrategia,
                 buscar_documentos=plano.get("precisa_busca_documentos", False),
+                palavras_chave_documento=palavras_chave_doc,
             )
 
         # Contagem total para completude e cálculo de recall (sempre computar)
@@ -190,6 +196,22 @@ class RAGPipeline:
         query_cache.set(cache_key, resultado)
 
         return resultado
+
+    @staticmethod
+    def _extrair_palavras_chave_documento(consulta: str) -> list[str]:
+        """Extrai palavras-chave de documento a partir da consulta.
+
+        Usa o mesmo vocabulário do QueryPlanner._KEYWORDS_DOCUMENTO para
+        identificar termos que devem ser buscados textualmente nas
+        observações dos documentos de despesa.
+        """
+        from app.services.rag.query_planner import QueryPlanner
+        consulta_lower = consulta.lower()
+        encontradas = [
+            kw for kw in QueryPlanner._KEYWORDS_DOCUMENTO
+            if kw in consulta_lower
+        ]
+        return encontradas if encontradas else []
 
     def _gerar_hint_visualizacao(self, operacao: str, dados: list[dict],
                                   plano: dict) -> str | None:

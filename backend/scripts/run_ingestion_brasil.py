@@ -484,6 +484,14 @@ async def fase_detalhes(cp: CheckpointManager, dlq: DeadLetterQueue,
             # Run producer and consumer concurrently
             await asyncio.gather(producer(), consumer())
 
+            # Reconciliar valores das emendas desta UF a partir dos documentos
+            normalizer = DataNormalizer(db)
+            is_sqlite = "sqlite" in str(db.bind.url)
+            if is_sqlite:
+                normalizer.recalcular_valores_de_documentos_sqlite()
+            else:
+                normalizer.recalcular_valores_de_documentos()
+
             cp.mark_completed("detalhes", key, total=coletados)
             logger.info("detalhes_completos", uf=uf, coletados=coletados, erros=erros)
 
@@ -491,6 +499,21 @@ async def fase_detalhes(cp: CheckpointManager, dlq: DeadLetterQueue,
             db.close()
 
     await collector.close_shared_client()
+
+
+def _parse_valor_detalhe(valor_str) -> float:
+    """Converte valor do endpoint de detalhes (formato BR) para float."""
+    if not valor_str:
+        return 0.0
+    if isinstance(valor_str, (int, float)):
+        return float(valor_str)
+    cleaned = str(valor_str).strip()
+    if cleaned in ("-", "", "N/A", "null"):
+        return 0.0
+    try:
+        return float(cleaned.replace(".", "").replace(",", "."))
+    except ValueError:
+        return 0.0
 
 
 def _atualizar_documento_detalhes(db, doc_id: int, detalhe: dict):
@@ -516,6 +539,7 @@ def _atualizar_documento_detalhes(db, doc_id: int, detalhe: dict):
             favorecido_uf = :fav_uf,
             numero_processo = :processo,
             plano_orcamentario = :plano,
+            valor = :valor,
             observacao = CASE WHEN :observacao != '' THEN :observacao
                              ELSE COALESCE(observacao, '') END,
             detalhes_coletados = 1
@@ -540,6 +564,7 @@ def _atualizar_documento_detalhes(db, doc_id: int, detalhe: dict):
         "fav_uf": detalhe.get("ufFavorecido", ""),
         "processo": detalhe.get("numeroProcesso", ""),
         "plano": detalhe.get("planoOrcamentario", ""),
+        "valor": _parse_valor_detalhe(detalhe.get("valor", "0")),
         "observacao": detalhe.get("observacao", ""),
         "id": doc_id,
     })

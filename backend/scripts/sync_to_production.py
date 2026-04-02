@@ -85,9 +85,17 @@ COLUNAS_ALARGAR = [
 ]
 
 
+COLUNAS_EXTRAS_EMENDA = [
+    ("valor_resto_inscrito", "NUMERIC(15,2) DEFAULT 0"),
+    ("valor_resto_cancelado", "NUMERIC(15,2) DEFAULT 0"),
+    ("valor_resto_pago", "NUMERIC(15,2) DEFAULT 0"),
+    ("numero_emenda", "VARCHAR(20)"),
+]
+
+
 def ajustar_schema(pg_cur, dry_run: bool):
     """Adiciona colunas faltantes e alarga colunas estreitas em produção."""
-    # 1. Colunas faltantes em documentos_emenda
+    # 1a. Colunas faltantes em documentos_emenda
     pg_cur.execute("""
         SELECT column_name FROM information_schema.columns
         WHERE table_name = 'documentos_emenda'
@@ -101,7 +109,23 @@ def ajustar_schema(pg_cur, dry_run: bool):
                 log(f"  [DRY-RUN] {sql}")
             else:
                 pg_cur.execute(sql)
-                log(f"  + coluna {col_name} adicionada")
+                log(f"  + coluna documentos_emenda.{col_name} adicionada")
+
+    # 1b. Colunas faltantes em emendas
+    pg_cur.execute("""
+        SELECT column_name FROM information_schema.columns
+        WHERE table_name = 'emendas'
+    """)
+    colunas_emendas = {r[0] for r in pg_cur.fetchall()}
+
+    for col_name, col_type in COLUNAS_EXTRAS_EMENDA:
+        if col_name not in colunas_emendas:
+            sql = f"ALTER TABLE emendas ADD COLUMN {col_name} {col_type}"
+            if dry_run:
+                log(f"  [DRY-RUN] {sql}")
+            else:
+                pg_cur.execute(sql)
+                log(f"  + coluna emendas.{col_name} adicionada")
 
     # 2. Alargar colunas que podem truncar dados
     for tabela, coluna, novo_tipo in COLUNAS_ALARGAR:
@@ -182,39 +206,98 @@ def sync_emendas(lite, pg_cur, dry_run: bool):
         "funcao", "funcao_nome", "subfuncao", "subfuncao_nome",
         "programa", "acao", "localidade", "uf",
         "valor_empenhado", "valor_liquidado", "valor_pago",
+        "valor_resto_inscrito", "valor_resto_cancelado", "valor_resto_pago",
+        "numero_emenda",
         "descricao", "fonte",
     ]
 
     codigos_prod = get_existing_keys(pg_cur, "emendas", "codigo_emenda")
     rows = lite.execute(f"SELECT {','.join(cols)} FROM emendas").fetchall()
 
-    sql = f"""
+    sql_insert = f"""
         INSERT INTO emendas ({','.join(cols)})
         VALUES ({','.join(['%s'] * len(cols))})
         ON CONFLICT (codigo_emenda) DO NOTHING
     """
 
-    batch = []
+    sql_update_valores = """
+        UPDATE emendas SET
+            valor_empenhado = %s, valor_liquidado = %s, valor_pago = %s,
+            valor_resto_inscrito = %s, valor_resto_cancelado = %s, valor_resto_pago = %s,
+            numero_emenda = COALESCE(NULLIF(%s, ''), numero_emenda)
+        WHERE codigo_emenda = %s
+    """
+
+    # Buscar valores atuais em produção para detectar divergências
+    pg_cur.execute("""
+        SELECT codigo_emenda, valor_empenhado, valor_liquidado, valor_pago,
+               valor_resto_inscrito, valor_resto_cancelado, valor_resto_pago
+        FROM emendas
+    """)
+    valores_prod = {}
+    for r in pg_cur.fetchall():
+        valores_prod[r[0]] = (
+            float(r[1] or 0), float(r[2] or 0), float(r[3] or 0),
+            float(r[4] or 0), float(r[5] or 0), float(r[6] or 0),
+        )
+
+    batch_insert = []
+    batch_update = []
     novas = 0
+    atualizadas = 0
+
     for row in rows:
         cod = row["codigo_emenda"]
-        if cod in codigos_prod:
-            continue
-        values = tuple(row[c] for c in cols)
-        batch.append(values)
-        novas += 1
+        if cod not in codigos_prod:
+            values = tuple(row[c] for c in cols)
+            batch_insert.append(values)
+            novas += 1
+        else:
+            # Verificar se valores locais são maiores (reconciliados)
+            local_emp = float(row["valor_empenhado"] or 0)
+            local_liq = float(row["valor_liquidado"] or 0)
+            local_pag = float(row["valor_pago"] or 0)
+            local_ri = float(row["valor_resto_inscrito"] or 0)
+            local_rc = float(row["valor_resto_cancelado"] or 0)
+            local_rp = float(row["valor_resto_pago"] or 0)
+            local_num = row["numero_emenda"] or ""
+            prod_emp, prod_liq, prod_pag, prod_ri, prod_rc, prod_rp = valores_prod.get(cod, (0, 0, 0, 0, 0, 0))
 
-        if len(batch) >= BATCH_SIZE:
+            if (local_emp > prod_emp or local_liq > prod_liq or local_pag > prod_pag
+                    or local_ri > prod_ri or local_rc > prod_rc or local_rp > prod_rp
+                    or local_num):
+                batch_update.append((
+                    max(local_emp, prod_emp),
+                    max(local_liq, prod_liq),
+                    max(local_pag, prod_pag),
+                    max(local_ri, prod_ri),
+                    max(local_rc, prod_rc),
+                    max(local_rp, prod_rp),
+                    local_num,
+                    cod,
+                ))
+                atualizadas += 1
+
+        if len(batch_insert) >= BATCH_SIZE:
             if not dry_run:
-                psycopg2.extras.execute_batch(pg_cur, sql, batch)
+                psycopg2.extras.execute_batch(pg_cur, sql_insert, batch_insert)
                 pg_cur.connection.commit()
                 log(f"    emendas batch: {novas} inseridas até agora...")
-            batch = []
+            batch_insert = []
 
-    if batch and not dry_run:
-        psycopg2.extras.execute_batch(pg_cur, sql, batch)
+        if len(batch_update) >= BATCH_SIZE:
+            if not dry_run:
+                psycopg2.extras.execute_batch(pg_cur, sql_update_valores, batch_update)
+                pg_cur.connection.commit()
+                log(f"    emendas batch: {atualizadas} valores atualizados até agora...")
+            batch_update = []
 
-    log(f"  emendas: +{novas} novas ({len(rows)} local, {len(codigos_prod)} prod)")
+    if batch_insert and not dry_run:
+        psycopg2.extras.execute_batch(pg_cur, sql_insert, batch_insert)
+    if batch_update and not dry_run:
+        psycopg2.extras.execute_batch(pg_cur, sql_update_valores, batch_update)
+
+    log(f"  emendas: +{novas} novas, {atualizadas} valores atualizados ({len(rows)} local, {len(codigos_prod)} prod)")
 
 
 # ---------------------------------------------------------------------------
@@ -249,7 +332,8 @@ def sync_documentos(lite, pg_cur, dry_run: bool):
     sql = f"""
         INSERT INTO documentos_emenda ({','.join(cols_write)})
         VALUES ({','.join(['%s'] * len(cols_write))})
-        ON CONFLICT (codigo_documento) DO NOTHING
+        ON CONFLICT (codigo_documento) DO UPDATE SET valor = EXCLUDED.valor
+        WHERE documentos_emenda.valor IS NULL OR documentos_emenda.valor = 0
     """
 
     # Ler em blocos do SQLite para não estourar memória

@@ -161,6 +161,7 @@ class CGUCollector:
             "nome_autor": (raw.get("nomeAutor") or "").strip().upper(),
             "ano": ano,
             "tipo_emenda": raw.get("tipoEmenda", ""),
+            "numero_emenda": raw.get("numeroEmenda", ""),
             "funcao": self._extrair_codigo_funcao(raw.get("funcao", "")),
             "funcao_nome": raw.get("funcao", ""),
             "subfuncao": self._extrair_codigo_subfuncao(raw.get("subfuncao", "")),
@@ -168,7 +169,11 @@ class CGUCollector:
             "localidade": raw.get("localidadeDoGasto", ""),
             "uf": self._extrair_uf(raw.get("localidadeDoGasto", "")),
             "valor_empenhado": self._parse_valor(raw.get("valorEmpenhado", "0")),
+            "valor_liquidado": self._parse_valor(raw.get("valorLiquidado", "0")),
             "valor_pago": self._parse_valor(raw.get("valorPago", "0")),
+            "valor_resto_inscrito": self._parse_valor(raw.get("valorRestoInscrito", "0")),
+            "valor_resto_cancelado": self._parse_valor(raw.get("valorRestoCancelado", "0")),
+            "valor_resto_pago": self._parse_valor(raw.get("valorRestoPago", "0")),
             "descricao": raw.get("nomeSubfuncao", ""),
             "fonte": "Portal da Transparência",
         }
@@ -276,7 +281,7 @@ class CGUCollector:
                             "fase": doc.get("fase", ""),
                             "valor": self._parse_valor(doc.get("valor", "0")),
                             "data_documento": doc.get("data"),
-                            "tipo_documento": doc.get("tipoDocumento", ""),
+                            "tipo_documento": doc.get("especieTipo", "") or doc.get("tipoDocumento", ""),
                             "observacao": doc.get("observacao", ""),
                         })
 

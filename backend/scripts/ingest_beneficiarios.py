@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from sqlalchemy import text
 from app.database import SessionLocal, init_db
 from app.services.ingestion.cgu_collector import CGUCollector
+from app.services.ingestion.normalizer import DataNormalizer
 from app.models.documento import DocumentoEmenda
 from app.models.beneficiario import Beneficiario
 import structlog
@@ -142,6 +143,16 @@ async def ingerir_beneficiarios(
 
         # Commit final
         db.commit()
+
+        # Reconciliar valores das emendas a partir dos documentos coletados
+        logger.info("reconciliando_valores_emendas")
+        normalizer = DataNormalizer(db)
+        is_sqlite = "sqlite" in str(db.bind.url)
+        if is_sqlite:
+            normalizer.recalcular_valores_de_documentos_sqlite()
+        else:
+            normalizer.recalcular_valores_de_documentos()
+
         logger.info("ingestao_beneficiarios_completa",
                      emendas=len(emendas), documentos=total_docs,
                      beneficiarios=total_benef)

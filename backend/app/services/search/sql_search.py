@@ -206,6 +206,52 @@ class SQLSearchService:
         sem_acento = "".join(c for c in nfkd if not unicodedata.combining(c))
         return sem_acento.upper()
 
+    def buscar_por_palavras_chave_documento(self, palavras_chave: list[str],
+                                              filtros: dict, db: Session,
+                                              limit: int = 20) -> List[dict]:
+        """Busca emendas cujos documentos de despesa mencionam palavras-chave na observação.
+
+        Complementa a busca vetorial com matching textual exato, garantindo que
+        termos como 'ponte', 'escola', 'hospital' sejam encontrados mesmo quando
+        a busca semântica não retorna bons resultados.
+        """
+        params = {"limit": limit}
+        where_emenda = self._build_where(filtros, params)
+
+        # Construir LIKE para palavras-chave (OR entre elas)
+        kw_conditions = []
+        for i, kw in enumerate(palavras_chave):
+            kw_conditions.append(f"LOWER(d.observacao) LIKE :kw_{i}")
+            params[f"kw_{i}"] = f"%{kw.lower()}%"
+
+        if not kw_conditions:
+            return []
+
+        kw_where = f"({' OR '.join(kw_conditions)})"
+
+        sql = f"""
+            SELECT DISTINCT e.id, e.codigo_emenda, e.cod_autor, e.nome_autor,
+                   e.ano, e.tipo_emenda, e.funcao_nome, e.subfuncao_nome,
+                   e.uf, e.localidade, e.valor_empenhado, e.valor_liquidado,
+                   e.valor_pago, p.partido,
+                   d.observacao AS doc_observacao
+            FROM emendas e
+            LEFT JOIN parlamentares p ON e.cod_autor = p.cod_autor
+            INNER JOIN documentos_emenda d ON d.emenda_id = e.id
+            WHERE {where_emenda}
+              AND d.observacao IS NOT NULL
+              AND d.observacao != ''
+              AND {kw_where}
+            ORDER BY e.valor_empenhado DESC
+            LIMIT :limit
+        """
+
+        result = db.execute(text(sql), params)
+        rows = [dict(r._mapping) for r in result.fetchall()]
+        logger.info("sql_palavras_chave_documento",
+                     palavras_chave=palavras_chave, resultados=len(rows))
+        return rows
+
     def buscar_por_beneficiario(self, filtro_beneficiario: str,
                                  filtros: dict, db: Session,
                                  limit: int = 20) -> List[dict]:
