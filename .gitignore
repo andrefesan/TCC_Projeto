@@ -51,10 +51,11 @@ mock_server.py
 # Dados brutos e artefatos de desenvolvimento
 infos/
 
-# Estado de ingestão (runtime)
+# Estado de ingestão e logs de runtime
 backend/data/checkpoint_*.json
 backend/data/dead_letter_*.json
 backend/data/ingestion_checkpoint.json
+backend/data/*.txt
 
 # Bancos de dados locais
 *.db

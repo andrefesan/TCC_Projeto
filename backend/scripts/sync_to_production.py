@@ -6,6 +6,7 @@ Uso:
     python scripts/sync_to_production.py --tabela emendas  # sync de uma tabela específica
 """
 import argparse
+import os
 import sqlite3
 import sys
 import time
@@ -13,6 +14,9 @@ from pathlib import Path
 
 import psycopg2
 import psycopg2.extras
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent.parent.parent / ".env")
 
 # ---------------------------------------------------------------------------
 # Configuração
@@ -20,12 +24,12 @@ import psycopg2.extras
 SQLITE_PATH = Path(__file__).parent.parent / "data" / "transparencia_local.db"
 
 PG_CONFIG = dict(
-    host="aws-1-sa-east-1.pooler.supabase.com",
-    port=5432,
-    dbname="postgres",
-    user="postgres.jtshjvtmrylcyqhubtuo",
-    password="Afersan12!@",
-    sslmode="require",
+    host=os.environ["PG_HOST"],
+    port=int(os.environ.get("PG_PORT", 5432)),
+    dbname=os.environ.get("PG_DBNAME", "postgres"),
+    user=os.environ["PG_USER"],
+    password=os.environ["PG_PASSWORD"],
+    sslmode=os.environ.get("PG_SSLMODE", "require"),
 )
 
 BATCH_SIZE = 1000
