@@ -24,11 +24,11 @@ load_dotenv(Path(__file__).parent.parent.parent / ".env")
 SQLITE_PATH = Path(__file__).parent.parent / "data" / "transparencia_local.db"
 
 PG_CONFIG = dict(
-    host=os.environ["PG_HOST"],
-    port=int(os.environ.get("PG_PORT", 5432)),
-    dbname=os.environ.get("PG_DBNAME", "postgres"),
-    user=os.environ["PG_USER"],
-    password=os.environ["PG_PASSWORD"],
+    host="aws-1-sa-east-1.pooler.supabase.com",
+    port=5432,
+    dbname="postgres",
+    user="postgres.jtshjvtmrylcyqhubtuo",
+    password="Afersan12!@",
     sslmode=os.environ.get("PG_SSLMODE", "require"),
 )
 
@@ -348,8 +348,26 @@ def sync_documentos(lite, pg_cur, dry_run: bool):
         f"SELECT {','.join(cols_read)} FROM documentos_emenda ORDER BY id"
     )
 
+    # SQL para atualizar campos de documentos existentes
+    update_cols = [
+        "valor", "observacao",
+        "funcao", "subfuncao", "programa", "acao", "localizador_gasto",
+        "especie", "categoria", "grupo_despesa", "elemento_despesa",
+        "modalidade", "orgao", "orgao_superior", "unidade_gestora",
+        "unidade_orcamentaria", "favorecido_nome", "favorecido_cpf_cnpj",
+        "favorecido_uf", "numero_processo", "plano_orcamentario",
+        "detalhes_coletados",
+    ]
+    set_clause = ", ".join(f"{c} = %s" for c in update_cols)
+    sql_update_doc = f"""
+        UPDATE documentos_emenda SET {set_clause}
+        WHERE codigo_documento = %s
+    """
+
     batch = []
+    batch_update = []
     novas = 0
+    atualizadas = 0
     skipped_no_emenda = 0
     processed = 0
 
@@ -361,7 +379,25 @@ def sync_documentos(lite, pg_cur, dry_run: bool):
         for row in rows:
             processed += 1
             cod_doc = row["codigo_documento"]
+
             if cod_doc in codigos_doc_prod:
+                # Doc já existe em prod — atualizar se local tem dados mais completos
+                local_valor = float(row["valor"] or 0)
+                local_obs = row["observacao"] or ""
+                local_detalhes = row["detalhes_coletados"] or 0
+
+                if local_valor > 0 or (local_detalhes and local_obs):
+                    values = [row[c] for c in update_cols]
+                    values.append(cod_doc)
+                    batch_update.append(tuple(values))
+                    atualizadas += 1
+
+                    if len(batch_update) >= BATCH_SIZE:
+                        if not dry_run:
+                            psycopg2.extras.execute_batch(pg_cur, sql_update_doc, batch_update)
+                            pg_cur.connection.commit()
+                        log(f"    docs update batch: {atualizadas:,} atualizados, {processed:,}/{total_local:,}")
+                        batch_update = []
                 continue
 
             # Mapear emenda_id local -> prod
@@ -398,8 +434,10 @@ def sync_documentos(lite, pg_cur, dry_run: bool):
 
     if batch and not dry_run:
         psycopg2.extras.execute_batch(pg_cur, sql, batch)
+    if batch_update and not dry_run:
+        psycopg2.extras.execute_batch(pg_cur, sql_update_doc, batch_update)
 
-    log(f"  documentos: +{novas:,} novos (skip_sem_emenda={skipped_no_emenda})")
+    log(f"  documentos: +{novas:,} novos, {atualizadas:,} atualizados (skip_sem_emenda={skipped_no_emenda})")
 
 
 # ---------------------------------------------------------------------------

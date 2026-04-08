@@ -67,9 +67,17 @@ class RAGPipeline:
             palavras_chave_doc = self._extrair_palavras_chave_documento(consulta)
 
         if operacao in ("soma", "contagem", "ranking", "media"):
-            dados = self.sql_search.construir_agregacao(
+            dados_agregados = self.sql_search.construir_agregacao(
                 filtros_sql, operacao, db, limit
             )
+            # Buscar registros individuais para exibição tabular
+            dados_individuais = self.sql_search.construir_e_executar(
+                filtros_sql, db, limit
+            )
+            # Combinar: agregação como primeiro elemento + individuais
+            dados = dados_individuais if dados_individuais else dados_agregados
+            # Passar agregação separadamente para o sintetizador
+            plano["dados_agregados"] = dados_agregados
             # Suplementar com contexto de documentos se planner pediu
             if modo == "hibrido" and plano.get("precisa_busca_documentos"):
                 embedding = self.decomposer.embedder.encode(consulta).tolist()
@@ -148,6 +156,7 @@ class RAGPipeline:
             operacao=operacao, tem_sancoes=tem_sancoes,
             completude=completude, entidades=entidades,
             contexto_documentos=plano.get("contexto_documentos"),
+            dados_agregados=plano.get("dados_agregados"),
         )
 
         # Disclaimer contextual

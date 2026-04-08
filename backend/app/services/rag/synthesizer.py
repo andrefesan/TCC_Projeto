@@ -92,7 +92,8 @@ class ResponseSynthesizer:
                          tem_sancoes: bool = False,
                          completude: dict | None = None,
                          entidades: dict | None = None,
-                         contexto_documentos: list[dict] | None = None) -> dict:
+                         contexto_documentos: list[dict] | None = None,
+                         dados_agregados: list[dict] | None = None) -> dict:
         """Gera resposta em linguagem natural.
 
         Args:
@@ -109,6 +110,19 @@ class ResponseSynthesizer:
 
         contexto = self._formatar_contexto(dados, operacao)
 
+        # Se há dados agregados, prepend ao contexto
+        if dados_agregados and operacao in ("soma", "contagem", "media"):
+            agg = dados_agregados[0] if dados_agregados else {}
+            linhas_agg = ["=== TOTAIS AGREGADOS ==="]
+            for k, v in agg.items():
+                if isinstance(v, (int, float)) and v:
+                    if "valor" in k or "total" in k or "media" in k:
+                        linhas_agg.append(f"  {k}: R$ {v:,.2f}")
+                    else:
+                        linhas_agg.append(f"  {k}: {v:,}")
+            linhas_agg.append("=" * 30)
+            contexto = "\n".join(linhas_agg) + "\n\n" + contexto
+
         # Verifica se há dados de beneficiários nos resultados
         tem_beneficiarios = any(d.get("beneficiario_nome") for d in dados)
 
@@ -120,8 +134,8 @@ class ResponseSynthesizer:
 
         if operacao in ("soma", "contagem", "media"):
             regras_extras.append(
-                "Os dados abaixo são resultados AGREGADOS (totais/contagens/médias). "
-                "Apresente os valores de forma direta e clara, sem listar registros individuais."
+                "Os dados abaixo incluem TOTAIS AGREGADOS seguidos dos registros individuais. "
+                "Apresente os totais de forma direta e clara, e liste os registros individuais na tabela."
             )
         elif operacao == "ranking":
             regras_extras.append(
